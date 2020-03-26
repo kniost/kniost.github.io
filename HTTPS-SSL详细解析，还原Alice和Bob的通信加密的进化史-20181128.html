@@ -18,14 +18,14 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS&#x2F;SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络通信安全详细解析，还原Alice和Bob的通信加密的进化史">
 <meta property="og:url" content="https://blog.kniost.top/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
-<meta property="og:site_name" content="竹杖芒鞋轻胜马">
+<meta property="og:site_name" content="kniost">
 <meta property="og:description" content="网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS&#x2F;SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://pic.kniost.top/%E5%AF%86%E7%A0%81%E5%AD%A62-1-20181128.png-blog">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>网络通信安全详细解析，还原Alice和Bob的通信加密的进化史 | 竹杖芒鞋轻胜马</title>
+  <title>网络通信安全详细解析，还原Alice和Bob的通信加密的进化史 | kniost</title>
   
 
 
@@ -100,7 +100,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">竹杖芒鞋轻胜马</h1>
+      <h1 class="site-title">kniost</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
@@ -181,7 +181,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="竹杖芒鞋轻胜马">
+      <meta itemprop="name" content="kniost">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -589,7 +589,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
