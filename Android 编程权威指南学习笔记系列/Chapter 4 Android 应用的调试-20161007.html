@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章主要说明了如何调 bug，有 LogCat 法、Lint 法以及断点调试法。 本章无新增代码">
@@ -285,19 +286,19 @@
   <div class="popular-posts-header">相关阅读</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 10 使用 fragment arguments-20161021.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十）—— 第10章 使用 fragment argument</a></div>
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 29 定制视图与触摸事件-20170313.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 28 网页浏览-20170302.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 27 broadcast intent-20170301.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（二十七）—— 第27章 broadcast intent</a></div>
     </li>
   </ul>
 
@@ -398,7 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-LogCat-大法"><span class="nav-number">1.</span> <span class="nav-text">1. LogCat 大法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Android-Lint-大法"><span class="nav-number">2.</span> <span class="nav-text">2. Android Lint 大法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-断点大法"><span class="nav-number">3.</span> <span class="nav-text">3. 断点大法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-LogCat-大法"><span class="nav-text">1. LogCat 大法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Android-Lint-大法"><span class="nav-text">2. Android Lint 大法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-断点大法"><span class="nav-text">3. 断点大法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -455,6 +456,8 @@
         
 
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">true </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=8" rel="noopener" target="_blank">17036697 </a>
+  </div>
 
 <div class="copyright">
   
@@ -577,6 +580,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 

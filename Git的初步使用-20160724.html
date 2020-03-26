@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="配置用户名和邮箱12$ git config --global user.name &quot;Your Name&quot;$ git config --global user.email &quot;mail@mail.com&quot; 其中--global参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。">
@@ -430,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置用户名和邮箱"><span class="nav-number">1.</span> <span class="nav-text">配置用户名和邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地版本库"><span class="nav-number">2.</span> <span class="nav-text">创建本地版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把文件添加到版本库"><span class="nav-number">3.</span> <span class="nav-text">把文件添加到版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">4.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推送文件到远程仓库"><span class="nav-number">5.</span> <span class="nav-text">推送文件到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从远程仓库克隆"><span class="nav-number">6.</span> <span class="nav-text">从远程仓库克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取更改"><span class="nav-number">7.</span> <span class="nav-text">抓取更改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改上一次commit的信息（未push的情况下）"><span class="nav-number">8.</span> <span class="nav-text">修改上一次commit的信息（未push的情况下）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置用户名和邮箱"><span class="nav-text">配置用户名和邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建本地版本库"><span class="nav-text">创建本地版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把文件添加到版本库"><span class="nav-text">把文件添加到版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加远程仓库"><span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推送文件到远程仓库"><span class="nav-text">推送文件到远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从远程仓库克隆"><span class="nav-text">从远程仓库克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取更改"><span class="nav-text">抓取更改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改上一次commit的信息（未push的情况下）"><span class="nav-text">修改上一次commit的信息（未push的情况下）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -487,6 +488,8 @@
         
 
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">true </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=8" rel="noopener" target="_blank">17036697 </a>
+  </div>
 
 <div class="copyright">
   
@@ -609,6 +612,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 

@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="记录技术之路上的点滴灵感与备忘">
@@ -252,38 +253,14 @@
       
           <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="https://upload-images.jianshu.io/upload_images/18404331-ec390c14c357dec9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="小程序码"></p>
 <h1 id="已有功能介绍"><a href="#已有功能介绍" class="headerlink" title="已有功能介绍"></a>已有功能介绍</h1><h2 id="※绘制我的设计"><a href="#※绘制我的设计" class="headerlink" title="※绘制我的设计"></a>※绘制我的设计</h2><p>在绘制我的设计中，你可以在白板上创作属于你自己的动森设计：</p>
-<ul>
-<li>白板创作，可以生成二维码，并使用Nintendo Switch Online的APP扫码直接传到游戏中</li>
-<li>可以扫描已有的二维码，获取别人的设计</li>
-<li>可以在别人的设计上直接进行修改</li>
-<li><strong>可以使用图片直接生成图案</strong></li>
-<li>可以自由选择颜色</li>
-</ul>
-<h3 id="使用细节"><a href="#使用细节" class="headerlink" title="使用细节"></a>使用细节</h3><ul>
-<li><p>由于动森的数据设计问题，一幅图中只能最多存在15种色板，且颜色种类只有100多种。<strong>选择颜色时需要先选择调色板，并且在下方选择你需要的颜色</strong>；</p>
-</li>
-<li><p>调色板如下图所示，蓝色区域为你的调色板颜色，绿色区域为你的可选颜色区域。<br><img src="https://upload-images.jianshu.io/upload_images/18404331-3f61fb64ebe8dcf3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="调色板示意图"></p>
-</li>
-<li><p><strong>如果修改了图中已有的颜色，将会导致使用该色板的像素全部被替换成新颜色</strong>。在扫码或者使用照片生成后，调色板将全部变化，可以优先使用后面的色板。</p>
-</li>
-<li><p>使用图片时，尽量选择对比度大，颜色较少的图案。现实的照片转换成32*32的像素画后效果不好（不过远看的话能有个形状）。</p>
-</li>
-</ul>
-<p>下面是一个较好的示例：<br><img src="https://upload-images.jianshu.io/upload_images/18404331-98570bab9b8e8876.JPEG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="一个较好的图片示例"></p>
-<h1 id="计划功能"><a href="#计划功能" class="headerlink" title="计划功能"></a>计划功能</h1><ol>
-<li><del>加入颜色选择</del></li>
-<li><del>加入照片处理成为图案</del></li>
-<li><del>分享功能</del></li>
-<li>加入信息编辑</li>
-<li>扫别人的图案，保存在自己的设计中，并且可以同步</li>
-<li>专业设计：加入多种图案设计（如裙子、长袖等）</li>
-</ol>
-<h1 id="初心与历程"><a href="#初心与历程" class="headerlink" title="初心与历程"></a>初心与历程</h1><p>动森圈圈是在开始玩（肝）Switch的《集合啦！动物森友会》的时候，突然发现大家有很多不懂的东西，所以想做一个攻略形式的小程序，结果动森没肝肝了小程序……</p>
-<p>攻略形式的小程序需要数据源，而现在这款新游戏很多只有英文的数据或者老数据，所以存在大量的数据收集工作。也因此动森圈圈一开始转移了方向，想更好地服务大家，就需要有更特色的功能，这个《绘制我的设计》功能立意就在于此。</p>
-<p>前端不咋好，写canvas写多了感觉头都秃了。</p>
-<p>当然攻略这一块也是之后要做的，想来贡献力量或者测试的可以加群共商大事！</p>
-<p>添加微信 loshenfish， 拉你进测试和攻略群哦！</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E4%BB%8B%E7%BB%8D-20200326.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1431,6 +1408,8 @@
         
 
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">true </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=8" rel="noopener" target="_blank">17036697 </a>
+  </div>
 
 <div class="copyright">
   
@@ -1553,6 +1532,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 

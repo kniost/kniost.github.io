@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="学习Java时，总会有一些问题需要弄得非常清楚明白，才不至于在写程序的时候犯下各类小错误，这就是本文存在的意义。本文着重于语法细节的查漏补缺，所以不会太全面。在已经能够日常使用Java的情况下参考此文可能更有意义。本文大部分内容来自于Java名著《Thinking in Java》，并将根据看书的进度不断更新。">
@@ -451,13 +452,13 @@
   <div class="popular-posts-header">相关阅读</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/LeetCode/LeetCode 10. Regular Expression Matching-20190426.html" rel="bookmark">LeetCode 10. Regular Expression Matching</a></div>
+      <div class="popular-posts-title"><a href="/LeetCode/LeetCode 157. Read N Characters Given Read4-20190711.html" rel="bookmark">LeetCode 157. Read N Characters Given Read4</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/LeetCode/House-Robber-20181209.html" rel="bookmark">LeetCode 198/213/337 House Robber 系列问题</a></div>
+      <div class="popular-posts-title"><a href="/LeetCode/LeetCode 156. Binary Tree Upside Down copy 2-20190711.html" rel="bookmark">LeetCode 156. Binary Tree Upside Down</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/LeetCode/LeetCode 1. Two Sum-20190426.html" rel="bookmark">LeetCode 1. Two Sum</a></div>
+      <div class="popular-posts-title"><a href="/LeetCode/LeetCode 155. Min Stack copy 2-20190709.html" rel="bookmark">LeetCode 155. Min Stack</a></div>
     </li>
   </ul>
 
@@ -558,7 +559,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本类型"><span class="nav-number">1.</span> <span class="nav-text">1. 基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-成员默认值"><span class="nav-number">2.</span> <span class="nav-text">2. 成员默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-注释和文档（javadoc）"><span class="nav-number">3.</span> <span class="nav-text">3. 注释和文档（javadoc）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-按值传递还是按引用传递"><span class="nav-number">4.</span> <span class="nav-text">4. 按值传递还是按引用传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-操作符"><span class="nav-number">5.</span> <span class="nav-text">5. 操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-算术操作符"><span class="nav-number">5.1.</span> <span class="nav-text">1. 算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关系操作符"><span class="nav-number">5.2.</span> <span class="nav-text">2. 关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-逻辑操作符"><span class="nav-number">5.3.</span> <span class="nav-text">3. 逻辑操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-break和continue的标签用法"><span class="nav-number">6.</span> <span class="nav-text">6. break和continue的标签用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重载（Override）"><span class="nav-number">7.</span> <span class="nav-text">7. 重载（Override）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-初始化"><span class="nav-number">8.</span> <span class="nav-text">8. 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-访问权限控制"><span class="nav-number">9.</span> <span class="nav-text">9. 访问权限控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-final关键词"><span class="nav-number">10.</span> <span class="nav-text">10. final关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-多态（运行时绑定-后期绑定）"><span class="nav-number">11.</span> <span class="nav-text">11. 多态（运行时绑定&#x2F;后期绑定）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本类型"><span class="nav-text">1. 基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-成员默认值"><span class="nav-text">2. 成员默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-注释和文档（javadoc）"><span class="nav-text">3. 注释和文档（javadoc）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-按值传递还是按引用传递"><span class="nav-text">4. 按值传递还是按引用传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-操作符"><span class="nav-text">5. 操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-算术操作符"><span class="nav-text">1. 算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关系操作符"><span class="nav-text">2. 关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-逻辑操作符"><span class="nav-text">3. 逻辑操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-break和continue的标签用法"><span class="nav-text">6. break和continue的标签用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重载（Override）"><span class="nav-text">7. 重载（Override）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-初始化"><span class="nav-text">8. 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-访问权限控制"><span class="nav-text">9. 访问权限控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-final关键词"><span class="nav-text">10. final关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-多态（运行时绑定-后期绑定）"><span class="nav-text">11. 多态（运行时绑定&#x2F;后期绑定）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -615,6 +616,8 @@
         
 
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">true </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=8" rel="noopener" target="_blank">17036697 </a>
+  </div>
 
 <div class="copyright">
   
@@ -737,6 +740,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 

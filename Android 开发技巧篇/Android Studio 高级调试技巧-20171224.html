@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="在刚开始开发 Android 的时候，很多人只会使用 Log 调试以及简单的断点调试。但是为了更快速地调试，还是需要掌握一些高级一点的调试技巧，以提升自己的效率，下面是我找到和使用的一些技巧">
@@ -331,10 +332,10 @@
       <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 10 使用 fragment arguments-20161021.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十）—— 第10章 使用 fragment argument</a></div>
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 29 定制视图与触摸事件-20170313.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 28 网页浏览-20170302.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览</a></div>
     </li>
   </ul>
 
@@ -435,7 +436,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-条件断点"><span class="nav-number">1.</span> <span class="nav-text">1. 条件断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法："><span class="nav-number">1.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例："><span class="nav-number">1.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-日志断点"><span class="nav-number">2.</span> <span class="nav-text">2. 日志断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-1"><span class="nav-number">2.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-临时断点"><span class="nav-number">3.</span> <span class="nav-text">3. 临时断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-2"><span class="nav-number">3.1.</span> <span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-附着进程调试"><span class="nav-number">4.</span> <span class="nav-text">4. 附着进程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-3"><span class="nav-number">4.1.</span> <span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-观察变量"><span class="nav-number">5.</span> <span class="nav-text">5. 观察变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-计算表达式"><span class="nav-number">6.</span> <span class="nav-text">6. 计算表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-4"><span class="nav-number">6.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-2"><span class="nav-number">6.2.</span> <span class="nav-text">示例：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-条件断点"><span class="nav-text">1. 条件断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法："><span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例："><span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-日志断点"><span class="nav-text">2. 日志断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-1"><span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-1"><span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-临时断点"><span class="nav-text">3. 临时断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-2"><span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-附着进程调试"><span class="nav-text">4. 附着进程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-3"><span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-观察变量"><span class="nav-text">5. 观察变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-计算表达式"><span class="nav-text">6. 计算表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-4"><span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-2"><span class="nav-text">示例：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -492,6 +493,8 @@
         
 
         
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">true </a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=8" rel="noopener" target="_blank">17036697 </a>
+  </div>
 
 <div class="copyright">
   
@@ -614,6 +617,8 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 
