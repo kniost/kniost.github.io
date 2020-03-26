@@ -4,6 +4,7 @@
     <title>动物森友会圈圈介绍</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E4%BB%8B%E7%BB%8D-20200326.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
+<p>添加微信 <code>loshenfish</code>， 拉你进测试和攻略群哦！</p>
 <h1 id="已有功能介绍"><a href="#已有功能介绍" class="headerlink" title="已有功能介绍"></a>已有功能介绍</h1><h2 id="※绘制我的设计"><a href="#※绘制我的设计" class="headerlink" title="※绘制我的设计"></a>※绘制我的设计</h2><p>在绘制我的设计中，你可以在白板上创作属于你自己的动森设计：</p>
 <ul>
 <li>白板创作，可以生成二维码，并使用Nintendo Switch Online的APP扫码直接传到游戏中</li>
@@ -27,6 +28,7 @@
 <li><del>加入颜色选择</del></li>
 <li><del>加入照片处理成为图案</del></li>
 <li><del>分享功能</del></li>
+<li>加入切图功能</li>
 <li>加入信息编辑</li>
 <li>扫别人的图案，保存在自己的设计中，并且可以同步</li>
 <li>专业设计：加入多种图案设计（如裙子、长袖等）</li>
@@ -35,7 +37,6 @@
 <p>攻略形式的小程序需要数据源，而现在这款新游戏很多只有英文的数据或者老数据，所以存在大量的数据收集工作。也因此动森圈圈一开始转移了方向，想更好地服务大家，就需要有更特色的功能，这个《绘制我的设计》功能立意就在于此。</p>
 <p>前端不咋好，写canvas写多了感觉头都秃了。</p>
 <p>当然攻略这一块也是之后要做的，想来贡献力量或者测试的可以加群共商大事！</p>
-<p>添加微信 loshenfish， 拉你进测试和攻略群哦！</p>
 ]]></content>
       <categories>
         <category>动物森友会</category>
@@ -118,8 +119,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -418,8 +419,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -439,8 +440,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1047,8 +1048,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>Divide Conquer</tag>
+        <tag>Hard</tag>
       </tags>
   </entry>
   <entry>
@@ -1164,8 +1165,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>DP</tag>
         <tag>Divide Conquer</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -1320,8 +1321,8 @@
         <tag>LeetCode</tag>
         <tag>Java</tag>
         <tag>Divide Conquer</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1374,8 +1375,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1398,8 +1399,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1431,8 +1432,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1476,8 +1477,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1578,8 +1579,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1602,9 +1603,9 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1679,8 +1680,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Divide Conquer</tag>
         <tag>Easy</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -2069,8 +2070,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>Divide Conquer</tag>
+        <tag>Hard</tag>
         <tag>Monotonous Stack</tag>
       </tags>
   </entry>
@@ -2307,8 +2308,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>Two Pointers</tag>
+        <tag>Hard</tag>
       </tags>
   </entry>
   <entry>
@@ -2491,8 +2492,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>DP</tag>
         <tag>Easy</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -3647,8 +3648,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>HashMap</tag>
+        <tag>Hard</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -3792,8 +3793,8 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>Divide Conquer</tag>
+        <tag>Hard</tag>
         <tag>Heap</tag>
       </tags>
   </entry>
@@ -4258,9 +4259,9 @@
       <tags>
         <tag>LeetCode</tag>
         <tag>Java</tag>
+        <tag>Divide Conquer</tag>
         <tag>Hard</tag>
         <tag>DP</tag>
-        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
