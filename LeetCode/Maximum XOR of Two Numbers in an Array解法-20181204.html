@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="LeetCode 421. Maximum XOR of Two Numbers in an Array，数组中两个数字的最大异或值的Trie树加分治法解法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法">
+<meta property="og:url" content="https://blog.kniost.top/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html">
+<meta property="og:site_name" content="竹杖芒鞋轻胜马">
+<meta property="og:description" content="LeetCode 421. Maximum XOR of Two Numbers in an Array，数组中两个数字的最大异或值的Trie树加分治法解法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.leetcode.com/users/kniost/image_1540195211.png">
+<meta property="article:published_time" content="2018-12-04T01:48:30.000Z">
+<meta property="article:modified_time" content="2018-12-09T07:52:25.922Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Trie树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/users/kniost/image_1540195211.png">
+
+<link rel="canonical" href="https://blog.kniost.top/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法 | 竹杖芒鞋轻胜马</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">竹杖芒鞋轻胜马</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="竹杖芒鞋轻胜马">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-04 09:48:30" itemprop="dateCreated datePublished" datetime="2018-12-04T09:48:30+08:00">2018-12-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-09 15:52:25" itemprop="dateModified" datetime="2018-12-09T15:52:25+08:00">2018-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <div class="post-description">LeetCode 421. Maximum XOR of Two Numbers in an Array，数组中两个数字的最大异或值的Trie树加分治法解法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题目原文"><a href="#题目原文" class="headerlink" title="题目原文"></a>题目原文</h2><h3 id="421-Maximum-XOR-of-Two-Numbers-in-an-Array"><a href="#421-Maximum-XOR-of-Two-Numbers-in-an-Array" class="headerlink" title="421. Maximum XOR of Two Numbers in an Array"></a><a href="https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/description/" target="_blank" rel="noopener">421. Maximum XOR of Two Numbers in an Array</a></h3><p>Difficulty: <strong>Medium</strong></p>
+<p>Given a <strong>non-empty</strong> array of numbers, a<sub style="display: inline;">0</sub>, a<sub style="display: inline;">1</sub>, a<sub style="display: inline;">2</sub>, … , a<sub style="display: inline;">n-1</sub>, where 0 ≤ a<sub style="display: inline;">i</sub> &lt; 2<sup>31</sup>.</p>
+<p>Find the maximum result of a<sub style="display: inline;">i</sub> XOR a<sub style="display: inline;">j</sub>, where 0 ≤ <em>i</em>, <em>j</em> &lt; <em>n</em>.</p>
+<p>Could you do this in O(<em>n</em>) runtime?</p>
+<a id="more"></a>
+
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: [3, 10, 5, 25, 2, 8]</span><br><span class="line"></span><br><span class="line">Output: 28</span><br><span class="line"></span><br><span class="line">Explanation: The maximum result is 5 ^ 25 &#x3D; 28.</span><br></pre></td></tr></table></figure>
+
+<h2 id="解法：使用-Trie-树（前缀树）和分治法"><a href="#解法：使用-Trie-树（前缀树）和分治法" class="headerlink" title="解法：使用 Trie 树（前缀树）和分治法"></a>解法：使用 Trie 树（前缀树）和分治法</h2><blockquote>
+<p>时间复杂度 O(<em>n</em>)</p>
+</blockquote>
+<p>根据题目描述，我们需要找到最大的异或值，异或代表了两个数的二进制的不同程度，且越高位越不一样，异或值就越大，由于是按位比较，所以使用 Trie 树来当做基础数据结构。</p>
+<p>我们可以总结出以下几点：</p>
+<ol>
+<li>因为整型的位数是固定的，排除第一位符号位，Trie 树的高度是常数的，即最高<code>32</code>层（包括<code>root</code>）</li>
+<li>由于只有<code>0</code>和<code>1</code>两个子节点，所以为了节省空间，可以使用<code>二叉树</code>的方式（或者数组和 HashMap 均可）</li>
+<li>由于是异或，前缀位如果相同，异或值都是 0，所以可以先找到第一个两个子节点都不为空的节点当做<code>root</code></li>
+</ol>
+<p><img src="https://assets.leetcode.com/users/kniost/image_1540195211.png" alt="image"></p>
+<p>以此构建 Trie 树，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val;</span><br><span class="line">        TrieNode zero, one;</span><br><span class="line">        <span class="keyword">boolean</span> isEnd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TrieTree</span> </span>&#123;</span><br><span class="line">        TrieNode root;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TrieTree</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">            TrieNode cur = root;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">31</span>; i++) &#123;</span><br><span class="line">                <span class="comment">// 根据num在j位置的数目判断应该向0还是向1</span></span><br><span class="line">                <span class="keyword">int</span> b = (j &amp; num) == <span class="number">0</span> ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (b == <span class="number">0</span> &amp;&amp; cur.zero == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    cur.zero = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (b == <span class="number">1</span> &amp;&amp; cur.one == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    cur.one = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                &#125;</span><br><span class="line">                cur = b == <span class="number">0</span> ? cur.zero : cur.one;</span><br><span class="line">                j &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cur.isEnd = <span class="keyword">true</span>;</span><br><span class="line">            cur.val = num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMaximumXOR</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TrieTree tree = <span class="keyword">new</span> TrieTree();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : nums) &#123;</span><br><span class="line">            tree.insert(n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取真正需要开始判断的root</span></span><br><span class="line">        TrieNode cur = tree.root;</span><br><span class="line">        <span class="keyword">while</span> (cur.one == <span class="keyword">null</span> || cur.zero == <span class="keyword">null</span>) &#123;</span><br><span class="line">            cur = cur.zero != <span class="keyword">null</span> ? cur.zero : cur.one;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxHelper(cur.one, cur.zero);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分治法，原则就是尽量使两个分支的高位不同</span></span><br><span class="line"><span class="comment">     * one是1分支，zero是0分支，可以看做图中的左区和右区</span></span><br><span class="line"><span class="comment">     * 1. 当1分支的下一位只有1时，找0分支的0，若没有，就找0分支的1</span></span><br><span class="line"><span class="comment">     * 2. 当1分支的下一位只有0时，找0分支的1，若没有，就找0分支的0</span></span><br><span class="line"><span class="comment">     * 3. 当1分支的下一位0，1均有时，看0分支：如果0分支只有1，则1分支走0，反之则走1</span></span><br><span class="line"><span class="comment">     * 4. 当0，1两个分支均有两个下一位时，尝试【1分支走1，0分支走0】和【1分支走0，0分支走1】两条路线并取最大值</span></span><br><span class="line"><span class="comment">     * */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">maxHelper</span><span class="params">(TrieNode one, TrieNode zero)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (one.isEnd &amp;&amp; zero.isEnd) &#123;</span><br><span class="line">            <span class="keyword">return</span> one.val ^ zero.val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (one.zero == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> maxHelper(one.one, zero.zero == <span class="keyword">null</span> ? zero.one : zero.zero);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (one.one == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> maxHelper(one.zero, zero.one == <span class="keyword">null</span> ? zero.zero : zero.one);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (zero.zero == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> maxHelper(one.zero, zero.one);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (zero.one == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> maxHelper(one.one, zero.zero);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Math.max(maxHelper(one.one, zero.zero), maxHelper(one.zero, zero.one));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本文同样发在了 LeetCode 讨论区</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html" title="LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法">https://blog.kniost.top/LeetCode/Maximum XOR of Two Numbers in an Array解法-20181204.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+              <a href="/tags/Trie%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i> Trie树</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/python%E7%94%9F%E6%88%90%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-20181129.html" rel="prev" title="Python使用Pillow(PIL)库生成圆形图片的方法和优化">
+      <i class="fa fa-chevron-left"></i> Python使用Pillow(PIL)库生成圆形图片的方法和优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html" rel="next" title="LeetCode 218. The Skyline Problem 空中轮廓线问题">
+      LeetCode 218. The Skyline Problem 空中轮廓线问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目原文"><span class="nav-number">1.</span> <span class="nav-text">题目原文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#421-Maximum-XOR-of-Two-Numbers-in-an-Array"><span class="nav-number">1.1.</span> <span class="nav-text">421. Maximum XOR of Two Numbers in an Array</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法：使用-Trie-树（前缀树）和分治法"><span class="nav-number">2.</span> <span class="nav-text">解法：使用 Trie 树（前缀树）和分治法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+</div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz","app_key":"iWF3A9yPpAwwpDgfuPOGyKTd","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

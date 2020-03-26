@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+<meta property="og:site_name" content="竹杖芒鞋轻胜马">
+<meta property="og:description" content="本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161109154759638">
+<meta property="article:published_time" content="2016-10-21T03:02:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161109154759638">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表 | 竹杖芒鞋轻胜马</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">竹杖芒鞋轻胜马</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="竹杖芒鞋轻胜马">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-21 11:02:10" itemprop="dateCreated datePublished" datetime="2016-10-21T11:02:10+08:00">2016-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html" class="post-meta-item leancloud_visitors" data-flag-title="Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/42ccc8c20dbe84c17a53691ec2dc905ced4fdff9" target="_blank" rel="noopener">完成第九章</a></p>
+</blockquote>
+<h1 id="1-单例-SingleInstance"><a href="#1-单例-SingleInstance" class="headerlink" title="1. 单例(SingleInstance)"></a>1. 单例(SingleInstance)</h1><p>单例是特殊的 JAVA 类，在创建实例的时候，一个单例类仅允许创建一个实例。应用能在内存里多久，单例就能存在多久，因此将对象列表保存在单例里的话，就能随时获取到数据，而不用管 activity 和 fragment 的生命周期怎么变化。不过当应用被从内存里移除的时候，单例对象就不复存在了。</p>
+<p>要创建单例，需要创建一个带有私有构造方法及 get() 方法的类，如果实例已经存在了，get() 方法就直接返回它，如果还不存在，就需要调用构造方法创建它。书上的代码是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeLab</span> </span>&#123;</span><br><span class="line">	<span class="comment">//下面这个静态对象只会创建一次</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> CrimeLab sCrimeLab;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> List&lt;Crime&gt; mCrimes;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//程序的其他部分需要使用时，调用下列方法，当第一次使用的时候创建这个对象，如果不是第一次使用的时候就直接返回静态对象。</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CrimeLab <span class="title">get</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (sCrimeLab == <span class="keyword">null</span>) &#123;</span><br><span class="line">			sCrimeLab = <span class="keyword">new</span> CrimeLab(context);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sCrimeLab;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//私有的构造方法，只在 get 方法中使用</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">CrimeLab</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">		mCrimes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		<span class="comment">//初始化数据的语句</span></span><br><span class="line">		………………</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//由于对象只创建了一次，故而数据只有一份</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Crime&gt; <span class="title">getCrimes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mCrimes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Crime <span class="title">getCrime</span><span class="params">(UUID id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (Crime crime : mCrimes) &#123;</span><br><span class="line">			<span class="keyword">if</span> (crime.getId().equals(id)) &#123;</span><br><span class="line">				<span class="keyword">return</span> crime;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>单例能方便地控制模型层对象，由一个单例类来控制数据，所有的修改都由它处理，会使数据的一致性控制更加简便。</strong></p>
+<p>但是万事总有缺点，</p>
+<ul>
+<li>首先，单例无法做到持久的存储，应用的内存被回收时，单例就不复存在了。</li>
+<li>其次，单例还不利于单元测试。</li>
+<li>最后，单例还容易被滥用，需要注意的是有充足的理由时才使用单例模式存储共享数据。</li>
+</ul>
+<h1 id="2-使用抽象-activity-托管-fragment"><a href="#2-使用抽象-activity-托管-fragment" class="headerlink" title="2. 使用抽象 activity 托管 fragment"></a>2. 使用抽象 activity 托管 fragment</h1><blockquote>
+<p>由于书中大部分 FragmentActivity 的是类似的，所以可以直接创建一个抽象的类用于被继承，简化代码。</p>
+</blockquote>
+<p>回忆一下使用 fragment 的步骤：</p>
+<ol>
+<li>在托管的 activity 的 onCreate() 方法中新建一个 FragmentManager 对象（getSupportFragmentManager() 方法或者 getFragmentManager() 方法）。</li>
+<li>使用该对象的 findFragmentById() 方法找到放置 fragment 的位置。</li>
+<li>如果 fragment 没有建立，就新建一个 fragment 对象，并使用 FragmentManager 对象的 beginTransaction().add().commit() 的连续方法将 fragment 事务提交到队列中</li>
+</ol>
+<p>在这其中，只有新建 fragment 对象是与具体 fragment 有关的，那么我们可以将其写成一个抽象的函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> Fragment <span class="title">createFragment</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-RecyclerView-Adapter-和-ViewHolder"><a href="#3-RecyclerView-Adapter-和-ViewHolder" class="headerlink" title="3. RecyclerView, Adapter 和 ViewHolder"></a>3. RecyclerView, Adapter 和 ViewHolder</h1><blockquote>
+<p>对于一个列表，之前有 ListView，网格有 GridView，但要实现更加复杂的布局和功能，比如瀑布流的时候，就有些力不从心了。RecyclerView 是 Google 推出 Android 5.0 时一并推出的控件，其具有强大的功能和高度的解耦，有助于开发者实现更加多变具有拓展能力的布局。</p>
+</blockquote>
+<h2 id="3-1-RecyclerView-简介及工作原理"><a href="#3-1-RecyclerView-简介及工作原理" class="headerlink" title="3.1 RecyclerView 简介及工作原理"></a>3.1 RecyclerView 简介及工作原理</h2><p>要使用 RecyclerView 显示视图，需要三样东西，即RecyclerView，Adapter， ViewHolder，它们的任务各不相同：</p>
+<ul>
+<li>RecyclerView 是视图层对象，负责回收和定位屏幕上的 ViewHolder</li>
+<li>ViewHolder 只负责容纳 View 视图</li>
+<li>Adapter 是控制器对象，负责创建必要的 ViewHolder，从模型层获取数据并与 ViewHolder 绑定，然后提供给 RecyclerView 显示</li>
+</ul>
+<p>RecyclerView 需要显示视图对象时，就会去找它的 Adapter，然后会有如下调用。</p>
+<ol>
+<li>首先，调用 Adapter 的 getItemCount() 方法，RecyclerView 询问数组列表中包含多少个对象。</li>
+<li>接着，调用 Adapter 的 createViewHolder(ViewGroup, int) 方法创建 ViewHolder 以及 ViewHolder 要显示的视图。</li>
+<li>最后，RecyclerView 会传入 ViewHolder 及其位置，调用 onBindViewHolder(ViewHolder, int) 方法。Adapter 会找到目标位置的数据并用数据填充到 ViewHolder 的视图上。</li>
+</ol>
+<p>过程图示如下：<br><img src="http://img.blog.csdn.net/20161109154759638" alt="这里写图片描述"></p>
+<blockquote>
+<p>需要注意的是，相对于 onBindViewHolder(ViewHolder, int) 方法，createViewHolder(ViewGroup, int) 方法的调用并不频繁。一旦创建了够用的 ViewHolder，RecyclerVIew 就会停止调用 createViewHolder() 方法，然后通过回收旧的 ViewHolder 来节约时间和内存。</p>
+</blockquote>
+<h2 id="3-2-使用-RecyclerView"><a href="#3-2-使用-RecyclerView" class="headerlink" title="3.2 使用 RecyclerView"></a>3.2 使用 RecyclerView</h2><p>介绍了 RecyclerView 的各种细节，我们来看看它具体怎么使用吧。</p>
+<h3 id="3-2-1-添加-RecyclerView-依赖库"><a href="#3-2-1-添加-RecyclerView-依赖库" class="headerlink" title="3.2.1 添加 RecyclerView 依赖库"></a>3.2.1 添加 RecyclerView 依赖库</h3><p>在 File - Project Structure 菜单项，选择 app 模块，然后单击 Dependencies 选项页，单击加号，找到并添加 recyclerview-v7 支持库。</p>
+<h3 id="3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明"><a href="#3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明" class="headerlink" title="3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明"></a>3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明</h3><p>示例 JAVA 代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);</span><br><span class="line">mCrimeRecyclerView.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(getActivity()));</span><br></pre></td></tr></table></figure>
+
+<p>RecyclerView 视图创建完成后，就立即转交给了 LayoutManager 对象。LayoutManager 实际上负责定位列表项和定义屏幕滚动行为，因此如果没有 LayoutManger 的支持，不仅 RecyclerView 无法工作，还会导致应用崩溃。在示例中使用的 LinearLayoutManager 是以竖直列表的方式展示列表项，内置的还有GridLayoutManager ，还有很多第三方的库可以使用。</p>
+<h3 id="3-2-3-实现-Adapter-和-ViewHolder"><a href="#3-2-3-实现-Adapter-和-ViewHolder" class="headerlink" title="3.2.3 实现 Adapter 和 ViewHolder"></a>3.2.3 实现 Adapter 和 ViewHolder</h3><p>ViewHolder 需要做的事情很简单，就是将自定义的 view 中的组件找出来并绑定在这个 ViewHolder 的成员变量上。</p>
+<p>比如定义了一个有标题和图片的 item，那么这个 Holder 可以这么写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ItemHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> TextView mTitle;</span><br><span class="line">	<span class="keyword">public</span> ImageView mImg;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ItemHolder</span><span class="params">(View itemView)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(itemView);</span><br><span class="line"></span><br><span class="line">		mTitle = (TextView) itemView.findViewById(R.id.tv_item_title);</span><br><span class="line">		mImg = (ImageView) itemView.findViewById(R.id.iv_item_img);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果有监听器的话，也可以写在构造函数中</p>
+</blockquote>
+<p>对于 Adapter 来说，要做的事就更多了，我来一一梳理：</p>
+<ul>
+<li><p><strong>从模型层获取数据</strong><br> 一般在 Adapter 内部声明一个数据模型的成员变量，在 Adapter 的构造函数中进行初始化</p>
+</li>
+<li><p><strong>重写 ViewHolder 这个父类的三个方法</strong></p>
+<ul>
+<li><p><code>onCreateViewHolder(ViewGroup parent, int viewType)</code><br>每当 RecyclerView 需要新的 View 视图来显示列表项的时候就会调用这个方法。在这其中，我们创建 View 视图，然后封装到 ViewHolder 中，此时并不需要向视图加载数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个典型的 onCreateViewHolder 方法的内部</span></span><br><span class="line">LayoutInflater layoutInflater = LayoutInflater.from(getActivity());</span><br><span class="line">View view = layoutInflater.inflate(R.layout.list_item, parent, <span class="keyword">false</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ItemHolder(view);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>onBindViewHolder(ItemHolder holder, int position)</code><br>这个方法负责将 ViewHolder 的 View 视图和模型层的数据绑定起来。拿到 ViewHolder 和列表项在数据集中的索引位置后，我们通过索引位置找到要显示的数据进行绑定。绑定完毕后，刷新显示 View 视图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;典型的 onBindViewHolder 方法内部</span><br><span class="line">Data data &#x3D; mDataList.get(position); </span><br><span class="line">&#x2F;&#x2F; 注意上面的 mDataList 就是在 Adatper 的构造函数中初始化的 Adapter 的成员变量</span><br><span class="line">holder.mTitle.setText(data.getTitle(position));</span><br><span class="line">holder.mImg.setImageResource(data.getImgRes(position));</span><br></pre></td></tr></table></figure></li>
+<li><p><code>getItemCount()</code><br>返回要展示的数据的数量，一般是数据集的 size</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>到此一个基本的 Adapter 就创建完了，在主程序中声明并初始化 Adapter，调用 RecyclerView 的 setAdapter 方法即可显示出列表了~</p>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html" title="Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 9 使用 RecyclerView 显示列表-20161021.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%208%20%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2-20161021.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2010%20%E4%BD%BF%E7%94%A8%20fragment%20arguments-20161021.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十）—— 第10章 使用 fragment argument">
+      Android编程权威指南（第二版）学习笔记（十）—— 第10章 使用 fragment argument <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-单例-SingleInstance"><span class="nav-number">1.</span> <span class="nav-text">1. 单例(SingleInstance)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用抽象-activity-托管-fragment"><span class="nav-number">2.</span> <span class="nav-text">2. 使用抽象 activity 托管 fragment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-RecyclerView-Adapter-和-ViewHolder"><span class="nav-number">3.</span> <span class="nav-text">3. RecyclerView, Adapter 和 ViewHolder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-RecyclerView-简介及工作原理"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 RecyclerView 简介及工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-使用-RecyclerView"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 使用 RecyclerView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-添加-RecyclerView-依赖库"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 添加 RecyclerView 依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-实现-Adapter-和-ViewHolder"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 实现 Adapter 和 ViewHolder</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+</div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz","app_key":"iWF3A9yPpAwwpDgfuPOGyKTd","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在刚开始开发 Android 的时候，很多人只会使用 Log 调试以及简单的断点调试。但是为了更快速地调试，还是需要掌握一些高级一点的调试技巧，以提升自己的效率，下面是我找到和使用的一些技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 常用高级调试技巧">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html">
+<meta property="og:site_name" content="竹杖芒鞋轻胜马">
+<meta property="og:description" content="在刚开始开发 Android 的时候，很多人只会使用 Log 调试以及简单的断点调试。但是为了更快速地调试，还是需要掌握一些高级一点的调试技巧，以提升自己的效率，下面是我找到和使用的一些技巧">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/conditionalBreakPoint.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/conditionalBreakPoint-2.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/log_without_Log.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/logResult.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/attachDebuggerToProcess.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression1.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression2.png">
+<meta property="og:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression3.png">
+<meta property="article:published_time" content="2017-12-24T07:52:00.000Z">
+<meta property="article:modified_time" content="2018-11-25T13:43:31.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/conditionalBreakPoint.png">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android 常用高级调试技巧 | 竹杖芒鞋轻胜马</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">竹杖芒鞋轻胜马</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="竹杖芒鞋轻胜马">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 常用高级调试技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-24 15:52:00" itemprop="dateCreated datePublished" datetime="2017-12-24T15:52:00+08:00">2017-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 21:43:31" itemprop="dateModified" datetime="2018-11-25T21:43:31+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">Android开发技巧</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 常用高级调试技巧" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>在刚开始开发 Android 的时候，很多人只会使用 Log 调试以及简单的断点调试。但是为了更快速地调试，还是需要掌握一些高级一点的调试技巧，以提升自己的效率，下面是我找到和使用的一些技巧</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-条件断点"><a href="#1-条件断点" class="headerlink" title="1. 条件断点"></a>1. 条件断点</h1><p>条件断点(Conditional Breakpoints)指的是调试中为断点设置条件，当满足设置条件时程序就会停下。条件断点在循环中极为好用，比如有100次的循环，而你就想看第53次的程序运行过程，总不能一次一次运行看，这个时候就需要条件断点了。</p>
+<h2 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h2><p>在设置的断点上点击右键，就会弹出断点的简单设置对话框，在 <code>Condition</code> 框里面填写上你所需要中断的条件即可，此后调试程序时，程序就会在满足设置的条件时才会停下。</p>
+<h2 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h2><p>首先设置断点，在断点上右键，填写条件</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/conditionalBreakPoint.png" class="" title="条件断点">
+
+<p>执行 debug，会自动在满足条件处中断</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/conditionalBreakPoint-2.png" class="" title="条件断点">
+
+<h1 id="2-日志断点"><a href="#2-日志断点" class="headerlink" title="2. 日志断点"></a>2. 日志断点</h1><p>顾名思义，日志断点(Logging Breakpoints)就是在断点处输出日志，从而避免了在代码中写 Log，然后再重新运行程序。</p>
+<h2 id="用法：-1"><a href="#用法：-1" class="headerlink" title="用法："></a>用法：</h2><p>在设置的断点上右键，将 Suspend 置为非选中状态，然后会出现一些详细设置，在下面的 <code>Log evaluated Expression</code> 填写上你需要输出的信息。其实相当于调试程序在这里帮你打出了 Log，但是根据实际效果推测，由于还是一个断点，系统是先暂停，再打印 Log，最后再恢复，所以速度上会更慢一些。</p>
+<h2 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h2><p>首先设置断点，在断点上右键，反选 Suspend，填上需要 log 的信息。</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/log_without_Log.png" class="" title="日志断点">
+
+<p>执行 Debug 以后，会出现结果：</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/logResult.png" class="" title="日志断点结果">
+
+<blockquote>
+<p>可以看到，sum 的值还没有发生变化时就已经 log 了，也就是说，在执行断点这行程序之前就已经进入断点了。在这个例子中，如果想看 sum 变化之后的值，就需要在 sum += i; 这行代码之后加断点。</p>
+</blockquote>
+<h1 id="3-临时断点"><a href="#3-临时断点" class="headerlink" title="3. 临时断点"></a>3. 临时断点</h1><p>临时断点(Temporary Breakpoints)只会在第一次运行到这个断点的时候停下，然后就会被自动移除了，在对不需要重复调试的地方比较有效。（其实我觉得可以叫一次断点）</p>
+<h2 id="用法：-2"><a href="#用法：-2" class="headerlink" title="用法："></a>用法：</h2><p>Windows/ Linux : 按住 Alt 点击代码左侧断点位置<br>macOS : 按住 Option 点击代码左侧断点位置</p>
+<blockquote>
+<p><strong>如果在有断点的情况下再使用上述方法点击断点，将会使断点在有效和失效状态下切换。</strong></p>
+</blockquote>
+<h1 id="4-附着进程调试"><a href="#4-附着进程调试" class="headerlink" title="4. 附着进程调试"></a>4. 附着进程调试</h1><p>附着进程调试(Attach debugger to Android process)，在了解这个选项之前，总是喜欢点击调试，让 Gradle 重新编译，虽然有 Instant Run 的速度加持，但依然比较缓慢。<br>在这个模式下，你不需要重新编译，只要这个 App 是打开的，就可以直接点击该按钮，就可以快速进入调试，对于测试来说非常方便。</p>
+<h2 id="用法：-3"><a href="#用法：-3" class="headerlink" title="用法："></a>用法：</h2><ol>
+<li><p>点击菜单栏中的 Run -&gt;Attach Debugger to Android Process ，然后选择 App 所在的进程</p>
+</li>
+<li><p>或者点击下列按钮</p>
+</li>
+</ol>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/attachDebuggerToProcess.png" class="" title="附着进程调试">
+
+<h1 id="5-观察变量"><a href="#5-观察变量" class="headerlink" title="5. 观察变量"></a>5. 观察变量</h1><p>在断点处停下时，将鼠标悬停在变量上或者按住 Option(Alt) 键点击变量时即可显示该变量的值</p>
+<h1 id="6-计算表达式"><a href="#6-计算表达式" class="headerlink" title="6. 计算表达式"></a>6. 计算表达式</h1><p><strong>计算表达式</strong>(Evaluate Expression)，用来在调试过程中查看变量的值，或者计算任何复杂的自定义表达式。</p>
+<p>但它最好的一点不仅是可以查看变量的值且进行运算，还能<strong>执行赋值语句</strong>！也就是说，它能在运行中实时修改变量，方便测试各种功能。</p>
+<h2 id="用法：-4"><a href="#用法：-4" class="headerlink" title="用法："></a>用法：</h2><p>在断点中断后，按 Option(Alt) + F8，或者在 Run 菜单中找到 Evaluate Expression，然后输入想做的操作</p>
+<h2 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h2><p>首先在断点处停下，我设置的条件是 i == 6，此时 sum 的值为15</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression1.png" class="" title="计算表达式">
+
+<p>进入 Evaluate Expression，直接输入 sum 回车，能看到 sum 的值，也可以直接对 sum 进行修改，比如 sum +=20，结果是35</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression2.png" class="" title="计算表达式2">
+
+<p>回到程序界面，发现 sum 的值已经改变了</p>
+<img src="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224/evaluateExpression3.png" class="" title="计算表达式3">
+
+<p>这非常适合对于在后台服务器获取数据时调试一些需要后台修改的数据，省时省力</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7-20171224.html" title="Android 常用高级调试技巧">https://blog.kniost.top/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E5%BF%AB%E6%8D%B7%E9%94%AE-20170518.html" rel="prev" title="Android Studio常用快捷键">
+      <i class="fa fa-chevron-left"></i> Android Studio常用快捷键
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87-20180314.html" rel="next" title="Mac 的使用姿势 —— 程序员篇">
+      Mac 的使用姿势 —— 程序员篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-条件断点"><span class="nav-number">1.</span> <span class="nav-text">1. 条件断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法："><span class="nav-number">1.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例："><span class="nav-number">1.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-日志断点"><span class="nav-number">2.</span> <span class="nav-text">2. 日志断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-1"><span class="nav-number">2.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-临时断点"><span class="nav-number">3.</span> <span class="nav-text">3. 临时断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-2"><span class="nav-number">3.1.</span> <span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-附着进程调试"><span class="nav-number">4.</span> <span class="nav-text">4. 附着进程调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-3"><span class="nav-number">4.1.</span> <span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-观察变量"><span class="nav-number">5.</span> <span class="nav-text">5. 观察变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-计算表达式"><span class="nav-number">6.</span> <span class="nav-text">6. 计算表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用法：-4"><span class="nav-number">6.1.</span> <span class="nav-text">用法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例：-2"><span class="nav-number">6.2.</span> <span class="nav-text">示例：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+</div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz","app_key":"iWF3A9yPpAwwpDgfuPOGyKTd","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

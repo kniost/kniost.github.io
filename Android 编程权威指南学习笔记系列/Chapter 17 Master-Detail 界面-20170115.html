@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本章介绍了如何写一个双版面 fragment 的布局，并对符合要求的设备进行适配，还介绍了回调接口的使用。GitHub 地址：完成17章  对平板设备来说，使用主从用户界面将会得到更好的体验，在这章我们将对其使用，传递数据的方式进行探究。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html">
+<meta property="og:site_name" content="竹杖芒鞋轻胜马">
+<meta property="og:description" content="本章介绍了如何写一个双版面 fragment 的布局，并对符合要求的设备进行适配，还介绍了回调接口的使用。GitHub 地址：完成17章  对平板设备来说，使用主从用户界面将会得到更好的体验，在这章我们将对其使用，传递数据的方式进行探究。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-15T10:02:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面 | 竹杖芒鞋轻胜马</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">竹杖芒鞋轻胜马</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="竹杖芒鞋轻胜马">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-15 18:02:10" itemprop="dateCreated datePublished" datetime="2017-01-15T18:02:10+08:00">2017-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html" class="post-meta-item leancloud_visitors" data-flag-title="Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章介绍了如何写一个双版面 fragment 的布局，并对符合要求的设备进行适配，还介绍了回调接口的使用。<br>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/6b11d46262c10d7a6a143e2e2be225bc99851852" target="_blank" rel="noopener">完成17章</a></p>
+</blockquote>
+<p>对平板设备来说，使用主从用户界面将会得到更好的体验，在这章我们将对其使用，传递数据的方式进行探究。</p>
+<a id="more"></a>
+
+<h1 id="1-增加布局灵活性"><a href="#1-增加布局灵活性" class="headerlink" title="1. 增加布局灵活性"></a>1. 增加布局灵活性</h1><p>要实现双版面的布局，需要完成如下任务：</p>
+<ol>
+<li>修改 SingleFragmentActivity，使其不再硬编码实例化布局</li>
+<li>创建包含两个 fragment 容器的布局</li>
+<li>修改 CrimeListActivity，实现在手机设备上实例化单版面布局，在平板设备上实例化双版面布局</li>
+</ol>
+<h2 id="1-1-修改抽象类-SingleFragmentActivity"><a href="#1-1-修改抽象类-SingleFragmentActivity" class="headerlink" title="1.1 修改抽象类 SingleFragmentActivity"></a>1.1 修改抽象类 SingleFragmentActivity</h2><p>在其中加入一个 protected 方法，返回 activity 需要的 ResId，这样对于继承 SingleFragmentActivity 的 activity 可以重写该函数以返回自己需要的 ResId。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@LayoutRes</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getLayoutResId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> R.layout.activity_fragment;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-使用别名资源"><a href="#1-2-使用别名资源" class="headerlink" title="1.2 使用别名资源"></a>1.2 使用别名资源</h2><p>我们想让最小屏幕宽度 600dp 的设备使用双版面界面，其他的使用单版面界面，那么对于不同的设备，使用的布局就不同。要让不同的设备使用不同的布局资源，有两种方法：</p>
+<ol>
+<li><p>让 res/layout/目录中的文件使用资源修饰符。如果想使用<code>activity_masterdetail.xml</code>布局文件， 就需要将<code>activity_fragment.xml</code>的内容复制到<code>res/layout/activity_masterdetail.xml</code>中，将<code>activity_twopane.xml</code>的内容复制到<code>res/layout-sw600dp/activity_masterdetail.xml</code>中。这样做最明显的缺点就是数据冗余，因为每个布局文件都要复制一份。</p>
+</li>
+<li><p>使用别名资源。别名资源是一种指向其他资源的特殊资源。它存放在 res/values/目录下，并按照约定定义在 refs.xml 文件中。比如在默认的 values 文件夹下面新建一个 refs.xml，然后写入代码：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"activity_masterdetail"</span> <span class="attr">type</span>=<span class="string">"layout"</span>&gt;</span>@layout/activity_fragment<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 再新建一个最小宽度600dp 的 refs.xml(即在 values-sw600dp 目录下)，写入双版面的 layout 资源：</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"activity_masterdetail"</span> <span class="attr">type</span>=<span class="string">"layout"</span>&gt;</span>@layout/activity_twopane<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 这样，在 CrimeListActivity 中只要引用 <code>R.layout.activity_masterdetail</code> 即可</p>
+</li>
+</ol>
+<h1 id="2-Activity：Fragment-的托管者"><a href="#2-Activity：Fragment-的托管者" class="headerlink" title="2. Activity：Fragment 的托管者"></a>2. Activity：Fragment 的托管者</h1><p>为了保证 fragment 的独立性，即不需要了解其托管者的工作，但要想在 fragment 生命周期没有结束的时候传递数据出去，就要使用回调接口。</p>
+<blockquote>
+<p>回调就相当于一个委托，首先 fragment 自己定义回调的接口，托管的 acitivity 来实现这个接口，接着 fragment 需要持有实现了自己定义接口的对象，以便自己可以实时调用。</p>
+<p>对于一个回调接口而言，fragment 只要求实现这个接口的类在函数里要做的是什么，却不知道实现类到底会做什么，每个实现类有自己的方法来实现。</p>
+</blockquote>
+<h1 id="2-1-CrimeListFragment-的回调接口"><a href="#2-1-CrimeListFragment-的回调接口" class="headerlink" title="2.1 CrimeListFragment 的回调接口"></a>2.1 CrimeListFragment 的回调接口</h1><p>对于 CrimeListFragment，其所能响应的就是点击列表中的某一项，那么它的回调接口定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callbacks</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onCrimeSelected</span><span class="params">(Crime crime)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后应该在需要托管的 Activity 中实现该接口，在这里是 CrimeListActivity：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 省略 implement 以节约版面</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCrimeSelected</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 如果发现布局里没有包含详情 fragment 容器的 id，</span></span><br><span class="line">	<span class="comment">// 就启动单独的 activity 用于显示详情</span></span><br><span class="line">    <span class="keyword">if</span> (findViewById(R.id.detail_fragment_container) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        Intent intent = CrimePagerActivity.newIntent(<span class="keyword">this</span>, crime.getId());</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 否则就将 detail 页面放到 fragment 容器中</span></span><br><span class="line">        Fragment newDetail = CrimeFragment.newInstance(crime.getId());</span><br><span class="line"></span><br><span class="line">        getSupportFragmentManager().beginTransaction()</span><br><span class="line">                .replace(R.id.detail_fragment_container, newDetail)</span><br><span class="line">                .commit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 CrimeListFragment 中持有实现接口的 activity 的引用，然后在生命周期末去除引用以便内存的回收</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeListFragment</span></span><br><span class="line"><span class="keyword">private</span> Callbacks mCallbacks;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onAttach(context);</span><br><span class="line">    mCallbacks = (Callbacks) context;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间的函数……</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDetach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDetach();</span><br><span class="line">    mCallbacks = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后修改 onClick 事件，调用 mCallbacks.onCrimeSelected(Crime crime) 即可。这样以后，在双版面视图中点击列表中的某一项，在详情版面中就会显示相应的信息。</p>
+<p>但是有一个问题，那就是在详情页（CrimeFragment）更改信息，在列表页没有任何响应，因为 CrimeListFragment 不会暂停，所以也就不会刷新，所以下一步要在 CrimeFragment 中定义回调接口， 让托管 activity 去更新 CrimeListFragment。</p>
+<h2 id="2-2-CrimeFragment-的回调接口"><a href="#2-2-CrimeFragment-的回调接口" class="headerlink" title="2.2 CrimeFragment 的回调接口"></a>2.2 CrimeFragment 的回调接口</h2><p>首先定义回调接口，这里想让托管者做的就是在 Crime 详情进行更新时更新列表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeFragment</span></span><br><span class="line"><span class="keyword">private</span> Callbacks mCallbacks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callbacks</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onCrimeUpdated</span><span class="params">(Crime crime)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onAttach(context);</span><br><span class="line">    mCallbacks = (Callbacks) context;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间的函数……</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDetach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDetach();</span><br><span class="line">    mCallbacks = <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 CrimeListActivity 中实现该接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCrimeUpdated</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">    CrimeListFragment listFragment = (CrimeListFragment)</span><br><span class="line">            getSupportFragmentManager()</span><br><span class="line">                    .findFragmentById(R.id.fragment_container);</span><br><span class="line">    listFragment.updateUI();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于只要托管 CrimeFragment 的 activity 都应该实现其回调接口，所以在 CrimePagerActivity 中提供一个空的接口实现</p>
+<p>之后在每次数据发生更改时都调用 <code>mCallbacks.onCrimeUpdated(mCrime);</code>即可。书上将更新模型层也放到了一起。</p>
+<h1 id="3-挑战的后遗症：删除-Crime"><a href="#3-挑战的后遗症：删除-Crime" class="headerlink" title="3. 挑战的后遗症：删除 Crime"></a>3. 挑战的后遗症：删除 Crime</h1><p>还记得我们在 ToolBar 那一章加入的挑战吗，就是删除一个 Crime，对于 CriminalIntent 这个应用来说，双版面和单版面的删除操作应该有着不同的结果，但这些行为在书上没有定义，所以我们再自己想一种解决方案，以便确立如何写接下来的补充程序。</p>
+<ol>
+<li>双版面的界面下，点击删除应该要让左边的列表中去掉删除的那一项，并且详情页也要改为已存在的某一项的详情，为了方便实现，我们在这里改为已存在的第一项。如果只有最后一项并且点击了删除，那么右边应该要变成空白。</li>
+<li>单版面的界面下，点击删除就直接删去该条记录，然后结束 activity。</li>
+</ol>
+<p>在这里我在 CrimeFragment 的 Callbacks 接口中加入了 onCrimeDelete(Crime crime) 方法与 onCrimeAllDeleted(Crime crime) 方法，在 CrimeListActivity 中实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCrimeDeleted</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 如果只是删除了一个，而还有其他的 Crime 的话，</span></span><br><span class="line">	<span class="comment">// 就相当于选中一个 Crime，这里传过来的应该是第一个 Crime</span></span><br><span class="line">    onCrimeSelected(crime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCrimeAllDeleted</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 如果全部删除，就直接将该 fragment 移去</span></span><br><span class="line">    CrimeFragment fragment = (CrimeFragment)</span><br><span class="line">            getSupportFragmentManager()</span><br><span class="line">                    .findFragmentById(R.id.detail_fragment_container);</span><br><span class="line">    <span class="keyword">if</span> (fragment != <span class="keyword">null</span>) &#123;</span><br><span class="line">        getSupportFragmentManager()</span><br><span class="line">                .beginTransaction()</span><br><span class="line">                .remove(fragment)</span><br><span class="line">                .commit();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 并且更新列表页</span></span><br><span class="line">    onCrimeUpdated(crime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 CrimePagerActivity 中也要实现这两个方法，但是对于这个 activity 来说只要进行 finish() 即可。</p>
+<p>在删除按钮的选中监听中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CrimeLab.get(getActivity()).deleteCrime(mCrime);</span><br><span class="line"><span class="keyword">if</span> (CrimeLab.get(getActivity()).getCrimes().isEmpty()) &#123;</span><br><span class="line">    mCallbacks.onCrimeAllDeleted(mCrime);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    mCrime = CrimeLab.get(getActivity()).getCrimes().get(<span class="number">0</span>);</span><br><span class="line">    mCallbacks.onCrimeDeleted(mCrime); <span class="comment">// 这里相当于选中第一个</span></span><br><span class="line">    updateCrime(); <span class="comment">// 这里面升级了数据层并且更新了列表</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+
+<p>整个程序就此完成啦~</p>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html" title="Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 17 Master-Detail 界面-20170115.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets">
+      Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-增加布局灵活性"><span class="nav-number">1.</span> <span class="nav-text">1. 增加布局灵活性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-修改抽象类-SingleFragmentActivity"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 修改抽象类 SingleFragmentActivity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-使用别名资源"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 使用别名资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Activity：Fragment-的托管者"><span class="nav-number">2.</span> <span class="nav-text">2. Activity：Fragment 的托管者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-CrimeListFragment-的回调接口"><span class="nav-number">3.</span> <span class="nav-text">2.1 CrimeListFragment 的回调接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-CrimeFragment-的回调接口"><span class="nav-number">3.1.</span> <span class="nav-text">2.2 CrimeFragment 的回调接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战的后遗症：删除-Crime"><span class="nav-number">4.</span> <span class="nav-text">3. 挑战的后遗症：删除 Crime</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+</div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz","app_key":"iWF3A9yPpAwwpDgfuPOGyKTd","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
