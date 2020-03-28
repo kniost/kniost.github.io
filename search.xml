@@ -38,16 +38,16 @@
 <li>一台手机，并已登录Nintendo Switch APP</li>
 <li>另一台可以显示二维码的设备（如电脑、别人的手机等）</li>
 </ul>
+<h3 id="Switch的设置"><a href="#Switch的设置" class="headerlink" title="Switch的设置"></a>Switch的设置</h3><p>首先在游戏主界面，<strong>不要进入游戏</strong>。按<code>➖</code>号，点<code>狸端机入口设置</code>，对话后将联网进行同步，同步完成后即可，<strong>之后不需要再进行这个步骤</strong>。</p>
+<p>如果联网有问题或者网速不够好，可以选择使用路由器端或者电脑端的<code>网易UU</code>之类的加速器针对Switch的网络进行加速。</p>
 <h3 id="导入步骤"><a href="#导入步骤" class="headerlink" title="导入步骤"></a>导入步骤</h3><ol>
 <li>点击手机APP<code>Nintendo Switch Online</code>中的动物森友会（或Animal Crossing）即可登入狸端机入口站，在<code>我的设计</code>中点击<code>读取新的QR Code</code>，然后扫描二维码（在另一台设备上显示）</li>
 <li>扫描后，你需要到Switch动物森友会游戏中的「我的设计」中，按下<code>➕</code>键下载</li>
 </ol>
 <p>需要注意的是，下载的时候只能有一张，所以有多个图片的时候，需要一张一张扫描和下载</p>
 <hr>
-<p>可能大部分森友都会碰到一些困难，下面一一说明可能出现的问题和解决方案，不需要VPN</p>
-<h3 id="Switch的设置"><a href="#Switch的设置" class="headerlink" title="Switch的设置"></a>Switch的设置</h3><p>首先在游戏主界面，<strong>不要进入游戏</strong>。按<code>➖</code>号，点<code>狸端机入口设置</code>，对话后将联网进行同步，同步完成后即可。</p>
-<p>如果联网有问题或者网速不够好，可以选择使用路由器端或者电脑端的<code>网易UU</code>之类的加速器针对Switch的网络进行加速。</p>
-<h3 id="手机的设置"><a href="#手机的设置" class="headerlink" title="手机的设置"></a>手机的设置</h3><h4 id="APP下载"><a href="#APP下载" class="headerlink" title="APP下载"></a>APP下载</h4><ul>
+<p>可能大部分森友都会在手机端碰到一些困难，下面一一说明可能出现的问题和解决方案，不需要VPN</p>
+<h3 id="APP下载"><a href="#APP下载" class="headerlink" title="APP下载"></a>APP下载</h3><ul>
 <li>iOS设备：需要在非中国区下载，可以使用的账号收集如下，<strong>一定不要登录iCloud，而是登录iTunes，可以在AppStore中进行账户的修改以确保安全，登录下载后请及时登出！</strong><ul>
 <li>账号： <code>4ssgit@gmail.com</code> 密码：<code>V2net1234</code></li>
 <li>账号： <code>v2sxcom@gmail.com</code> 密码：<code>V2net123</code></li>
@@ -59,7 +59,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="账号登录"><a href="#账号登录" class="headerlink" title="账号登录"></a>账号登录</h4><p>如果你有科学上网的工具可以挂上直接登录。</p>
+<h3 id="账号登录"><a href="#账号登录" class="headerlink" title="账号登录"></a>账号登录</h3><p>如果你有科学上网的工具可以挂上直接登录。</p>
 <p><strong>否则你需要使用忘记密码的方式登录</strong></p>
 <p>在APP中点击登录时，点击忘记密码，然后输入你的邮箱，你将会收到一封变更密码的邮件，如下图所示</p>
 <p><img src="http://pic.kniost.top/uPic/ieqSh5.png-blog" alt="变更密码邮件"></p>
@@ -282,8 +282,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -659,8 +659,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -1016,8 +1016,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>BFS</tag>
         <tag>Hard</tag>
+        <tag>BFS</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -1103,8 +1103,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Divide Conquer</tag>
         <tag>Hard</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
@@ -1220,9 +1220,9 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
         <tag>Divide Conquer</tag>
         <tag>Medium</tag>
-        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1826,8 +1826,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -1848,8 +1848,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1965,8 +1965,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2125,8 +2125,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Divide Conquer</tag>
         <tag>Hard</tag>
+        <tag>Divide Conquer</tag>
         <tag>Monotonous Stack</tag>
       </tags>
   </entry>
@@ -2711,8 +2711,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2740,8 +2740,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2771,8 +2771,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2974,8 +2974,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -3848,8 +3848,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Divide Conquer</tag>
         <tag>Hard</tag>
+        <tag>Divide Conquer</tag>
         <tag>Heap</tag>
       </tags>
   </entry>
@@ -4314,9 +4314,9 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Divide Conquer</tag>
         <tag>Hard</tag>
         <tag>DP</tag>
+        <tag>Divide Conquer</tag>
       </tags>
   </entry>
   <entry>
