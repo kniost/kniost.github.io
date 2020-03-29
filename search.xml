@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>动物森友会圈圈介绍</title>
+    <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
+<p>添加微信 <code>loshenfish</code>， 拉你进测试和攻略群哦！</p>
+<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-5-0"><a href="#0-5-0" class="headerlink" title="0.5.0"></a>0.5.0</h2><blockquote>
+<p>2020年3月30日2点30分</p>
+</blockquote>
+<h4 id="主要更新"><a href="#主要更新" class="headerlink" title="主要更新"></a>主要更新</h4><ol>
+<li>增加了透明颜色，现在可以使用透明色进行编辑啦~</li>
+<li>画图界面更加流畅啦！</li>
+<li>生成二维码图片流程大大优化，时间缩短，并增加了长按将所有图片添加到相册的功能</li>
+<li>切图界面增加了防抖动机制，并且将最大可切图拓展到7*7</li>
+<li>更新了部分UI，界面更加统一</li>
+</ol>
+<h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复了回到主页再进来还保留原来的图案的bug</li>
+<li>修复了从切图生成二维码时可能导致生成图片失败或者空白的问题</li>
+</ol>
+]]></content>
+      <categories>
+        <category>动物森友会</category>
+      </categories>
+      <tags>
+        <tag>动物森友会</tag>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>绘制我的设计说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E7%BB%98%E5%88%B6%E6%88%91%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%AF%B4%E6%98%8E-20200327.html</url>
     <content><![CDATA[<h1 id="绘制我的设计与导入说明"><a href="#绘制我的设计与导入说明" class="headerlink" title="绘制我的设计与导入说明"></a>绘制我的设计与导入说明</h1><p>本文主要分为两个部分，主要包括两个部分，可以点击直接跳转：</p>
@@ -10,7 +38,6 @@
 </ul>
 <p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
 <p>添加微信 <code>loshenfish</code>， 拉你进测试和攻略群哦！</p>
-<p>最新版本<code>0.4.6</code></p>
 <h2 id="绘制我的设计功能"><a href="#绘制我的设计功能" class="headerlink" title="绘制我的设计功能"></a>绘制我的设计功能</h2><p>在<code>绘制我的设计</code>中，你可以创作属于你自己的动森设计，并生成二维码，使用APP<code>Nintendo Switch Online</code>的扫码直接传到游戏中。主要功能如下图所示，其中绘制功能主要包括作画、图片切分与生成和扫码获取设计这三大功能，并对大量细节做了优化；生成功能包括信息修改和二维码生成，下面一一介绍。</p>
 <h3 id="作画"><a href="#作画" class="headerlink" title="作画"></a>作画</h3><p>动森的画板为32*32大小。</p>
 <p>作画首先需要选择颜色，由于动森的数据设计问题，一幅图中只能最多存在15种颜色，我们把可以选择的15种颜色称为<code>调色板</code>，<strong>选择颜色时需要先选择调色板，并且在下方选择你需要的颜色</strong>，可供选择的颜色种类有160种。</p>
@@ -82,7 +109,6 @@
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E4%BB%8B%E7%BB%8D-20200326.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
 <p>添加微信 <code>loshenfish</code>， 拉你进测试和攻略群哦！</p>
-<p>最新版本<code>0.4.6</code></p>
 <h1 id="已有功能介绍"><a href="#已有功能介绍" class="headerlink" title="已有功能介绍"></a>已有功能介绍</h1><h2 id="※绘制我的设计"><a href="#※绘制我的设计" class="headerlink" title="※绘制我的设计"></a>※绘制我的设计</h2><p>在绘制我的设计中，你可以在白板上创作属于你自己的动森设计：</p>
 <ul>
 <li>白板创作，可以生成二维码，并使用Nintendo Switch Online的APP扫码直接传到游戏中</li>
