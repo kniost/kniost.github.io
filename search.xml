@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>美区账号申请指南</title>
+    <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E7%BE%8E%E5%8C%BA%E8%B4%A6%E5%8F%B7%E7%94%B3%E8%AF%B7%E6%8C%87%E5%8D%97-20200330.html</url>
+    <content><![CDATA[<h1 id="无需信用卡注册苹果美区-Apple-ID-帐号的指南"><a href="#无需信用卡注册苹果美区-Apple-ID-帐号的指南" class="headerlink" title="无需信用卡注册苹果美区 Apple ID 帐号的指南"></a>无需信用卡注册苹果美区 Apple ID 帐号的指南</h1><h2 id="第一步-准备工作"><a href="#第一步-准备工作" class="headerlink" title="第一步 准备工作"></a>第一步 准备工作</h2><p>1、一个没有注册过AppleID的邮箱，建议最好是如Gmail自己的邮箱</p>
+<p>2、一个苹果手机，当然这个是必须的</p>
+<p>3、需要科学上网，使用注册对应地区的节点，我们注册美区苹果账号使用美国节点</p>
+<h2 id="第二步-先到苹果网站注册账号"><a href="#第二步-先到苹果网站注册账号" class="headerlink" title="第二步 先到苹果网站注册账号"></a>第二步 先到苹果网站注册账号</h2><p>首选启用科学上网软件（手机电脑均可），选择美国节点，选择代理/全局模式，使目前网络使用了美国代理。</p>
+<p>打开此网站创建您的AppleID： <a href="https://appleid.apple.com/account#!&amp;page=create" target="_blank" rel="noopener">https://appleid.apple.com/account#!&amp;page=create</a></p>
+<p>可以是中文界面，但注意的是国家或地区，必须选择 【美国】</p>
+<p>按要求填写完整，这步骤就不需要多讲，一步步填写，自己务必记住就行，找回密码或者解锁账号会用到这些问题答案。</p>
+<p>然后会给你注册邮箱发一个6位数的验证码，输入后就完成了注册。若你是用来共享的账户，登陆后不推荐启用两部验证，这个共享的话会很麻烦，每次都需要进行登陆验证。</p>
+<p>电脑端注册账号就结束，然后下面是使用手机登陆App Store。</p>
+<h2 id="第三步-苹果手机App-Store登陆"><a href="#第三步-苹果手机App-Store登陆" class="headerlink" title="第三步 苹果手机App Store登陆"></a>第三步 苹果手机App Store登陆</h2><p>手机必须是代理模式，节点选择美国。首先退出原来的账户，登陆新注册的账户。</p>
+<p>会出现提示按提示选择Review，地区仍然是需选择美国United States，并操作同意下一步。</p>
+<p>这个是关键的一步，下面会让你选择付款方式，若没有出现None，那么就你的手机网络不是美国IP，重新选择代理美国IP后，然后付款方式选择None。</p>
+<p>对于Shadowrocket小火箭设置里面 【全局路由】 必须选择 【代理】；V2rayN软件的话代理选择全局模式。</p>
+<p>填写美国人信息，这个建议谷歌搜索【美国个人信息生成】关键字获取。</p>
+<p>需要注意的是，美区 App Store 中的应用是需要交税的，如果你希望以较低的价格购买一些付费 app，建议在地址处填入税率较低的州，比如 Oregon（俄勒冈州）、Alaska（阿拉斯加州）、Delaware（特拉华州）、Montana（蒙大拿州）、New Hampshire（新罕布什尔州）等。</p>
+<p>填写后完成后，你的美区Apple ID账号就已注册完成了！</p>
+<h2 id="如何在App-Store购买苹果付费APP"><a href="#如何在App-Store购买苹果付费APP" class="headerlink" title="如何在App Store购买苹果付费APP"></a>如何在App Store购买苹果付费APP</h2><p>你需要购买礼品卡，这个网上到处都可以购买的到，步骤如下：</p>
+<p>获取后登陆账号信息输入即可，但是我这边测试了几次对于新号礼品卡冲进去后，苹果ID容易被苹果公司锁住，建议养号一段时间在充值购买，并且不要频繁使用不同ip地址！自己使用的话你可以开启双重认证，这样被苹果锁的概率就很低。</p>
+<h2 id="嫌繁琐可以直接使用共享APPLE-ID账号或直接购买一个！"><a href="#嫌繁琐可以直接使用共享APPLE-ID账号或直接购买一个！" class="headerlink" title="嫌繁琐可以直接使用共享APPLE ID账号或直接购买一个！"></a>嫌繁琐可以直接使用共享APPLE ID账号或直接购买一个！</h2><blockquote>
+<p>本文转自<a href="https://github.com/v2net/Apple/blob/master/id.md" target="_blank" rel="noopener">https://github.com/v2net/Apple/blob/master/id.md</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>动物森友会</category>
+      </categories>
+      <tags>
+        <tag>动物森友会</tag>
+        <tag>小程序</tag>
+        <tag>苹果/Apple</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>「动物森友会圈圈」版本更新说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
@@ -79,19 +113,20 @@
 <hr>
 <p>可能大部分森友都会在手机端碰到一些困难，下面一一说明可能出现的问题和解决方案，不需要VPN</p>
 <h3 id="APP下载"><a href="#APP下载" class="headerlink" title="APP下载"></a>APP下载</h3><ul>
-<li>iOS设备：需要在非中国区下载，可以使用的账号收集如下，<strong>一定不要登录iCloud，而是登录iTunes，可以在AppStore中进行账户的修改以确保安全，登录下载后请及时登出！</strong><ul>
-<li>账号： <code>4ssgit@gmail.com</code> 密码：<code>V2net1234</code></li>
-<li>账号： <code>v2sxcom@gmail.com</code> 密码：<code>V2net123</code></li>
-<li>账号：<code>tetryy@163.com</code> 密码：<code>Aa112211</code></li>
-</ul>
+<li><p>iOS设备：需要在非中国区下载，可以使用的账号收集如下，**一定不要登录iCloud，而是登录iTunes，可以在AppStore中进行账户的修改以确保安全，登录下载后请及时登出！</p>
+<p>可以复制链接</p>
+<p><code>https://github.com/shadowrocketHelp/help/wiki/国外-appstore-id-账号分享</code></p>
+<p>或者 <code>https://github.com/v2net/Apple</code>（小程序用户请复制后到浏览器打开）看看有没有可用的</p>
+<p>由于共享账号经常被锁定，也可以按照<a href="/动物森友会圈圈/美区账号申请指南-20200330.html">美区账号申请指南</a>自主申请一个美区账号，或者借/买一个自己专用的美区账号（10块钱以内，也可以几个人一起买），购买途径可百度(比如这个<a href="https://fk.333300.xyz/product/" target="_blank" rel="noopener">https://fk.333300.xyz/product/</a>)</p>
 </li>
-<li>Android设备：如果没有使用Google Play的条件，可以直接在百度网盘中下载<ul>
+<li><p>Android设备：如果没有使用Google Play的条件，可以直接在百度网盘中下载</p>
+<ul>
 <li>链接:<a href="https://pan.baidu.com/s/1N4KjzIADPUNy-O0nB8yb2A" target="_blank" rel="noopener">https://pan.baidu.com/s/1N4KjzIADPUNy-O0nB8yb2A</a>  密码:9a6o</li>
 </ul>
 </li>
 </ul>
 <h3 id="账号登录"><a href="#账号登录" class="headerlink" title="账号登录"></a>账号登录</h3><p>如果你有科学上网的工具可以挂上直接登录。</p>
-<p><strong>否则你需要使用忘记密码的方式登录</strong></p>
+<p><strong>否则你需要使用忘记密码的方式登录</strong>，下面是步骤：</p>
 <p>在APP中点击登录时，点击忘记密码，然后输入你的邮箱，你将会收到一封变更密码的邮件，如下图所示</p>
 <p><img src="http://pic.kniost.top/uPic/ieqSh5.png-blog" alt="变更密码邮件"></p>
 <p>复制这个链接，<strong>到手机端的默认浏览器中打开（也就是你刚刚自动跳转的浏览器）</strong>，然后填入个人信息后重设密码（这里的昵称是任天堂账户的昵称，可以在 <a href="https://accounts.nintendo.com/" target="_blank" rel="noopener">https://accounts.nintendo.com/</a> 看到所需要的信息）</p>
@@ -204,8 +239,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -504,8 +539,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -525,8 +560,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1406,8 +1441,8 @@
         <tag>Java</tag>
         <tag>LeetCode</tag>
         <tag>Divide Conquer</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
@@ -1688,9 +1723,9 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Binary Tree</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
+        <tag>Binary Tree</tag>
       </tags>
   </entry>
   <entry>
