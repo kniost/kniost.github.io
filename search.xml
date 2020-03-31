@@ -116,7 +116,7 @@
 <li>由于颜色种类的限制，建议使用颜色较少、对比强烈且无太多阴影的图片</li>
 <li>尽量使用原图，这样能更准确地提取颜色</li>
 </ul>
-<p>下面是一个较好的示例，当然，切分成2*2之后显示效果更佳：<br><img src="http://pic.kniost.top/uPic/IMG_6028.JPEG-blog" alt="一个较好的图片示例"></p>
+<p>下面是一个较好的示例，当然，切分成2*2之后显示效果更佳：<br><img src="http://pic.kniost.top/uPic/tigerexample.JPEG-blog" alt="一个较好的图片示例"></p>
 <h2 id="二维码如何导入动森"><a href="#二维码如何导入动森" class="headerlink" title="二维码如何导入动森"></a>二维码如何导入动森</h2><p>在保存二维码之后，我们需要将所作的图片转移到动森之中，我们需要下面几样东西：</p>
 <ul>
 <li>一台非国行版的可以联网的Nintendo Switch，并安装了任意区域的数字版或实体版的《集合吧！动物森友会》</li>
@@ -135,8 +135,7 @@
 <p>可能大部分森友都会在手机端碰到一些困难，下面一一说明可能出现的问题和解决方案，不需要VPN</p>
 <h3 id="APP下载"><a href="#APP下载" class="headerlink" title="APP下载"></a>APP下载</h3><ul>
 <li><p>iOS设备：需要在非中国区下载，可以使用的账号收集如下，**一定不要登录iCloud，而是登录iTunes，可以在AppStore中进行账户的修改以确保安全，登录下载后请及时登出！</p>
-<p>可以复制链接</p>
-<p><code>https://github.com/shadowrocketHelp/help/wiki/国外-appstore-id-账号分享</code></p>
+<p>可以复制链接<code>https://github.com/shadowrocketHelp/help/wiki/国外-appstore-id-账号分享</code></p>
 <p>或者 <code>https://github.com/v2net/Apple</code>（小程序用户请复制后到浏览器打开）看看有没有可用的</p>
 <p>由于共享账号经常被锁定，也可以按照<a href="/动物森友会圈圈/美区账号申请指南-20200330.html">美区账号申请指南</a>自主申请一个美区账号，或者借/买一个自己专用的美区账号（10块钱以内，也可以几个人一起买），购买途径可百度(比如这个<a href="https://fk.333300.xyz/product/" target="_blank" rel="noopener">https://fk.333300.xyz/product/</a>)</p>
 </li>
@@ -149,7 +148,7 @@
 <h3 id="账号登录"><a href="#账号登录" class="headerlink" title="账号登录"></a>账号登录</h3><p>如果你有科学上网的工具可以挂上直接登录。</p>
 <p><strong>否则你需要使用忘记密码的方式登录</strong>，下面是步骤：</p>
 <p>在APP中点击登录时，点击忘记密码，然后输入你的邮箱，你将会收到一封变更密码的邮件，如下图所示</p>
-<p><img src="http://pic.kniost.top/uPic/ieqSh5.png-blog" alt="变更密码邮件"></p>
+<p><img src="http://pic.kniost.top/uPic/nvfUX3.png-blog" alt="变更密码邮件"></p>
 <p>复制这个链接，<strong>到手机端的默认浏览器中打开（也就是你刚刚自动跳转的浏览器）</strong>，然后填入个人信息后重设密码（这里的昵称是任天堂账户的昵称，可以在 <a href="https://accounts.nintendo.com/" target="_blank" rel="noopener">https://accounts.nintendo.com/</a> 看到所需要的信息）</p>
 <p>重设密码后，再次打开APP，就会直接跳转到选择用户的界面，然后就成功登陆，可以参照<a href="#导入步骤">导入步骤</a>使用啦！</p>
 ]]></content>
