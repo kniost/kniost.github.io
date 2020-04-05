@@ -38,16 +38,29 @@
     <title>「动物森友会圈圈」版本更新说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
-<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-5-8r"><a href="#0-5-8r" class="headerlink" title="0.5.8r"></a>0.5.8r</h2><blockquote>
-<p>2020年4月3日0时</p>
+<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-5-9"><a href="#0-5-9" class="headerlink" title="0.5.9"></a>0.5.9</h2><blockquote>
+<p>2020年4月5日23时</p>
 </blockquote>
 <h4 id="主要更新："><a href="#主要更新：" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入护照生成和分享功能</li>
+</ol>
+<h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复了可能导致卡住的问题</li>
+</ol>
+<h2 id="0-5-8r"><a href="#0-5-8r" class="headerlink" title="0.5.8r"></a>0.5.8r</h2><blockquote>
+<p>2020年4月3日0时</p>
+</blockquote>
+<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入图片导入的实时预览</li>
 <li>加入图片导入时的图像算法、透明度、平滑度等选项</li>
 <li>加入切图生成多个二维码按钮</li>
 <li>加入iPad的竖屏支持</li>
 <li>二维码生成速度加快，并且加入更好看的背景</li>
-<li>自动清理临时文件<h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4>修复图片导入的颜色问题<br>修复导入透明图片透明度失效的问题</li>
+<li>自动清理临时文件</li>
+</ol>
+<h4 id="问题修复-1"><a href="#问题修复-1" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复图片导入的颜色问题</li>
+<li>修复导入透明图片透明度失效的问题</li>
 </ol>
 <h2 id="0-5-2"><a href="#0-5-2" class="headerlink" title="0.5.2"></a>0.5.2</h2><blockquote>
 <p>2020年3月30日16时</p>
@@ -57,7 +70,7 @@
 <li>增加了撤销和重做功能！</li>
 <li>更新了新的UI，绘画区和功能区分离</li>
 </ol>
-<h4 id="问题修复-1"><a href="#问题修复-1" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<h4 id="问题修复-2"><a href="#问题修复-2" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
 <li>修复了切图生成二维码后再次点击生成不会自动跳转到第一个的问题</li>
 </ol>
 <h2 id="0-5-0"><a href="#0-5-0" class="headerlink" title="0.5.0"></a>0.5.0</h2><blockquote>
@@ -71,7 +84,7 @@
 <li>更新了部分UI，界面更加统一</li>
 <li>加入自动更新机制</li>
 </ol>
-<h4 id="问题修复-2"><a href="#问题修复-2" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<h4 id="问题修复-3"><a href="#问题修复-3" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
 <li>修复了回到主页再进来还保留原来的图案的bug</li>
 <li>修复了从切图生成二维码时可能导致生成图片失败或者空白的问题</li>
 </ol>
@@ -185,8 +198,11 @@
     <title>动物森友会圈圈介绍</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E4%BB%8B%E7%BB%8D-20200326.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
-<p>可以加群畅聊或提出建议~<br><img src="http://pic.kniost.top/uPic/IMG_6171.JPG-blog" alt="动森圈圈测试与攻略群"></p>
-<h1 id="已有功能介绍"><a href="#已有功能介绍" class="headerlink" title="已有功能介绍"></a>已有功能介绍</h1><h2 id="※绘制我的设计"><a href="#※绘制我的设计" class="headerlink" title="※绘制我的设计"></a>※绘制我的设计</h2><p>在绘制我的设计中，你可以在白板上创作属于你自己的动森设计：</p>
+<p>想加入「动森圈圈测试与攻略群」可以添加微信<code>loshenfish</code>，拉你进群~</p>
+<h1 id="已有功能介绍"><a href="#已有功能介绍" class="headerlink" title="已有功能介绍"></a>已有功能介绍</h1><h2 id="※绘制我的设计"><a href="#※绘制我的设计" class="headerlink" title="※绘制我的设计"></a>※绘制我的设计</h2><blockquote>
+<p>如果遇到问题，可以先尝试点击右上角，重新进入小程序。或者尝试将小程序删除后重新添加</p>
+</blockquote>
+<p>在绘制我的设计中，你可以在白板上创作属于你自己的动森设计：</p>
 <ul>
 <li>白板创作，可以生成二维码，并使用Nintendo Switch Online的APP扫码直接传到游戏中</li>
 <li>可以扫描已有的二维码，获取别人的设计</li>
@@ -195,6 +211,7 @@
 <li>支持油漆桶</li>
 <li>可以自由选择颜色，支持透明颜色</li>
 </ul>
+<h2 id="※制作动森护照"><a href="#※制作动森护照" class="headerlink" title="※制作动森护照"></a>※制作动森护照</h2><p>可以制作你的护照啦！精心制作，非常精美~</p>
 <h1 id="初心与历程"><a href="#初心与历程" class="headerlink" title="初心与历程"></a>初心与历程</h1><p>动森圈圈是在开始玩（肝）Switch的《集合啦！动物森友会》的时候，突然发现大家有很多不懂的东西，所以想做一个攻略形式的小程序，结果动森没肝肝了小程序……</p>
 <p>攻略形式的小程序需要数据源，而现在这款新游戏很多只有英文的数据或者老数据，所以存在大量的数据收集工作。也因此动森圈圈一开始转移了方向，想更好地服务大家，就需要有更特色的功能，这个《绘制我的设计》功能立意就在于此。</p>
 <p>前端不咋好，写canvas写多了感觉头都秃了。</p>
