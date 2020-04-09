@@ -38,13 +38,54 @@
     <title>「动物森友会圈圈」版本更新说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
-<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-7-1r"><a href="#0-7-1r" class="headerlink" title="0.7.1r"></a>0.7.1r</h2><blockquote>
-<p>2020年4月8日21时</p>
+<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-7-3"><a href="#0-7-3" class="headerlink" title="0.7.3"></a>0.7.3</h2><blockquote>
+<p>2020年4月9日23时</p>
 </blockquote>
 <h4 id="主要更新："><a href="#主要更新：" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
-<li>加入私有房间功能</li>
+<li><p>加入排队功能！</p>
+<p><strong>自动排队：</strong></p>
+<p>参与人未满时，参加的人可以直接参与房间看到信息，人满时将加入队列。</p>
+<p>如果有人退出则自动将把排队的第一个人变成参与状态，并且发送通知给他。</p>
+<p><strong>手动排队：</strong></p>
+<p>不能直接参与，加入房间都是进入等待叫号队伍，房主在有人退出时可以收到通知（房主需要通过点击按钮增加可通知次数）。</p>
+<p>必须房主手动叫号，被叫号的人将变成参与状态，并收到通知。</p>
+<p><strong>队伍人满时都不能加入！</strong></p>
+</li>
+<li><p>加入关闭房间功能！房间关闭后无法在公开列表中看到，且房间内所有成员将被踢出。</p>
+</li>
+<li><p>加入通知功能</p>
+<p>目前有三个地方会收到通知</p>
+<ul>
+<li><p>手动排队时，用户退出时房主会收到通知（需要手动增加通知次数）</p>
+</li>
+<li><p>自动排队时，轮到自己的时候会收到通知</p>
+</li>
+<li><p>排队时，房主叫号会收到通知</p>
+</li>
+</ul>
+</li>
 </ol>
 <h4 id="问题修复："><a href="#问题修复：" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>更新UI</li>
+</ol>
+<h2 id="0-7-2"><a href="#0-7-2" class="headerlink" title="0.7.2"></a>0.7.2</h2><blockquote>
+<p>2020年4月9日1时</p>
+</blockquote>
+<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>服务器炸了，加入广告</li>
+<li>切图加入最高15的选项，但是宽高之积最多50，超过了你也放不下</li>
+<li>切图生成过程使用进度条，更加直观</li>
+</ol>
+<h4 id="问题修复：-1"><a href="#问题修复：-1" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>更新UI</li>
+</ol>
+<h2 id="0-7-1r"><a href="#0-7-1r" class="headerlink" title="0.7.1r"></a>0.7.1r</h2><blockquote>
+<p>2020年4月8日21时</p>
+</blockquote>
+<h4 id="主要更新：-2"><a href="#主要更新：-2" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入私有房间功能</li>
+</ol>
+<h4 id="问题修复：-2"><a href="#问题修复：-2" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
 <li><p>更新UI</p>
 </li>
 <li><p>修复可能存在的更新个人信息的bug</p>
@@ -55,13 +96,13 @@
 <h2 id="0-7-0r"><a href="#0-7-0r" class="headerlink" title="0.7.0r"></a>0.7.0r</h2><blockquote>
 <p>2020年4月7日23时</p>
 </blockquote>
-<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-3"><a href="#主要更新：-3" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入大头菜房间功能</li>
 </ol>
 <h2 id="0-5-9"><a href="#0-5-9" class="headerlink" title="0.5.9"></a>0.5.9</h2><blockquote>
 <p>2020年4月5日23时</p>
 </blockquote>
-<h4 id="主要更新：-2"><a href="#主要更新：-2" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-4"><a href="#主要更新：-4" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入护照生成和分享功能</li>
 </ol>
 <h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
@@ -70,7 +111,7 @@
 <h2 id="0-5-8r"><a href="#0-5-8r" class="headerlink" title="0.5.8r"></a>0.5.8r</h2><blockquote>
 <p>2020年4月3日0时</p>
 </blockquote>
-<h4 id="主要更新：-3"><a href="#主要更新：-3" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-5"><a href="#主要更新：-5" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入图片导入的实时预览</li>
 <li>加入图片导入时的图像算法、透明度、平滑度等选项</li>
 <li>加入切图生成多个二维码按钮</li>
