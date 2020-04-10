@@ -37,7 +37,7 @@
   <entry>
     <title>「动物森友会圈圈」版本更新说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
-    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，<del>交友</del>和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，交友和绘图于一身的小程序！<br><img src="http://pic.kniost.top/uPic/rYIPO3.jpg-blog" alt="小程序码"></p>
 <h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-7-3"><a href="#0-7-3" class="headerlink" title="0.7.3"></a>0.7.3</h2><blockquote>
 <p>2020年4月9日23时</p>
 </blockquote>
@@ -273,10 +273,18 @@
 <li>可以自由选择颜色，支持透明颜色</li>
 </ul>
 <h2 id="※制作动森护照"><a href="#※制作动森护照" class="headerlink" title="※制作动森护照"></a>※制作动森护照</h2><p>可以制作你的护照啦！精心制作，非常精美~</p>
+<h2 id="※大头菜市场"><a href="#※大头菜市场" class="headerlink" title="※大头菜市场"></a>※大头菜市场</h2><ol>
+<li><p>可以拍摄证明照片，支持自动排队，手动排队叫号，还能收到通知！</p>
+</li>
+<li><p>还能建立私有房间，只能房主分享，群内共享时不能转发</p>
+</li>
+</ol>
 <h1 id="初心与历程"><a href="#初心与历程" class="headerlink" title="初心与历程"></a>初心与历程</h1><p>动森圈圈是在开始玩（肝）Switch的《集合啦！动物森友会》的时候，突然发现大家有很多不懂的东西，所以想做一个攻略形式的小程序，结果动森没肝肝了小程序……</p>
 <p>攻略形式的小程序需要数据源，而现在这款新游戏很多只有英文的数据或者老数据，所以存在大量的数据收集工作。也因此动森圈圈一开始转移了方向，想更好地服务大家，就需要有更特色的功能，这个《绘制我的设计》功能立意就在于此。</p>
 <p>前端不咋好，写canvas写多了感觉头都秃了。</p>
 <p>当然攻略这一块也是之后要做的，想来贡献力量或者测试的可以加群共商大事！</p>
+<h1 id="打赏我"><a href="#打赏我" class="headerlink" title="打赏我"></a>打赏我</h1><p>应要求加入打赏渠道~~</p>
+<p><img src="http://pic.kniost.top/uPic/%E6%89%93%E8%B5%8F%E7%A0%81.png-blog" alt="打赏码"></p>
 ]]></content>
       <categories>
         <category>动物森友会</category>
