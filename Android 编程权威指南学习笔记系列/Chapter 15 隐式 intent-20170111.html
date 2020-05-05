@@ -1,1 +1,545 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要介绍了如何使用隐式 Intent 启动其他应用的 Activity，以及从用隐式 Intent 的方法启动的应用中获取数据 GitHub 地址：完成15章但未完成挑战完成15章挑战1完成15章挑战2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要介绍了如何使用隐式 Intent 启动其他应用的 Activity，以及从用隐式 Intent 的方法启动的应用中获取数据 GitHub 地址：完成15章但未完成挑战完成15章挑战1完成15章挑战2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-11T12:45:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-11 20:45:10" itemprop="dateCreated datePublished" datetime="2017-01-11T20:45:10+08:00">2017-01-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要介绍了如何使用隐式 Intent 启动其他应用的 Activity，以及从用隐式 Intent 的方法启动的应用中获取数据</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/346d4aeceb125c5e52164af14afe023ecd713108">完成15章但未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/c6641fc4fa5075bcc1d34d8c4a64f9d32f3ccd56">完成15章挑战1</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/e24f4c1b65bd36a475b038cf051c3c5033c7a967">完成15章挑战2</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-使用格式化字符串"><a href="#1-使用格式化字符串" class="headerlink" title="1. 使用格式化字符串"></a>1. 使用格式化字符串</h1><p>在<code>string.xml</code>中定义字符串时，我们可以先用占位符代替一些内容，然后在引用的时候用相应的字符串代替占位符，得到所需要的字符串。<br>比如一个定义好的字符串：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"string_name"</span>&gt;</span>我的名字叫%1$s，我有%2$d个苹果<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>引用时可以这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s = getResources()</span><br><span class="line">	.getString(R.string.string_name, <span class="string">"王大宝"</span>, <span class="number">512</span>);</span><br><span class="line"><span class="comment">// 结果应该是 s == "我的名字叫王大宝，我有512个苹果"</span></span><br></pre></td></tr></table></figure>
+<p>这种字符串资源用作模板再方便不过了。</p>
+<h1 id="2-使用隐式-intent"><a href="#2-使用隐式-intent" class="headerlink" title="2. 使用隐式 intent"></a>2. 使用隐式 intent</h1><p>Intent 对象用来向操作系统说明需要处理的任务。使用显式 intent，我们需指定要操作系统 启动哪个 activity。而使用隐式 intent，只需告诉操作系统我们想要做什么，操作系统就会去启动能够胜任工作任务的 activity。如果找到多个符合的 activity，用户会看到一个可选应用列表，然后就看用户如何选择了。</p>
+<h2 id="2-1-隐式-intent-的组成"><a href="#2-1-隐式-intent-的组成" class="headerlink" title="2.1 隐式 intent 的组成"></a>2.1 隐式 intent 的组成</h2><p>下面是一个隐式 intent 的主要组成部分：</p>
+<ol>
+<li><strong>要执行的操作</strong>。通常以 Intent 类中的常量来表示。例如，要访问查看某个 URL，可以使用 Intent.ACTION_VIEW;要发送邮件，可以使用 Intent.ACTION_SEND。</li>
+<li><strong>要访问数据的位置</strong>。这可能是设备以外的资源，如某个网页的 URL，也可能是指向某个文件的 URI，或者是指向 ContentProvider 中某条记录的某个内容 URI(content URI)。</li>
+<li><strong>操作涉及的数据类型</strong>。 这指的是 MIME 形式的数据类型，如<code>text/html</code>或<code>audio/mpeg3</code>。如果一个 intent 包含数据位置，那么通常可以从中推测出数据的类型。 </li>
+<li><strong>可选类别</strong>。如果操作用于描述具体要做什么，那么类别通常用来描述我们是何时、何地或者如何使用某 个 activity 的。例如，Android 的<code>android.intent.category.LAUNCHER</code>类别表明，activity 应该显示在顶级应用启动器中;而<code>android.intent.category.INFO</code>类别表明，虽然 activity 向用户显示了包信息，但它不应该显示在启动器中。</li>
+</ol>
+<p>和显式 intent 一样，隐式 intent 也可以包含 extra 信息。不过，操作系统在寻找适用的 activity 时， 不会使用附加在隐式 intent 上的任何 extra。<br>注意，显式 intent 也可以使用隐式 intent 的操作和数据部分。这相当于要求特定 activity 去处理特定任务。</p>
+<h2 id="2-1-发送消息"><a href="#2-1-发送消息" class="headerlink" title="2.1 发送消息"></a>2.1 发送消息</h2><p>如果我们要发送一段文字消息，应该创建一个用于发送文字消息的 intent：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先指定动作为 Intent.ACTION_SEND</span></span><br><span class="line">Intent i = <span class="keyword">new</span> Intent(Intent.ACTION_SEND);</span><br><span class="line"><span class="comment">// 设置文字类别，这里是纯文本</span></span><br><span class="line">i.setType(<span class="string">"text/plain"</span>);</span><br><span class="line"><span class="comment">// 设置文字内容</span></span><br><span class="line">i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());</span><br><span class="line"><span class="comment">// 设置主题内容</span></span><br><span class="line">i.putExtra(Intent.EXTRA_SUBJECT,</span><br><span class="line">        getString(R.string.crime_report_subject));</span><br><span class="line"><span class="comment">// 每一次都会弹出选择发送的应用弹框</span></span><br><span class="line">i = Intent.createChooser(i, getString(R.string.send_report));</span><br><span class="line">startActivity(i);</span><br></pre></td></tr></table></figure>
+
+<p>没错，使用一个隐式的 intent 就是这么简单，对于不同的需求，查询文档，使用相应的方法调用隐式 intent 就可以啦。</p>
+<h2 id="2-2-获取联系人信息"><a href="#2-2-获取联系人信息" class="headerlink" title="2.2 获取联系人信息"></a>2.2 获取联系人信息</h2><p>现在，创建另一个隐式 intent，实现让用户从联系人应用里选择嫌疑人。新建的隐式 intent 将 由操作以及数据获取位置组成。</p>
+<ul>
+<li>操作为<code>Intent.ACTION_PICK</code>。</li>
+<li>联系人数据获取位置为 <code>ContactsContract.Contacts.CONTENT_URI</code>。</li>
+</ul>
+<p>简而言之，就是请 Android 帮忙从联系人数据库里获取某个具体联系人。<br>因为要获取启动 activity 的返回结果，我们调用 startActivityForResult(…)方法并传 入 intent 和 RequestCode。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CONTACT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">Intent pickContact = <span class="keyword">new</span> Intent(Intent.ACTION_PICK, </span><br><span class="line">	ContactsContract.Contacts.CONTENT_URI);</span><br><span class="line">startActivityForResult(pickContact, REQUEST_CONTACT);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-1-从联系人列表中获取联系人数据"><a href="#2-2-1-从联系人列表中获取联系人数据" class="headerlink" title="2.2.1 从联系人列表中获取联系人数据"></a>2.2.1 从联系人列表中获取联系人数据</h3><p>现在，我们需要从联系人应用中获取返回结果。很多应用都会共享联系人信息，因此 Android 提供了一个深度定制的 API 用于处理联系人信息，这主要是通过 ContentProvider 类来实现的。 该类的实例封装了联系人数据库并提供给其他应用使用。</p>
+<p>我们可以通过一个 ContentResolver 访问 ContentProvider。<br>前面，我们以 ACTION_PICK 启动了 activity 并要求返回结果，因此调用 onActivityResult (…)方法会接收到一个 intent。该 intent 包括了数据 URI。这个 URI 是个数据定位符，指向用户所选联系人。<p id="inline_code"></p></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (resultCode != Activity.RESULT_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (requestCode == REQUEST_CONTACT &amp;&amp; data != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Uri contactUri = data.getData();</span><br><span class="line">        <span class="comment">// Specify which fields you want your query to return</span></span><br><span class="line">        <span class="comment">// values for. 就相当于要请求的数据域</span></span><br><span class="line">        String [] queryFields = <span class="keyword">new</span> String[] &#123;</span><br><span class="line">                ContactsContract.Contacts._ID,</span><br><span class="line">                ContactsContract.Contacts.DISPLAY_NAME</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// Perform your query - the contactUri is like a "where"</span></span><br><span class="line">        <span class="comment">// clause here 相当于一个查询数据库的语句</span></span><br><span class="line">        <span class="comment">// 首先 contactUri 定位了数据库的表，queryFields 定义了要查的语句</span></span><br><span class="line">        Cursor c = getActivity().getContentResolver()</span><br><span class="line">                .query(contactUri, queryFields, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// Double-check that you actually got results</span></span><br><span class="line">            <span class="keyword">if</span> (c.getCount() == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Pull out the first column of the first row of data -</span></span><br><span class="line">            <span class="comment">// that is your suspect's name.</span></span><br><span class="line">            c.moveToFirst();</span><br><span class="line">            <span class="comment">// 获得嫌疑人的名字</span></span><br><span class="line">            String suspect = c.getString(</span><br><span class="line">                    c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));</span><br><span class="line">            <span class="comment">// 获得嫌疑人的 ID</span></span><br><span class="line">            String suspectId = c.getString(</span><br><span class="line">                    c.getColumnIndex(ContactsContract.Contacts._ID));</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 最后不要忘了关闭 cursor</span></span><br><span class="line">            c.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-联系人信息的使用权限"><a href="#2-2-2-联系人信息的使用权限" class="headerlink" title="2.2.2 联系人信息的使用权限"></a>2.2.2 联系人信息的使用权限</h3><p>我们如何获得读取联系人数据库的权限呢?实际上，这是联系人应用将其权限临时赋给了我们。联系人应用具有使用联系人数据库的全部权限。</p>
+<p>联系人应用返回包含在 intent 中的 URI 数据给父 activity 时 , 会添加一个 <code>Intent.FLAG_GRANT_READ_URI_PERMISSION</code> 标志。该标志告诉 <code>Android,CriminalIntent</code> 应用中的父 activity 可以使用联系人数据一次。这很有用，因为不需要访问整个联系人数据库，我们只需要访问其中的一条联系人信息。</p>
+<h3 id="2-2-3-检查可响应任务的-activity"><a href="#2-2-3-检查可响应任务的-activity" class="headerlink" title="2.2.3 检查可响应任务的 activity"></a>2.2.3 检查可响应任务的 activity</h3><p>有些设备上根本就没有联系人应用，这时如果操作系统找不到匹配的 activity，应用就会崩溃！<br>解决办法是在调用最开始的时候通过操作系统中的 PackageManager 类进行自检，然后决定是否禁用这个按钮。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PackageManager packageManager = getActivity().getPackageManager();</span><br><span class="line">Intent pickContact = <span class="keyword">new</span> Intent(Intent.ACTION_PICK, </span><br><span class="line">	ContactsContract.Contacts.CONTENT_URI);</span><br><span class="line"><span class="keyword">if</span> (packageManager.resolveActivity(pickContact,</span><br><span class="line">        PackageManager.MATCH_DEFAULT_ONLY) == <span class="keyword">null</span>) &#123;</span><br><span class="line">    mSuspectButton.setEnabled(<span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Android 设备上安装了哪些组件以及包括哪些 activity,PackageManager 类全都知道。调用<code>resolveActivity(Intent, int)</code>方法，我们可以找到匹配给定 Intent 任务的 activity。flag 标志<code>MATCH_DEFAULT_ONLY</code>限定只搜索带<code>CATEGORY_DEFAULT</code>标志的 activity。这和 startActivity(Intent)方法类似。</p>
+<h1 id="3-挑战联系"><a href="#3-挑战联系" class="headerlink" title="3. 挑战联系"></a>3. 挑战联系</h1><h2 id="3-1-ShareCompat"><a href="#3-1-ShareCompat" class="headerlink" title="3.1 ShareCompat"></a>3.1 ShareCompat</h2><p>使用 ShareCompat.IntentBuilder 内部类用于创建发送消息的 Intent。<br>将原来的代码替换如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ShareCompat.IntentBuilder.from(getActivity())</span><br><span class="line">        .setType(<span class="string">"text/plain"</span>)</span><br><span class="line">        .setSubject(getString(R.string.crime_report_subject))</span><br><span class="line">        .setText(getCrimeReport())</span><br><span class="line">        .setChooserTitle(R.string.send_report)</span><br><span class="line">        .startChooser();</span><br><span class="line"><span class="comment">/*  Intent i = new Intent(Intent.ACTION_SEND);</span></span><br><span class="line"><span class="comment">  i.setType("text/plain");</span></span><br><span class="line"><span class="comment">  i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());</span></span><br><span class="line"><span class="comment">  i.putExtra(Intent.EXTRA_SUBJECT,</span></span><br><span class="line"><span class="comment">          getString(R.string.crime_report_subject));</span></span><br><span class="line"><span class="comment">  i = Intent.createChooser(i, getString(R.string.send_report));</span></span><br><span class="line"><span class="comment">  startActivity(i);*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-又一个隐式-Intent"><a href="#3-2-又一个隐式-Intent" class="headerlink" title="3.2 又一个隐式 Intent"></a>3.2 又一个隐式 Intent</h2><p>这个问题分三步解决：</p>
+<ol>
+<li>获取选择的联系人的 _ID （在 ContactsContract.Contacts 表中）</li>
+<li>通过获取到的联系人 ID 在 CommonDataKinds.Phone 表中查询联系人的电话</li>
+<li>通过电话创建隐式 Intent</li>
+</ol>
+<p>在开始之前，数据库中要加入 suspect 的 PhoneNumber 这一列，按照之前的步骤更改 Model 层和数据库建表语句以及数据库操作函数。</p>
+<p>然后要加入一个拨打电话的按钮，我的想法是，在选择联系人之前或者联系人没有电话的时候，这个按钮是不能点击的，并会显示相应的文字。</p>
+<h3 id="3-2-1-获取联系人-ID"><a href="#3-2-1-获取联系人-ID" class="headerlink" title="3.2.1 获取联系人 ID"></a>3.2.1 获取联系人 ID</h3><p>在按下选择联系人的那一步的 queryField 里面加入请求联系人 Id 的列即可。最后再从 Cursor 中取出。代码在 <a href="#inline_code">2.2.1节</a></p>
+<h3 id="3-2-2-通过获取到的联系人-ID-查询电话"><a href="#3-2-2-通过获取到的联系人-ID-查询电话" class="headerlink" title="3.2.2 通过获取到的联系人 ID 查询电话"></a>3.2.2 通过获取到的联系人 ID 查询电话</h3><ol>
+<li><p>首先要在 AndroidManifest.xml 中，<application> 标签前面加上申请权限的标签</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.READ_CONTACTS"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意这里有个坑在</strong>，由于 Android 6.0 新加入了运行时权限，所有 targetAPI 为23及以上的应用都需要在使用时申请权限，如果不加入申请权限的代码，应用将崩溃。为了节约时间和代码量，我在完成这个挑战的时候将 Project 的 targetAPI 设为22以避免这种情况的发生。</p>
+</blockquote>
+</li>
+<li><p>在获取到 suspect 的 ID 的之后，通过 ID 查询其第一个电话号码，我写了一个方法用于获取</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getPhoneNumberById</span><span class="params">(String contactId)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 首先找到需要查找的表的 URI</span></span><br><span class="line">      Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;</span><br><span class="line">      <span class="comment">// 然后还是通过 ContentResolver 对数据进行请求</span></span><br><span class="line">      <span class="comment">// 跟数据库的操作十分类似</span></span><br><span class="line">      Cursor c = getActivity().getContentResolver().query(</span><br><span class="line">              phoneUri,</span><br><span class="line">              <span class="comment">// 要请求的数据是 NUMBER，即电话号码</span></span><br><span class="line">              <span class="keyword">new</span> String[] &#123; ContactsContract.CommonDataKinds.Phone.NUMBER &#125;,</span><br><span class="line">              <span class="comment">// 相当于 Where 语句，注意这里不是 _ID，应该是 CONTACT_ID</span></span><br><span class="line">              <span class="comment">// 对于 Phone 表来说，CONTACT_ID 应该是其外键，_ID 是主键</span></span><br><span class="line">              ContactsContract.CommonDataKinds.Phone.CONTACT_ID + <span class="string">"= ? "</span>,</span><br><span class="line">              <span class="keyword">new</span> String[] &#123; contactId &#125;,</span><br><span class="line">              <span class="keyword">null</span></span><br><span class="line">      );</span><br><span class="line">      String phoneNumber = <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (c.getCount() == <span class="number">0</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> phoneNumber;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// 只取第一个数据</span></span><br><span class="line">          c.moveToFirst();</span><br><span class="line">          phoneNumber = c.getString(<span class="number">0</span>);</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          c.close();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> phoneNumber;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>还要根据电话号码的值来决定拨打电话按钮的状态</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleCallSuspectButton</span><span class="params">(String phoneNumber)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (phoneNumber == <span class="keyword">null</span> || phoneNumber.isEmpty()) &#123;</span><br><span class="line">           mCallSuspectButton.setText(getString(R.string.crime_call_no_phone_number));</span><br><span class="line">           mCallSuspectButton.setEnabled(<span class="keyword">false</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           mCallSuspectButton.setText(getString(R.string.crime_call_suspect, phoneNumber));</span><br><span class="line">           mCallSuspectButton.setEnabled(<span class="keyword">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="3-2-3-建立拨打电话的隐式-Intent"><a href="#3-2-3-建立拨打电话的隐式-Intent" class="headerlink" title="3.2.3 建立拨打电话的隐式 Intent"></a>3.2.3 建立拨打电话的隐式 Intent</h3><p>这个就和书上的差不多啦~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mCallSuspectButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        Uri number = Uri.parse(<span class="string">"tel:"</span> + mCrime.getPhoneNumber());</span><br><span class="line">        Intent i = <span class="keyword">new</span> Intent(Intent.ACTION_DIAL, number);</span><br><span class="line">        startActivity(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html" title="Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 15 隐式 intent-20170111.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2014%20SQLite%20%E6%95%B0%E6%8D%AE%E5%BA%93-20170109.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照">
+      Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-使用格式化字符串"><span class="nav-text">1. 使用格式化字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用隐式-intent"><span class="nav-text">2. 使用隐式 intent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-隐式-intent-的组成"><span class="nav-text">2.1 隐式 intent 的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-发送消息"><span class="nav-text">2.1 发送消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-获取联系人信息"><span class="nav-text">2.2 获取联系人信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-从联系人列表中获取联系人数据"><span class="nav-text">2.2.1 从联系人列表中获取联系人数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-联系人信息的使用权限"><span class="nav-text">2.2.2 联系人信息的使用权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-检查可响应任务的-activity"><span class="nav-text">2.2.3 检查可响应任务的 activity</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战联系"><span class="nav-text">3. 挑战联系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-ShareCompat"><span class="nav-text">3.1 ShareCompat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-又一个隐式-Intent"><span class="nav-text">3.2 又一个隐式 Intent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-获取联系人-ID"><span class="nav-text">3.2.1 获取联系人 ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-通过获取到的联系人-ID-查询电话"><span class="nav-text">3.2.2 通过获取到的联系人 ID 查询电话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-建立拨打电话的隐式-Intent"><span class="nav-text">3.2.3 建立拨打电话的隐式 Intent</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

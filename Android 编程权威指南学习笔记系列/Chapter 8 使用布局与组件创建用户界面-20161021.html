@@ -1,1 +1,519 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要介绍了一些进阶的界面设计知识，以及如何用图形化界面设计 UI （虽然不推荐日常使用，但是至少要知道，特别是在 Android Studio 2.2 推出之后，可以直接查看设计蓝图，更为直观并且容易调整细节）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%208%20%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2-20161021.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要介绍了一些进阶的界面设计知识，以及如何用图形化界面设计 UI （虽然不推荐日常使用，但是至少要知道，特别是在 Android Studio 2.2 推出之后，可以直接查看设计蓝图，更为直观并且容易调整细节）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161027171304182">
+<meta property="og:image" content="http://img.blog.csdn.net/20161107141648322">
+<meta property="article:published_time" content="2016-10-21T03:01:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161027171304182">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%208%20%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2-20161021.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%208%20%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2-20161021.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-21 11:01:10" itemprop="dateCreated datePublished" datetime="2016-10-21T11:01:10+08:00">2016-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要介绍了一些进阶的界面设计知识，以及如何用图形化界面设计 UI （虽然不推荐日常使用，但是至少要知道，特别是在 Android Studio 2.2 推出之后，可以直接查看设计蓝图，更为直观并且容易调整细节）。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/e6f879af23dfa599f09292d35b6a884647db93e8">完成第八章，未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/1c91e7688a9810dfb032b76bc4615ff8aa239816">完成第八章的挑战</a></p>
+</blockquote>
+<h2 id="1-样式（style）-与-主题（theme）"><a href="#1-样式（style）-与-主题（theme）" class="headerlink" title="1. 样式（style） 与 主题（theme）"></a>1. 样式（style） 与 主题（theme）</h2><blockquote>
+<p>为什么我们需要样式（style）？ 因为当界面有统一风格时，就不需要针对每一个控件单独写属性了，规定几种样式（style）即可。</p>
+</blockquote>
+<p>style 是 XML 资源文件，含有用来描述组件行为和外观的属性定义。例如，下面的样式能让其显示的文字大小大于一般的值。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"BigTextStyle"</span>&gt;</span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textSize"</span>&gt;</span>20sp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:padding"</span>&gt;</span>3dp<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以在 res/values/ 目录下的样式文件中写入自己需要的属性定义，然后再布局文件中以 <code>@style/my_own_style(file name)</code> 的形式引用</p>
+<blockquote>
+<p>什么是主题（theme）呢？主题是各种样式的集合，从结构上来说，主体本身也是一种样式资源，不过它的属性指向了其他样式资源</p>
+</blockquote>
+<p> <em>主题属性引用</em> 顾名思义就是将预定义的应用主题样式添加给指定组件，比如给 TextView 控件定义下面的属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style="?android:listSeparatorTextViewStyle"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>意味着告诉 Android 运行资源管理器：“在应用主题里找到名为 listSeparatorTextViewStyle 的属性。该属性指向其他样式资源，请将其资源的值放在这里。”</p>
+<h2 id="2-margin-与-padding"><a href="#2-margin-与-padding" class="headerlink" title="2. margin 与 padding"></a>2. margin 与 padding</h2><p>Android 布局文件中的 margin 和 padding 跟 Web 编程的一样，具体定义如下：</p>
+<ul>
+<li>margin 指的是外边距，即指定视图组件之间的距离</li>
+<li>padding 指的是内边距，即指定视图外边框与其内容间的距离</li>
+</ul>
+<p>两者之间区别如下图：<br><img src="http://img.blog.csdn.net/20161027171304182" alt="margin 和 padding"></p>
+<h2 id="3-dp、sp-及屏幕像素密度"><a href="#3-dp、sp-及屏幕像素密度" class="headerlink" title="3. dp、sp 及屏幕像素密度"></a>3. dp、sp 及屏幕像素密度</h2><p>Android 使用密度修饰 drawable 目录（如 drawable-xhdpi）下的图像文件会自动适配不同像素密度的屏幕。那么问题来了，加入图像完成了自动适配，但是边距无法缩放适配，或者用户配置了大于默认值的文字大小，会出现什么意外呢？</p>
+<p>为了解决这些可能的问题，Android 提供了密度无关的尺寸单位（density-independent dimension unit）。使用这种单位，可在不同屏幕密度的设备上获得同样的尺寸。无需进行麻烦的转换计算，应用运行时，Android 会自动将这种单位转换成像素单位。</p>
+<h3 id="1-dp-dip-density-independent-pixel-密度无关像素"><a href="#1-dp-dip-density-independent-pixel-密度无关像素" class="headerlink" title="1. dp (dip, density-independent pixel) 密度无关像素"></a>1. dp (dip, density-independent pixel) 密度无关像素</h3><p>所谓密度无关，即和屏幕的像素密度没有关系。1dp 单位在设备的屏幕上总是等于 1/160 英寸。使用 dp 的好处是，无论屏幕密度如何，总能获得同样的尺寸。</p>
+<blockquote>
+<p>px = dp * (dpi / 160)</p>
+</blockquote>
+<p>其中，dpi 即等于我们常说的 ppi，计算公式即为</p>
+<blockquote>
+<p>ppi = sqrt(屏幕横向像素数的平方 + 屏幕纵向像素数的平方）/ 屏幕对角线英寸数</p>
+</blockquote>
+<p>那么常见的 mdpi， hdpi 是什么呢？对应关系如下图：<br><img src="http://img.blog.csdn.net/20161107141648322" alt="ppi 对应尺寸"></p>
+<p>也就是说 160ppi 像素密度的屏幕，又叫 mdpi 的屏幕，程序中写的 1dp 在上面呈现的就是 1 像素（pixel，px）。</p>
+<h3 id="2-sp-scale-independent-pixel-缩放无关像素"><a href="#2-sp-scale-independent-pixel-缩放无关像素" class="headerlink" title="2. sp (scale-independent pixel) 缩放无关像素"></a>2. sp (scale-independent pixel) 缩放无关像素</h3><p>这种像素也与屏幕无关，但是与设置有关，一般用来设置文本的大小。</p>
+<h2 id="4-android-layout-weight-属性"><a href="#4-android-layout-weight-属性" class="headerlink" title="4. android:layout_weight 属性"></a>4. android:layout_weight 属性</h2><p>在 LinearLayout 中，有这样一个特殊属性，它能让你自由分配摆放部件后的空间，避免大量留白。它就是 android:layout_weight，这里的 weight 是权重的意思，也就是说，每个部件都有自己的权重，用于分配摆放部件后<strong>剩余的空间</strong>。也就是说，如果两个部件权重都是 1 时，它们平分摆放它们之后的剩余空间。</p>
+<p>但是这样就会出现一个问题，由于分配的是剩余的空间，所以在两个部件 layout_width 属性不一致（wrap_content 不算一致）时，layout_weight 属性不能使部件平分整块屏幕。如果想要平分怎么办呢？把两个部件的 layout_width 都设为 0dp 再保持其 weight 相等，也就是把整块屏幕都当做剩余空间，就能平分整块屏幕了。</p>
+<h2 id="5-挑战练习：日期格式化"><a href="#5-挑战练习：日期格式化" class="headerlink" title="5. 挑战练习：日期格式化"></a>5. 挑战练习：日期格式化</h2><p>我使用的是 SimpleDateFormat 类，它能通过字符串来直接格式化 Date 类型的数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"EEEE, MMM d, y"</span>, Locale.US);</span><br><span class="line">mDateButton = (Button) v.findViewById(R.id.crime_date);      mDateButton.setText(sdf.format(mCrime.getDate()));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%208%20%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2-20161021.html" title="Android编程权威指南（第二版）学习笔记（八）—— 第8章 使用布局与组件创建用户界面">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 8 使用布局与组件创建用户界面-20161021.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（七）—— 第7章 UI fragment 与 fragment 管理器">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（七）—— 第7章 UI fragment 与 fragment 管理器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html" rel="next" title="Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表">
+      Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-样式（style）-与-主题（theme）"><span class="nav-text">1. 样式（style） 与 主题（theme）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-margin-与-padding"><span class="nav-text">2. margin 与 padding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-dp、sp-及屏幕像素密度"><span class="nav-text">3. dp、sp 及屏幕像素密度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-dp-dip-density-independent-pixel-密度无关像素"><span class="nav-text">1. dp (dip, density-independent pixel) 密度无关像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-sp-scale-independent-pixel-缩放无关像素"><span class="nav-text">2. sp (scale-independent pixel) 缩放无关像素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-android-layout-weight-属性"><span class="nav-text">4. android:layout_weight 属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-挑战练习：日期格式化"><span class="nav-text">5. 挑战练习：日期格式化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

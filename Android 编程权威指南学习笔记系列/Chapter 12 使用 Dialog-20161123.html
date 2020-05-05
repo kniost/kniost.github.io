@@ -1,1 +1,525 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要介绍了如何使用内嵌在 fragment 中的对话框，以及 fragment 之间如何传递数据 GitHub 地址：完成第12章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十二）—— 第12章 对话框">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2012%20%E4%BD%BF%E7%94%A8%20Dialog-20161123.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要介绍了如何使用内嵌在 fragment 中的对话框，以及 fragment 之间如何传递数据 GitHub 地址：完成第12章">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161124133415509">
+<meta property="article:published_time" content="2016-11-23T08:04:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161124133415509">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2012%20%E4%BD%BF%E7%94%A8%20Dialog-20161123.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十二）—— 第12章 对话框 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2012%20%E4%BD%BF%E7%94%A8%20Dialog-20161123.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十二）—— 第12章 对话框
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-11-23 16:04:10" itemprop="dateCreated datePublished" datetime="2016-11-23T16:04:10+08:00">2016-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要介绍了如何使用内嵌在 fragment 中的对话框，以及 fragment 之间如何传递数据</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/20c265c6dd9e122fc169eed8dc90da60f275f360">完成第12章</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-使用-DialogFragment"><a href="#1-使用-DialogFragment" class="headerlink" title="1. 使用 DialogFragment"></a>1. 使用 DialogFragment</h1><h2 id="1-1-AppCompat-兼容库"><a href="#1-1-AppCompat-兼容库" class="headerlink" title="1.1 AppCompat 兼容库"></a>1.1 AppCompat 兼容库</h2><blockquote>
+<p>Google 推出 AppCompat 兼容库是为了让所有Android用户都能体验到新特性。AppCompat兼容库能通过支持库的方式将部分最新系统的特色功能移植到Android旧版本系统中。</p>
+</blockquote>
+<p>应该在 Porject Structure 中添加 appcompat-v7 的依赖。</p>
+<h2 id="1-2-创建-DialogFragment"><a href="#1-2-创建-DialogFragment" class="headerlink" title="1.2 创建 DialogFragment"></a>1.2 创建 DialogFragment</h2><blockquote>
+<p>建议将 <code>AlertDialog</code> 封装在 <code>DialogFragment</code> (Fragment的子类)实例中使用。当然，不使用<code>DialogFragment</code> 也可显示 <code>AlertDialog</code> 视图,但不推荐这样做。使用 <code>FragmentManager</code> 管理对话框,可以更灵活地显示对话框。</p>
+</blockquote>
+<p>如果旋转设备，单独使用的 <code>AlertDialog</code> 会消失，而封装在 fragment 中的 <code>AlertDialog</code> 则不会有此问题(旋转后,对话框会被重建恢复)。</p>
+<ul>
+<li>首先需要一个针对 dialog 的布局文件，如 DatePicker 作为根元素的 Dialog 用于选择日期。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DatePicker</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:id</span>=<span class="string">"@+id/dialog_date_date_picker"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:calendarViewShown</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--旧版系统会使用 calenderViewShown 属性--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">DatePicker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后新建一个父类是 <code>DialogFragment</code> 的类 <code>DatePickerFragment</code>，重写其中的 <code>onCreateDialog</code> 方法，返回一个<code>AlertDialog</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 使用 LayoutInflater 引用布局文件创建用于显示 Dialog 的 View</span></span><br><span class="line">	View v = LayoutInflater.from(getActivity())</span><br><span class="line">                .inflate(R.layout.dialog_date, <span class="keyword">null</span>);</span><br><span class="line">                </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> AlertDialog.Builder(getActivity())</span><br><span class="line">		.setView(v) <span class="comment">// 设置视图</span></span><br><span class="line">		.setTitle(R.string.date_picker_title) <span class="comment">//设置标题</span></span><br><span class="line">		<span class="comment">// 设置 OK 按钮，OnClickListener 暂时留空</span></span><br><span class="line">		.setPositiveButton(android.R.string.ok, <span class="keyword">null</span>)</span><br><span class="line">		<span class="comment">// 使用 Builder 的 create() 方法创建 Dialog 并返回</span></span><br><span class="line">		.create(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在使用 DialogFragment 时，使用成员方法 show 来显示 dialog：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 Fragment 中为 DatePickerFragment 添加一个 Tag</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String DIALOG_DATE = <span class="string">"DialogDate"</span>;</span><br><span class="line">……</span><br><span class="line"><span class="comment">// 在 Fragment 内部获取 FragmentManager</span></span><br><span class="line">FragmentManager manager = getFragmentManager(); </span><br><span class="line">DatePickerFragment dialog = <span class="keyword">new</span> DatePickerFragment();</span><br><span class="line"><span class="comment">// 显示对话框</span></span><br><span class="line">dialog.show(manager, DIALOG_DATE);</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-fragment-之间的数据传递"><a href="#2-fragment-之间的数据传递" class="headerlink" title="2. fragment 之间的数据传递"></a>2. fragment 之间的数据传递</h1><p>我们之前实现了 activity 之间以及基于 fragment 的 activity 之间的数据传递。现在需实现同一 activity 托管的两个 fragment 之间的数据传递。<br><img src="http://img.blog.csdn.net/20161124133415509" alt="一个 activity 托管的不同 fragment 之间数据的传递"></p>
+<h2 id="2-1-将数据传递到对话框"><a href="#2-1-将数据传递到对话框" class="headerlink" title="2.1 将数据传递到对话框"></a>2.1 将数据传递到对话框</h2><p>显然，要达到目的，只需要在 DatePickerFragment 中建立获取实例的 newInstance 方法，其中需要的参数是传递的信息即可，示例如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DatePickerFragment.java</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DatePickerFragment <span class="title">newInstance</span><span class="params">(Date date)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 新建一个 Bundle 对象用于存放数据</span></span><br><span class="line">	Bundle args = <span class="keyword">new</span> Bundle();</span><br><span class="line">	args.putSerializable(ARG_DATE, date);</span><br><span class="line">    DatePickerFragment fragment = <span class="keyword">new</span> DatePickerFragment();</span><br><span class="line">    <span class="comment">// 使用 fragment arguments 来传递参数</span></span><br><span class="line">    fragment.setArguments(args);</span><br><span class="line">    <span class="keyword">return</span> fragment;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>记得把使用 DatePickerFragment 的构造方法的地方改成 newInstance 方法获取实例。</p>
+<p>在获得数据之后，要先将 DatePicker 初始化为原本的日期，首先用 Fragment 的 <code>getArguments().getSeriallizable(String key)</code> 方法获取数据，然后用 Calendar 对象取出 date 中的年月日，最后使用 DatePicker 类的 <code>init(int year, int month, int dayOfMonth, OnDateChangedListener listener)</code> 方法 初始化默认日期</p>
+<h2 id="2-2-从对话框回传数据"><a href="#2-2-从对话框回传数据" class="headerlink" title="2.2 从对话框回传数据"></a>2.2 从对话框回传数据</h2><h3 id="2-2-1-设置目标-fragment"><a href="#2-2-1-设置目标-fragment" class="headerlink" title="2.2.1 设置目标 fragment"></a>2.2.1 设置目标 fragment</h3><p>类似于 activity 间的关联，可将 CrimeFragment 设置成 DatePickerFragment 的目标 fragment。 即使是在 CrimeFragment 和 DatePickerFragment 被销毁和重建后，操作系统也会重新关联它们。调用以下 Fragment 方法可建立这种关联:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTargetFragment</span><span class="params">(Fragment fragment, <span class="keyword">int</span> requestCode)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>该方法有两个参数：目标 fragment 以及请求代码。需要时，目标 fragment 使用请求代码确认是哪个 fragment 在回传数据。</p>
+<p>目标 fragment 和请求代码由 FragmentManager 负责跟踪管理,我们可调用设置目标的 fragment 的 <code>getTargetFragment()</code> 和 <code>getTargetRequestCode()</code> 方法获取它们。</p>
+<h3 id="2-2-2-传递数据给目标-Fragment"><a href="#2-2-2-传递数据给目标-Fragment" class="headerlink" title="2.2.2 传递数据给目标 Fragment"></a>2.2.2 传递数据给目标 Fragment</h3><p>处理由同一 activity 托管的两个 fragment 间的数据返回时，可借用<code>Fragment.onActivityResult(...)</code>方法。因此，直接调用目标 fragment 的<code>Fragment.onActivityResult(...)</code>方法,，就能实现数据的回传。该方法恰好有我们需要的如下信息：</p>
+<ul>
+<li>请求代码：与传入<code>setTargetFragment(...)</code>方法相匹配,告诉目标 fragment 返回结果来 自哪里。</li>
+<li>结果代码：决定下一步该采取什么行动。 </li>
+<li>Intent：包含 extra 数据。</li>
+</ul>
+<p>所以从 CrimeFragment 中显示 DatePickerFragment，用户选择日期以后，想要回传信息，可以写一个 sendResult 方法，该方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DatePickerFragment.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXTRA_DATE =</span><br><span class="line">	<span class="string">"com.kniost.criminalintent.date"</span>;</span><br><span class="line"> ……                </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendResult</span><span class="params">(<span class="keyword">int</span> resultCode, Date date)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 防止出错</span></span><br><span class="line">	<span class="keyword">if</span> (getTargetFragment() == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">	<span class="comment">// 放置数据到 Intent 中</span></span><br><span class="line">	intent.putExtra(EXTRA_DATE, date);</span><br><span class="line">	<span class="comment">// 获取目标 fragment，调用其 onActivityResult 方法，其中 RequestCode 是用 getTargetRequestCode 方法获取的，resultCode 是传入参数，intent 包含了数据</span></span><br><span class="line">	getTargetFragment()</span><br><span class="line">		.onActivityResult(getTargetRequestCode(), resultCode, intent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 CrimeFragment 中则应该重写 onActivityResult 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeFragment.java</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 如果一切正常，调用 sendResult 的方法时传入的参数应该就是 Activity.RESULT_OK，所以不会直接 return</span></span><br><span class="line">    <span class="keyword">if</span> (resultCode != Activity.RESULT_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 如此判断方便有多个回传时使用</span></span><br><span class="line">	<span class="keyword">if</span> (requestCode == REQUEST_DATE) &#123;</span><br><span class="line">		Date date = (Date) data</span><br><span class="line">			.getSerializableExtra(DatePickerFragment.EXTRA_DATE);</span><br><span class="line">		mCrime.setDate(date); mDateButton.setText(mCrime.getDate().toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-挑战练习"><a href="#3-挑战练习" class="headerlink" title="3. 挑战练习"></a>3. 挑战练习</h1><p><code>//待完成</code></p>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2012%20%E4%BD%BF%E7%94%A8%20Dialog-20161123.html" title="Android编程权威指南（第二版）学习笔记（十二）—— 第12章 对话框">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 12 使用 Dialog-20161123.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2013%20ToolBar-20161124.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十三）—— 第13章 工具栏（Toolbar）">
+      Android编程权威指南（第二版）学习笔记（十三）—— 第13章 工具栏（Toolbar） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-使用-DialogFragment"><span class="nav-text">1. 使用 DialogFragment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-AppCompat-兼容库"><span class="nav-text">1.1 AppCompat 兼容库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-创建-DialogFragment"><span class="nav-text">1.2 创建 DialogFragment</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-fragment-之间的数据传递"><span class="nav-text">2. fragment 之间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-将数据传递到对话框"><span class="nav-text">2.1 将数据传递到对话框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-从对话框回传数据"><span class="nav-text">2.2 从对话框回传数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-设置目标-fragment"><span class="nav-text">2.2.1 设置目标 fragment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-传递数据给目标-Fragment"><span class="nav-text">2.2.2 传递数据给目标 Fragment</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战练习"><span class="nav-text">3. 挑战练习</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

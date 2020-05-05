@@ -1,1 +1,501 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲的是使用 WebView 在应用内浏览网页 GitHub 地址：完成第28章，未完成挑战完成第28章挑战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2028%20%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88-20170302.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲的是使用 WebView 在应用内浏览网页 GitHub 地址：完成第28章，未完成挑战完成第28章挑战">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-02T03:17:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:41.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2028%20%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88-20170302.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2028%20%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88-20170302.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-02 11:17:10" itemprop="dateCreated datePublished" datetime="2017-03-02T11:17:10+08:00">2017-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:41" itemprop="dateModified" datetime="2018-11-25T15:19:41+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲的是使用 WebView 在应用内浏览网页</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/bedc8d10fb81e2936afd669288ef4e6fbd65183a">完成第28章，未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/f58ff9aa76d6a025bddcddb8feda323f0de3a0c4">完成第28章挑战</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-WebView"><a href="#1-WebView" class="headerlink" title="1. WebView"></a>1. WebView</h1><p>如果不使用 WebView，我们可以使用隐式 intent，也就是用独立的浏览器打开一个网页。但是我们通常只想在 activity 中显示网页内容而不是打开浏览器：或许是想显示自己生成的 HTML，或许是想以某种方式限制用户使用浏览器。对于大多数需要帮助文档的应用，普遍做法是以网页的形式提供帮助文档，这样会方便后期的更新与维护。打开浏览器查看帮助文档，既不专业，又妨碍应用行为的定制，同时也无法将网页整合进自己的用户界面。</p>
+<h2 id="1-1-WebView-的使用"><a href="#1-1-WebView-的使用" class="headerlink" title="1.1 WebView 的使用"></a>1.1 WebView 的使用</h2><p>和其他的 View 一样，在 fragment 的布局文件中声明之后，在 fragment 中获取实例，然后进行一番设置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">WebView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/fragment_photo_page_web_view"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhotoPageFragment</span> <span class="keyword">extends</span> <span class="title">VisibleFragment</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG_URI = <span class="string">"photo_page_url"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Uri mUri;</span><br><span class="line">    <span class="keyword">private</span> WebView mWebView;</span><br><span class="line"></span><br><span class="line">	………………</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 在这里防止 Lint 警告 JavaScript 被启用</span></span><br><span class="line">    <span class="meta">@SuppressLint</span>(<span class="string">"SetJavaScriptEnabled"</span>)</span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        View v = inflater.inflate(R.layout.fragment_photo_page, container, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 首先获取实例</span></span><br><span class="line">        mWebView = (WebView) v.findViewById(R.id.fragment_photo_page_web_view);</span><br><span class="line">        <span class="comment">// 然后将 JavaScript 设置为启用</span></span><br><span class="line">        mWebView.getSettings().setJavaScriptEnabled(<span class="keyword">true</span>);</span><br><span class="line">        mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">        	<span class="comment">// 这个方法决定 url 在哪里处理，返回 false 代表让 WebView 去加载</span></span><br><span class="line">        	<span class="comment">// 其实该方法默认返回的就是 false</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        mWebView.loadUrl(mUri.toString());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，WebClient 是一个关键，如果不重写该方法，WebView 可能不会加载这个 url</p>
+<h2 id="1-2-使用-WebChromeClient-优化-WebView-显示"><a href="#1-2-使用-WebChromeClient-优化-WebView-显示" class="headerlink" title="1.2 使用 WebChromeClient 优化 WebView 显示"></a>1.2 使用 WebChromeClient 优化 WebView 显示</h2><p>WebViewClient 主要帮助 WebView 处理各种通知、请求事件，而 WebChromeClient 主要辅助 WebView 处理 Javascript 的对话框、网站图标、网站 title、加载进度等。</p>
+<p>我们在视图中加入 ProgressBar 放在 WebView 上方并默认隐藏，由于 WebChromeClient 返回进度值在0～100之间，所以我们要设置进度条的最大值为100。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mProgressBar.setMax(<span class="number">100</span>); <span class="comment">// WebChromeClient 进度范围就是0～100</span></span><br><span class="line"></span><br><span class="line">mWebView.setWebChromeClient(<span class="keyword">new</span> WebChromeClient() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (newProgress == <span class="number">100</span>) &#123;</span><br><span class="line">            mProgressBar.setVisibility(View.GONE);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            mProgressBar.setVisibility(View.VISIBLE);</span><br><span class="line">            mProgressBar.setProgress(newProgress);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceivedTitle</span><span class="params">(WebView view, String title)</span> </span>&#123;</span><br><span class="line">        AppCompatActivity activity = (AppCompatActivity) getActivity();</span><br><span class="line">        设置网站标题</span><br><span class="line">        activity.getSupportActionBar().setSubtitle(title);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-处理-WebView-的设备旋转问题"><a href="#1-3-处理-WebView-的设备旋转问题" class="headerlink" title="1.3 处理 WebView 的设备旋转问题"></a>1.3 处理 WebView 的设备旋转问题</h2><p>尝试旋转设备屏幕，可以发现 WebView 必须重新加载网页。这是因为 WebView 包含太多的数据，无法在 onSaveInstanceState(…)方法内全部保存。所以每次设备旋转，它都必须从头开始加载网页数据。</p>
+<p>因为 WebView 是视图层级结构的一部分，所以旋转后它肯定会销毁并重建，不能用 retainFragment 来保留。对于一些类似的类(如 VideoView)，Android 文档推荐让 activity 自己处理设备配置变更。也就是说，无需销毁重建 activity，就能直接调整自己的视图以适应新的屏幕尺寸。这样，WebView 也就不必重新加载全部数据了。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".PhotoPageActivity"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:configChanges</span>=<span class="string">"keyboardHidden|orientation|screenSize"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>android:configChanges 属性表明，如果因键盘开或关、屏幕方向改变、屏幕大小改变(也包括 Android 3.2之后的屏幕方向变化)而发生设备配置更改，那么 activity 应自己处理配置更改。</p>
+<h1 id="2-挑战练习"><a href="#2-挑战练习" class="headerlink" title="2. 挑战练习"></a>2. 挑战练习</h1><h2 id="2-1-使用后退键浏览历史页面"><a href="#2-1-使用后退键浏览历史页面" class="headerlink" title="2.1 使用后退键浏览历史页面"></a>2.1 使用后退键浏览历史页面</h2><p>我们覆盖 Activity.onBackPressed 方法，就可以对返回键的行为进行控制，但是要获取 WebView 的实例，所以在 fragment 中加入了一个 getter。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PhotoPageActivity.java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBackPressed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    PhotoPageFragment fragment = (PhotoPageFragment) getSupportFragmentManager()</span><br><span class="line">            .findFragmentById(R.id.fragment_container);</span><br><span class="line">    <span class="keyword">if</span> (fragment.getWebView().canGoBack()) &#123;</span><br><span class="line">        fragment.getWebView().goBack();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onBackPressed();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-非-HTTP-链接支持"><a href="#2-2-非-HTTP-链接支持" class="headerlink" title="2.2 非 HTTP 链接支持"></a>2.2 非 HTTP 链接支持</h2><p>只需要修改重写的 shouldOverrideUrlLoading 方法即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mWebView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (url.startsWith(<span class="string">"https://"</span>) || url.startsWith(<span class="string">"http://"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW, Uri.parse(url));</span><br><span class="line">            startActivity(intent);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2028%20%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88-20170302.html" title="Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 28 网页浏览-20170302.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2027%20broadcast%20intent-20170301.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（二十七）—— 第27章 broadcast intent">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（二十七）—— 第27章 broadcast intent
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2029%20%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE%E4%B8%8E%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6-20170313.html" rel="next" title="Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件">
+      Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-WebView"><span class="nav-text">1. WebView</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-WebView-的使用"><span class="nav-text">1.1 WebView 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-使用-WebChromeClient-优化-WebView-显示"><span class="nav-text">1.2 使用 WebChromeClient 优化 WebView 显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-处理-WebView-的设备旋转问题"><span class="nav-text">1.3 处理 WebView 的设备旋转问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-挑战练习"><span class="nav-text">2. 挑战练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-使用后退键浏览历史页面"><span class="nav-text">2.1 使用后退键浏览历史页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-非-HTTP-链接支持"><span class="nav-text">2.2 非 HTTP 链接支持</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

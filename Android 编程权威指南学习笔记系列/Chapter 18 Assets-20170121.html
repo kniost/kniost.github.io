@@ -1,1 +1,494 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章介绍了 assets。assets 是有别于 resources 的另一种资源打包方式，可以被看作随应用打包的微型文件系统，支持任意层次的文件目录结构。因为这个优点，类似游戏这样需要加载大量图片和声音资源的应用通常都会使用它。 GitHub 地址：完成18章  这章需要用到一个 RecyclerView，其中每个 ViewHolder 对应一个音频文件。如果使用 resources 来管理声">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章介绍了 assets。assets 是有别于 resources 的另一种资源打包方式，可以被看作随应用打包的微型文件系统，支持任意层次的文件目录结构。因为这个优点，类似游戏这样需要加载大量图片和声音资源的应用通常都会使用它。 GitHub 地址：完成18章  这章需要用到一个 RecyclerView，其中每个 ViewHolder 对应一个音频文件。如果使用 resources 来管理声">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-21T12:46:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-21 20:46:10" itemprop="dateCreated datePublished" datetime="2017-01-21T20:46:10+08:00">2017-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章介绍了 assets。assets 是有别于 resources 的另一种资源打包方式，可以被看作随应用打包的微型文件系统，支持任意层次的文件目录结构。因为这个优点，类似游戏这样需要加载大量图片和声音资源的应用通常都会使用它。</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/5d4a0a8544ae083af20fa265ee7a79a201865d8d">完成18章</a></p>
+</blockquote>
+<p>这章需要用到一个 RecyclerView，其中每个 ViewHolder 对应一个音频文件。如果使用 resources 来管理声音文件，那么 Android 一个一个处理效率将极其低下（毕竟声音是时间敏感的），所以我们使用 Assets 来处理。</p>
+<a id="more"></a>
+
+
+<h1 id="1-导入-Assets"><a href="#1-导入-Assets" class="headerlink" title="1 导入 Assets"></a>1 导入 Assets</h1><p>在模块的根目录下新建 assets 文件（或者右键点击模块的根目录新建），然后建立需要的资源文件夹并放入资源。</p>
+<h1 id="2-处理-Assets"><a href="#2-处理-Assets" class="headerlink" title="2 处理 Assets"></a>2 处理 Assets</h1><p>assets 导入后，我们还要能在应用中进行<strong>定位、管理记录以及播放</strong>。这需要新建一个名为 BeatBox 的资源管理类，代码和相应注释如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeatBox</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TAG 变量用于记录日志</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"BeatBox"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 用于存储声音资源文件目录名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SOUNDS_FOLDER = <span class="string">"sample_sounds"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 访问 assets 需要用到 AssetManager 对象</span></span><br><span class="line">    <span class="keyword">private</span> AssetManager mAssets;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BeatBox</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在初始化的时候获取 assets 的管理对象</span></span><br><span class="line">    <span class="comment">// 不用在意 Context 是哪个，因为</span></span><br><span class="line">    <span class="comment">// 所有的 AssetManager 管理的都是一套 assets 资源</span></span><br><span class="line">        mAssets = context.getAssets();</span><br><span class="line">        loadSounds();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadSounds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String[] soundNames = <span class="keyword">new</span> String[]&#123;&#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        	<span class="comment">// 获取所有文件的名字</span></span><br><span class="line">            soundNames = mAssets.list(SOUNDS_FOLDER);</span><br><span class="line">            Log.i(TAG, <span class="string">"Found "</span> + soundNames.length + <span class="string">" sounds"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">            Log.e(TAG, <span class="string">"Could not list assets"</span>, ioe);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-使用-Assets"><a href="#3-使用-Assets" class="headerlink" title="3 使用 Assets"></a>3 使用 Assets</h1><p>获取到资源文件名之后，要将其展示给用户，最终还需要播放这些声音文件。所以，我们得创建一个对象，让它管理<strong>资源文件名、用户应该看到的文件名以及其他一些相关信息</strong>。在这里，我们创建了一个叫 Sound 的类用来管理一个声音：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sound</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String mAssetPath;</span><br><span class="line">    <span class="keyword">private</span> String mName;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sound</span><span class="params">(String assetPath)</span> </span>&#123;</span><br><span class="line">        mAssetPath = assetPath;</span><br><span class="line">        <span class="comment">// 将文件路径用"/"分割</span></span><br><span class="line">        String[] components = assetPath.split(<span class="string">"/"</span>);</span><br><span class="line">        <span class="comment">// 取最后一个，即文件名</span></span><br><span class="line">        String filename = components[components.length - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 在知道文件名结尾是 .wav 的情况下，直接将 .wav 替换为空</span></span><br><span class="line">        mName = filename.replace(<span class="string">".wav"</span>, <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAssetPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mAssetPath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 BeatBox 类中获取所有的 Sound 对象，这样我们就有了 RecyclerView 的数据集，然后就能够绑定声音和 ViewHolder 了。</p>
+<h1 id="4-访问-Assets"><a href="#4-访问-Assets" class="headerlink" title="4 访问 Assets"></a>4 访问 Assets</h1><p>Sound 对象定义了 assets 文件路径。但是尝试使用 File 对象打开资源文件是行不通的;<br>正确的方式是使用 AssetManager:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String assetPath = sound.getAssetPath();</span><br><span class="line">InputStream soundData = mAssets.open(assetPath);</span><br></pre></td></tr></table></figure>
+<p>这样才能得到标准的 InputStream 数据流。随后，和 Java 中的其他 InputStream 一样，该怎么用就怎么用。<br>不过，有些 API 可能还会需要 FileDescriptor。(下一章的 SoundPool 类会用到。)这也好办， 如下列代码所示，改调用 AssetManager.openFd(String)方法就行了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String assetPath = sound.getAssetPath();</span><br><span class="line"><span class="comment">// AssetFileDescriptors are different from FileDescriptors,</span></span><br><span class="line">AssetFileDescriptor assetFd = mAssets.openFd(assetPath);</span><br><span class="line"><span class="comment">// but you get can a regular FileDescriptor easily if you need to.</span></span><br><span class="line">FileDescriptor fd = assetFd.getFileDescriptor();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html" title="Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 18 Assets-20170121.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频">
+      Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-导入-Assets"><span class="nav-text">1 导入 Assets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-处理-Assets"><span class="nav-text">2 处理 Assets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用-Assets"><span class="nav-text">3 使用 Assets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-访问-Assets"><span class="nav-text">4 访问 Assets</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

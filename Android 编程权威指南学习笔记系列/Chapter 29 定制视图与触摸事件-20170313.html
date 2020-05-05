@@ -1,1 +1,552 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲了自定义 View 及其触摸事件的处理，有一定的难度 GitHub 地址：完成第29章，未完成挑战完成第29章挑战1-设备旋转完成第29章挑战2-双指旋转矩形">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2029%20%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE%E4%B8%8E%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6-20170313.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲了自定义 View 及其触摸事件的处理，有一定的难度 GitHub 地址：完成第29章，未完成挑战完成第29章挑战1-设备旋转完成第29章挑战2-双指旋转矩形">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-13T03:07:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:17:09.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2029%20%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE%E4%B8%8E%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6-20170313.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2029%20%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE%E4%B8%8E%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6-20170313.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-13 11:07:10" itemprop="dateCreated datePublished" datetime="2017-03-13T11:07:10+08:00">2017-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:17:09" itemprop="dateModified" datetime="2018-11-25T15:17:09+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲了自定义 View 及其触摸事件的处理，有一定的难度</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/d56f3711ddf5c7be62e44199e365682bb6a121a4">完成第29章，未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/e2dc19ea90c7ceddb52217283cb0111c98f5d22d">完成第29章挑战1-设备旋转</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/5819fc03bde8009a8fd1683f29056f3ff8df4427">完成第29章挑战2-双指旋转矩形</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-自定义-View（定制视图）"><a href="#1-自定义-View（定制视图）" class="headerlink" title="1. 自定义 View（定制视图）"></a>1. 自定义 View（定制视图）</h1><p>Android 自带众多优秀的标准视图与组件，但有时为追求独特的应用视觉效果，我们仍需创建定制视图。尽管定制视图种类繁多，但无外乎分为以下两大类别。</p>
+<ul>
+<li>简单视图。简单视图内部也可以很复杂;之所以归为简单类别，是因为简单视图不包括子视图。而且，简单视图几乎总是会执行定制绘制。</li>
+<li>聚合视图。聚合视图由其他视图对象组成。聚合视图通常管理着子视图，但不负责执行定制绘制。图形绘制任务都委托给了各个子视图。</li>
+</ul>
+<p><strong>创建定制视图所需的三大步骤：</strong></p>
+<ol>
+<li>选择超类。对于简单定制视图而言，View 是个空白画布，因此它作为超类最常见。对于聚合定制视图，我们应选择合适的超类布局，比如 FrameLayout。</li>
+<li>继承选定的超类，并至少覆盖一个超类构造方法。</li>
+<li>覆盖其他关键方法，以定制视图行为。</li>
+</ol>
+<h2 id="1-1-创建一个基本的自定义-View"><a href="#1-1-创建一个基本的自定义-View" class="headerlink" title="1.1 创建一个基本的自定义 View"></a>1.1 创建一个基本的自定义 View</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BoxDrawingView</span> <span class="keyword">extends</span> <span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从代码中创建的时候调用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BoxDrawingView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从 xml 文件中 inflate 的时候调用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BoxDrawingView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意在引用时我们必须使用自定义 View 的全路径类名，这样布局 inflater 才能够找到它。</strong>布局 inflater 解析布局 XML 文件，并按视图定义创建 View 实例。如果元素名不是全路径类名，布局 inflater 会转而在 android.view 和 android.widget 包中寻找目标。如果目标视图类放置在其他包中，布局 inflater 将无法找到目标并最终导致应用崩溃。</p>
+</blockquote>
+<h2 id="1-2-处理触摸事件"><a href="#1-2-处理触摸事件" class="headerlink" title="1.2 处理触摸事件"></a>1.2 处理触摸事件</h2><p>因为我们的自定义 View 是 View 的子类，可以直接覆盖以下 View 方法：</p>
+<p><code>public boolean onTouchEvent(MotionEvent event)</code></p>
+<p>该方法接收一个 MotionEvent 类实例，MotionEvent 类可用来描述包括位置和动作的触摸事件。动作用于描述事件所处的阶段。</p>
+<table>
+<thead>
+<tr>
+<th align="left">动作常量</th>
+<th align="left">动作描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ACTION_DOWN</td>
+<td align="left">手指触摸到屏幕</td>
+</tr>
+<tr>
+<td align="left">ACTION_MOVE</td>
+<td align="left">手指在屏幕上移动</td>
+</tr>
+<tr>
+<td align="left">ACTION_UP</td>
+<td align="left">手指离开屏幕</td>
+</tr>
+<tr>
+<td align="left">ACTION_CANCEL</td>
+<td align="left">父视图拦截了触摸事件</td>
+</tr>
+</tbody></table>
+<p>我们的目的就是在一根手指放下的时候记录下放下的位置，移动时随之变化，放开时固定该矩形框。并且之前画的矩形框数据需要记录下来。<br>所以建立一个实体类用于记录按下的点和放开的点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> PointF mOrigin;</span><br><span class="line">    <span class="keyword">private</span> PointF mCurrent;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Box</span><span class="params">(PointF origin)</span> </span>&#123;</span><br><span class="line">        mOrigin = origin;</span><br><span class="line">        mCurrent = origin;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后重写 onTouchEvent 并进行相应操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Box mCurrentBox;</span><br><span class="line"><span class="keyword">private</span> List&lt;Box&gt; mBoxen = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 每次有触摸事件都记录下现在的坐标</span></span><br><span class="line">    PointF current = <span class="keyword">new</span> PointF(event.getX(), event.getY());</span><br><span class="line">    String action = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (event.getActionMasked()) &#123;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">            action = <span class="string">"ACTION_DOWN"</span>;</span><br><span class="line">            <span class="comment">// 每次按下的时候在列表中中新增一个 Box</span></span><br><span class="line">            mCurrentBox = <span class="keyword">new</span> Box(current);</span><br><span class="line">            mBoxen.add(mCurrentBox);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">            action = <span class="string">"ACTION_MOVE"</span>;</span><br><span class="line">            <span class="keyword">if</span> (mCurrentBox != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 移动的时候都要重绘</span></span><br><span class="line">                mCurrentBox.setCurrent(current);</span><br><span class="line">                invalidate();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">        	<span class="comment">// 抬起的时候不再指向最新的 Box</span></span><br><span class="line">            action = <span class="string">"ACTION_UP"</span>;</span><br><span class="line">            mCurrentBox = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">            action = <span class="string">"ACTION_CANCEL"</span>;</span><br><span class="line">            mCurrentBox = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Log.i(TAG, action + <span class="string">" at x="</span> + current.x +</span><br><span class="line">           <span class="string">", y="</span> + current.y);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-onDraw-方法内的图形绘制"><a href="#2-onDraw-方法内的图形绘制" class="headerlink" title="2. onDraw() 方法内的图形绘制"></a>2. onDraw() 方法内的图形绘制</h1><p>应用启动时，所有视图都处于无效状态。也就是说，视图还没有绘制到屏幕上。为解决这个问题，Android 调用了顶级 View 视图的 draw()方法。这会引起自上而下的链式调用反应。首先，视图完成自我绘制，然后是子视图的自我绘制，再然后是子视图的子视图的自我绘制，如此调用下去直至继承结构的末端。当继承结构中的所有视图都完成自我绘制后，最顶级 View 视图也就生效了。<br>为加入这种绘制，可覆盖以下 View 方法: <code>protected void onDraw(Canvas canvas)</code><br>Canvas 和 Paint 是 Android 系统的两大绘制类。</p>
+<ul>
+<li>Canvas 类拥有我们需要的所有绘制操作。其方法可决定绘在哪里以及绘什么，比如线条、<br>圆形、字词、矩形等。</li>
+<li>Paint 类决定如何绘制。其方法可指定绘制图形的特征，例如是否填充图形、使用什么字<br>体绘制、线条是什么颜色等。 </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BoxDrawingView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(context, attrs);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 颜色为好看的半透明红色的矩形画笔</span></span><br><span class="line">    mBoxPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">    mBoxPaint.setColor(<span class="number">0x22ff0000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 颜色为米白的背景画笔</span></span><br><span class="line">    mBackgroundPaint = <span class="keyword">new</span> Paint();</span><br><span class="line">    mBackgroundPaint.setColor(<span class="number">0xfff8efe0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 每次画的时候先画出背景</span></span><br><span class="line">    canvas.drawPaint(mBackgroundPaint);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 然后画出每个绘制过的矩形</span></span><br><span class="line">    <span class="keyword">for</span> (Box box : mBoxen) &#123;</span><br><span class="line">        <span class="keyword">float</span> left = Math.min(box.getOrigin().x, box.getCurrent().x);</span><br><span class="line">        <span class="keyword">float</span> right = Math.max(box.getOrigin().x, box.getCurrent().x);</span><br><span class="line">        <span class="keyword">float</span> top = Math.min(box.getOrigin().y, box.getCurrent().y);</span><br><span class="line">        <span class="keyword">float</span> bottom = Math.max(box.getOrigin().y, box.getCurrent().y);</span><br><span class="line"></span><br><span class="line">        canvas.drawRect(left, top, right, bottom, mBoxPaint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-挑战练习"><a href="#3-挑战练习" class="headerlink" title="3. 挑战练习"></a>3. 挑战练习</h1><h2 id="3-1-设备旋转问题"><a href="#3-1-设备旋转问题" class="headerlink" title="3.1 设备旋转问题"></a>3.1 设备旋转问题</h2><ol>
+<li>首先，要给整个视图加上 ID，<code>onSaveInstanceState()</code>以及<code>onRestoreInstanceState()</code>方法才会被调用</li>
+<li>使用 Bundle 传递需要存储的参数</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Parcelable <span class="title">onSaveInstanceState</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Bundle bundle = <span class="keyword">new</span> Bundle();</span><br><span class="line">    <span class="comment">// 存储父类需要存储的内容</span></span><br><span class="line">    Parcelable superData = <span class="keyword">super</span>.onSaveInstanceState();</span><br><span class="line">    bundle.putParcelable(KEY_SUPER_DATA, superData);</span><br><span class="line">    <span class="comment">// 存储所有的矩形</span></span><br><span class="line">    bundle.putSerializable(KEY_BOXEN, (ArrayList) mBoxen);</span><br><span class="line">    <span class="keyword">return</span> bundle;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onRestoreInstanceState</span><span class="params">(Parcelable state)</span> </span>&#123;</span><br><span class="line">    Bundle bundle = (Bundle) state;</span><br><span class="line">    <span class="comment">// 取出父类的内容</span></span><br><span class="line">    Parcelable superData = bundle.getParcelable(KEY_SUPER_DATA);</span><br><span class="line">    <span class="comment">// 取出存储的矩形</span></span><br><span class="line">    mBoxen = (List&lt;Box&gt;) bundle.getSerializable(KEY_BOXEN);</span><br><span class="line">    <span class="keyword">super</span>.onRestoreInstanceState(superData);</span><br><span class="line">    invalidate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-旋转矩形框"><a href="#3-2-旋转矩形框" class="headerlink" title="3.2 旋转矩形框"></a>3.2 旋转矩形框</h2><ol>
+<li><p>在处理多点触控时我们需要用 <code>MotionEvent.getActionMasked()</code> 方法来获取事件 ID，<code>ACTION_POINTER_DOWN</code>指的是屏幕上已经有手指了（无论是几根，最大不超过【多点触控屏的极限 - 1】），另一根手指按下的情况。也就是说此时我们能知道两个手指按下了。</p>
+</li>
+<li><p>其次，图形的旋转一般是在绘制的时候旋转画布（canvas），需要的参数有旋转的角度（用度表示）以及旋转中心坐标，在这里我在 Box 类中加入了最开始的角度 <code>mOriginAngle</code>，已旋转后的角度 <code>mRotatedAngle</code> 两个成员变量，以及一个获取中心点坐标的方法。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">private</span> PointF mOrigin;</span><br><span class="line">    	<span class="keyword">private</span> PointF mCurrent;</span><br><span class="line">    	<span class="comment">// 此次按下时的角度</span></span><br><span class="line">    	<span class="keyword">private</span> <span class="keyword">float</span> mOriginAngle;</span><br><span class="line">    	<span class="keyword">private</span> <span class="keyword">float</span> mRotatedAngle; <span class="comment">// 已旋转的角度</span></span><br><span class="line"></span><br><span class="line">    	<span class="function"><span class="keyword">public</span> <span class="title">Box</span><span class="params">(PointF origin)</span> </span>&#123;</span><br><span class="line">        	mOrigin = origin;</span><br><span class="line">        	mCurrent = origin;</span><br><span class="line">        	mOriginAngle = <span class="number">0</span>;</span><br><span class="line">        	mRotatedAngle = <span class="number">0</span>;</span><br><span class="line">    	&#125;</span><br><span class="line">		<span class="comment">/** 省略 Getter 和 Setter **/</span></span><br><span class="line">	</span><br><span class="line">		<span class="comment">// 获取矩形的中心点</span></span><br><span class="line">    	<span class="function"><span class="keyword">public</span> PointF <span class="title">getCenter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        	<span class="keyword">return</span> <span class="keyword">new</span> PointF(</span><br><span class="line">                (mCurrent.x + mOrigin.x) / <span class="number">2</span>, </span><br><span class="line">                (mCurrent.y + mOrigin.y) / <span class="number">2</span>);</span><br><span class="line">    	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对不同的触摸情况进行处理：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">       PointF current = <span class="keyword">new</span> PointF(event.getX(), event.getY());</span><br><span class="line">       String action = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 省略没有变化的部分</span></span><br><span class="line">       <span class="keyword">switch</span> (event.getActionMasked()) &#123;</span><br><span class="line">           <span class="keyword">case</span> MotionEvent.ACTION_POINTER_DOWN:</span><br><span class="line">               action = <span class="string">"POINTER_DOWN"</span>;</span><br><span class="line">               <span class="keyword">if</span> (event.getPointerCount() == <span class="number">2</span>) &#123;</span><br><span class="line">               <span class="comment">// 首先获取按下时的角度（有一个弧度转角度的过程）</span></span><br><span class="line">               <span class="comment">// 每次按下的时候将角度存入现在矩形的原始角度</span></span><br><span class="line">                   <span class="keyword">float</span> angle = (<span class="keyword">float</span>) (Math.atan((event.getY(<span class="number">1</span>) - event.getY(<span class="number">0</span>)) /</span><br><span class="line">                       (event.getX(<span class="number">1</span>) - event.getX(<span class="number">0</span>))) * <span class="number">180</span> / Math.PI);</span><br><span class="line">                   mCurrentBox.setOriginAngle(angle);</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">               action = <span class="string">"ACTION_MOVE"</span>;</span><br><span class="line">               <span class="keyword">if</span> (mCurrentBox != <span class="keyword">null</span>) &#123;</span><br><span class="line">               	<span class="comment">// 如果只有一只手指按下，而且还未曾旋转过的话，就进行大小的缩放</span></span><br><span class="line">                   <span class="keyword">if</span> (event.getPointerCount() == <span class="number">1</span> &amp;&amp; mCurrentBox.getRotatedAngle() == <span class="number">0</span>) &#123;</span><br><span class="line">                       mCurrentBox.setCurrent(current);</span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="comment">// 如果按下了两根手指</span></span><br><span class="line">                   <span class="keyword">if</span> (event.getPointerCount() == <span class="number">2</span>) &#123;</span><br><span class="line">                   	<span class="comment">// 获取角度</span></span><br><span class="line">                       <span class="keyword">float</span> angle = (<span class="keyword">float</span>) (Math.atan((event.getY(<span class="number">1</span>) - event.getY(<span class="number">0</span>)) /</span><br><span class="line">                               (event.getX(<span class="number">1</span>) - event.getX(<span class="number">0</span>))) * <span class="number">180</span> / Math.PI);</span><br><span class="line">                       Log.i(TAG, <span class="string">"onTouchEvent: angle:"</span> + (angle - mCurrentBox.getOriginAngle()));</span><br><span class="line">                       <span class="comment">// 已旋转的角度 = 之前旋转的角度 + 新旋转的角度</span></span><br><span class="line">                       <span class="comment">// 新旋转的角度 = 本次 move 到的角度 - 手指按下的角度</span></span><br><span class="line">                       mCurrentBox.setRotatedAngle(mCurrentBox.getRotatedAngle() + angle</span><br><span class="line">                               - mCurrentBox.getOriginAngle());</span><br><span class="line">                       <span class="comment">// 旋转角度变化后，初始角度也发生变化</span></span><br><span class="line">                       mCurrentBox.setOriginAngle(angle);</span><br><span class="line">                   &#125;</span><br><span class="line">                   invalidate();</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2029%20%E5%AE%9A%E5%88%B6%E8%A7%86%E5%9B%BE%E4%B8%8E%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6-20170313.html" title="Android编程权威指南（第二版）学习笔记（二十九）—— 第29章 定制视图与触摸事件">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 29 定制视图与触摸事件-20170313.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2028%20%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88-20170302.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（二十八）—— 第28章 网页浏览
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E5%BF%AB%E6%8D%B7%E9%94%AE-20170518.html" rel="next" title="Android Studio常用快捷键">
+      Android Studio常用快捷键 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-自定义-View（定制视图）"><span class="nav-text">1. 自定义 View（定制视图）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-创建一个基本的自定义-View"><span class="nav-text">1.1 创建一个基本的自定义 View</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-处理触摸事件"><span class="nav-text">1.2 处理触摸事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-onDraw-方法内的图形绘制"><span class="nav-text">2. onDraw() 方法内的图形绘制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战练习"><span class="nav-text">3. 挑战练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-设备旋转问题"><span class="nav-text">3.1 设备旋转问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-旋转矩形框"><span class="nav-text">3.2 旋转矩形框</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

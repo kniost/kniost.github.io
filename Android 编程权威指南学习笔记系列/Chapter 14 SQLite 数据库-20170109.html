@@ -1,1 +1,570 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲了如何使用 SQLite 进行持久化存储，包含了 CRUD 四个操作，使用基础的 SQLiteOpenHelper 与 Cursor 构造程序 GitHub 地址：完成14章所有内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2014%20SQLite%20%E6%95%B0%E6%8D%AE%E5%BA%93-20170109.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲了如何使用 SQLite 进行持久化存储，包含了 CRUD 四个操作，使用基础的 SQLiteOpenHelper 与 Cursor 构造程序 GitHub 地址：完成14章所有内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-09T02:54:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2014%20SQLite%20%E6%95%B0%E6%8D%AE%E5%BA%93-20170109.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2014%20SQLite%20%E6%95%B0%E6%8D%AE%E5%BA%93-20170109.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-09 10:54:10" itemprop="dateCreated datePublished" datetime="2017-01-09T10:54:10+08:00">2017-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲了如何使用 SQLite 进行持久化存储，包含了 CRUD 四个操作，使用基础的 SQLiteOpenHelper 与 Cursor 构造程序</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/2927544a20495b24a5c834b447af8b6afc2723e9">完成14章所有内容</a></p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+<blockquote>
+<p><strong>为什么要用数据库而不是文本文件来存储数据呢？</strong><br>因为如果用普通的文本文件（比如 txt）存储数据，每次读取时都要读取整个文件的内容，完成修改后再全部保存，一旦数据量较大，将十分耗费时间和资源。</p>
+</blockquote>
+<p>SQLite是类似于MySQL的开源关系型数据库。不同于其他数据库的是,SQLite使用单个文件存储数据,使用SQLite库读取数据。Android标准库包含SQLite库以及配套的一些Java辅助类。</p>
+<h1 id="1-定义-Schema（架构）"><a href="#1-定义-Schema（架构）" class="headerlink" title="1. 定义 Schema（架构）"></a>1. 定义 Schema（架构）</h1><p>本应用需要保存的应该是一个 Crime 的全部数据，比如一个表格可以下表这样。</p>
+<table>
+<thead>
+<tr>
+<th align="center">_id</th>
+<th align="center">uuid</th>
+<th align="center">title</th>
+<th align="center">date</th>
+<th align="center">solved</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">13090624138324</td>
+<td align="center">Stolen yougurt</td>
+<td align="center">13090636733242</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">13090274859392</td>
+<td align="center">Dirty sink</td>
+<td align="center">13090732131909</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>程序员的一个目标，或者说信条，就是“不要重复造轮子”，也就是说，多花时间思考复用代码的编写和调用，避免在应用中到处使用重复代码。<br>基于上述准则，我们可以使用能统一定义模型层对象的高级 ORM（对象关系映射）工具，不过对于本章代码来说，因为需要掌握更加基础的内容，将会自己实现数据库操作。</p>
+</blockquote>
+<p>首先创建一个 Package，名为 database， 然后定义数据架构类 CrimeDbSchema.java </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeDbSchema.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeDbSchema</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeTable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String NAME = <span class="string">"crimes"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Cols</span> </span>&#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String UUID = <span class="string">"uuid"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TITLE = <span class="string">"title"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATE = <span class="string">"date"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SOLVED = <span class="string">"solved"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里有一个小 Tip，Android Studio 中有输入一长串前缀的 Live Template，比如要输入<code>public static final String</code>，只需要打 psfs 即可。</p>
+</blockquote>
+<h1 id="2-初始创建数据库"><a href="#2-初始创建数据库" class="headerlink" title="2. 初始创建数据库"></a>2. 初始创建数据库</h1><p>一般来说，在实际开发中，打开一个数据库之前，由于不知道其是否存在，是否有更新，所以要经过如下步骤：</p>
+<ol>
+<li>确认目标数据库是否存在。</li>
+<li>如果不存在，首先创建数据库，然后创建数据库表以及必需的初始化数据。</li>
+<li>如果存在，打开并确认数据库架构是否为最新版本</li>
+<li>如果是旧版，就运行相关代码升级到最新版本</li>
+</ol>
+<p>在 Android 中，提供了一个<code>SQLiteOpenHelper</code>类用于处理这些打开数据库时繁杂的工作。我们可以创建一个<code>SQLiteOpenHelper</code>的子类用于对自己的数据库进行处理，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeBaseHelper</span> <span class="keyword">extends</span> <span class="title">SQLiteOpenHelper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VERSION = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATABASE_NAME = <span class="string">"crimeBase.db"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CrimeBaseHelper</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, DATABASE_NAME, <span class="keyword">null</span>, VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果数据库不存在，就调用该函数创建一个数据库</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase db)</span> </span>&#123;</span><br><span class="line">    	 <span class="comment">// 一定要注意语句之间的空格，因为语句是一个字符串</span></span><br><span class="line">    	 <span class="comment">// 如果没有空格，对于 SQL 来说，就是无意义的语句</span></span><br><span class="line">    	 <span class="comment">// 比如下面的 table 后面一定要接一个空格</span></span><br><span class="line">        db.execSQL(<span class="string">"create table "</span> + CrimeTable.NAME + <span class="string">"("</span> +</span><br><span class="line">                <span class="string">" _id integer primary key autoincrement, "</span> +</span><br><span class="line">                CrimeTable.Cols.UUID + <span class="string">", "</span> +</span><br><span class="line">                CrimeTable.Cols.TITLE + <span class="string">", "</span> +</span><br><span class="line">                CrimeTable.Cols.DATE + <span class="string">", "</span> +</span><br><span class="line">                CrimeTable.Cols.SOLVED +</span><br><span class="line">                <span class="string">")"</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果版本升级了，就调用 onUpgrade() 函数</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="keyword">int</span> oldVersion, <span class="keyword">int</span> newVersion)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于数据库结构调整太麻烦，在实际开发中最好的做法应该是直接删除数据库文件（最方便的就是卸载程序） :)</p>
+</blockquote>
+<h1 id="3-打开数据库"><a href="#3-打开数据库" class="headerlink" title="3. 打开数据库"></a>3. 打开数据库</h1><p>然后在 Model 层（在这里是 CrimeLab 单例）中打开数据库</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mContext = context.getApplicationContext();</span><br><span class="line">mDataBase = <span class="keyword">new</span> CrimeBaseHelper(mContext)</span><br><span class="line">		.getWritableDatabase();</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-写入数据库（插入与更新）"><a href="#4-写入数据库（插入与更新）" class="headerlink" title="4. 写入数据库（插入与更新）"></a>4. 写入数据库（插入与更新）</h1><h2 id="4-1-使用-ContentValues"><a href="#4-1-使用-ContentValues" class="headerlink" title="4.1 使用 ContentValues"></a>4.1 使用 ContentValues</h2><p>负责处理数据库写入和更新操作的辅助类是 ContentValues 类。它是个键值存储类，类似于 Java 的 HashMap（查看源码可以发现它就是一个 HashMap）和前面用过的 Bundle。不同的是, ContentValues 专门用于处理SQLite数据。我们需要一个 Model 层的方法，把 Model 层数据转换为ContentValues，由于在 Model 层外，对数据的操作应该只有对 Model 对象的操作，所以这个方法应该是私有的。示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ContentValues <span class="title">getContentValues</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">    ContentValues values = <span class="keyword">new</span> ContentValues();</span><br><span class="line">    values.put(Cols.UUID, crime.getId().toString());</span><br><span class="line">    values.put(Cols.TITLE, crime.getTitle());</span><br><span class="line">    values.put(Cols.DATE, crime.getDate().getTime());</span><br><span class="line">    values.put(Cols.SOLVED, crime.isSolved() ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> values;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-插入和更新记录"><a href="#4-2-插入和更新记录" class="headerlink" title="4.2 插入和更新记录"></a>4.2 插入和更新记录</h2><h3 id="4-2-1-插入记录"><a href="#4-2-1-插入记录" class="headerlink" title="4.2.1 插入记录"></a>4.2.1 插入记录</h3><p>准备好了 ContentValues，就可以进行写入数据了，调用<code>SQLiteDatabase.insert(…)</code>方法即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCrime</span><span class="params">(Crime c)</span> </span>&#123;</span><br><span class="line">    ContentValues values = getContentValues(c);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * SQLiteDatabase.insert(String table, String nullColumnHack, ContentValues values)</span></span><br><span class="line"><span class="comment">     * 第一个参数是表名，第三个参数是键值对</span></span><br><span class="line"><span class="comment">     * 第二个参数则是当 values 为全空时插入空行</span></span><br><span class="line"><span class="comment">     * 如果设为 null，则 values 为全空时不插入空行</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    mDatabase.insert(CrimeTable.NAME, <span class="keyword">null</span>, values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-2-更新记录"><a href="#4-2-2-更新记录" class="headerlink" title="4.2.2 更新记录"></a>4.2.2 更新记录</h3><p>更新记录使用的是<code>SQLiteDatabase.update(…)</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateCrime</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">    String uuidString = crime.getId().toString();</span><br><span class="line">    ContentValues values = getContentValues(crime);</span><br><span class="line"></span><br><span class="line">    mDatabase.update(CrimeTable.NAME, values,</span><br><span class="line">            Cols.UUID + <span class="string">"=?"</span>,</span><br><span class="line">            <span class="keyword">new</span> String[] &#123;uuidString&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>update 方法的原型是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SQLiteDatabase.update(String table, <span class="comment">// 表名</span></span><br><span class="line">				ContentValues values, <span class="comment">// 键值对</span></span><br><span class="line">				<span class="comment">// where 后面接的语句，一般是 "columnName = ?"</span></span><br><span class="line">				String whereClause, </span><br><span class="line">				<span class="comment">// whereClause 中 ? 代表的语句，可以有多个</span></span><br><span class="line">				String[] whereArgs</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>可以看到，实际上后面两个参数的意思就是 where columnName = columnValue，那么为什么要留出两个参数而不用一个参数解决呢?</p>
+<blockquote>
+<p>这样做是为了防范 SQL 脚本注入，因为 String 如果本身就带了 SQL 语句，如果不加处理放进数据库执行，就有可能造成灾难性的后果（比如直接 drop 掉所有的表）</p>
+</blockquote>
+<h1 id="5-读取数据库"><a href="#5-读取数据库" class="headerlink" title="5. 读取数据库"></a>5. 读取数据库</h1><p>读取数据库用到的是 query() 方法，这个方法有许多个重载版本，我们使用下面的版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Cursor <span class="title">query</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	String table, 			// 表名</span></span></span><br><span class="line"><span class="function"><span class="params">	String[] columns,		// 选中的列名，为 <span class="keyword">null</span> 时选中所有列</span></span></span><br><span class="line"><span class="function"><span class="params">	String where,			// where 语句</span></span></span><br><span class="line"><span class="function"><span class="params">	String[] whereArgs,		// where 语句的参数</span></span></span><br><span class="line"><span class="function"><span class="params">	String groupBy,			// 分组</span></span></span><br><span class="line"><span class="function"><span class="params">	String having,			// 与合计函数一起使用的 having</span></span></span><br><span class="line"><span class="function"><span class="params">	String orderBy,			// 顺序</span></span></span><br><span class="line"><span class="function"><span class="params">	String limit)</span>			<span class="comment">// 限制数量</span></span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到返回的是一个 Cursor 对象，下面来探究一下 Cursor 对象</p>
+<h2 id="5-1-Cursor-与-CursorWrapper"><a href="#5-1-Cursor-与-CursorWrapper" class="headerlink" title="5.1 Cursor 与 CursorWrapper"></a>5.1 Cursor 与 CursorWrapper</h2><p>Cursor 是个神奇的表数据处理工具，其任务就是封装数据表中的原始字段值。从Cursor获取数据的代码大致如下所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String uuidString = cursor.getString(cursor.getColumnIndex(CrimeTable.Cols.UUID));</span><br></pre></td></tr></table></figure>
+<p>每次要取出一条记录中的一列，都要重复写一次上述代码，所以我们使用 CursorWrapper 建立一个 Cursor 的子类，在其中封装可以转换对象的方法。<br>比如一个类可以这么写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeCursorWrapper</span> <span class="keyword">extends</span> <span class="title">CursorWrapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CrimeCursorWrapper</span><span class="params">(Cursor cursor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(cursor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Crime <span class="title">getCrime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//这里是从得到的 CursorWrapper 中取出数据</span></span><br><span class="line">        String uuidString = getString(getColumnIndex(Cols.UUID));</span><br><span class="line">        String title = getString(getColumnIndex(Cols.TITLE));</span><br><span class="line">        <span class="keyword">long</span> date = getLong(getColumnIndex(Cols.DATE));</span><br><span class="line">        <span class="keyword">int</span> isSolved = getInt(getColumnIndex(Cols.SOLVED));</span><br><span class="line">        </span><br><span class="line">		<span class="comment">// 然后生成一个 Model 层对象返回，免去了重复写的繁琐</span></span><br><span class="line">        Crime crime = <span class="keyword">new</span> Crime(UUID.fromString(uuidString));</span><br><span class="line">        crime.setTitle(title);</span><br><span class="line">        crime.setDate(<span class="keyword">new</span> Date(date));</span><br><span class="line">        crime.setSolved(isSolved != <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> crime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2-创建-Model-层对象"><a href="#5-2-创建-Model-层对象" class="headerlink" title="5.2 创建 Model 层对象"></a>5.2 创建 Model 层对象</h2><p>首先封装一个数据库查询方法，返回的是自定义的 CrimeCursorWrapper 对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> CrimeCursorWrapper <span class="title">queryCrimes</span><span class="params">(String whereClause, String[] whereArgs)</span> </span>&#123;</span><br><span class="line">    Cursor cursor = mDatabase.query(</span><br><span class="line">            CrimeTable.NAME,</span><br><span class="line">            <span class="keyword">null</span>, <span class="comment">// Columns -- use null to select all columns</span></span><br><span class="line">            whereClause,</span><br><span class="line">            whereArgs,</span><br><span class="line">            <span class="keyword">null</span>,</span><br><span class="line">            <span class="keyword">null</span>,</span><br><span class="line">            <span class="keyword">null</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CrimeCursorWrapper(cursor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再从 CursorWrapper 中获取数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取所有数据</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Crime&gt; <span class="title">getCrimes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Crime&gt; crimes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    CrimeCursorWrapper cursor = queryCrimes(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        cursor.moveToFirst();</span><br><span class="line">        <span class="keyword">while</span> (!cursor.isAfterLast()) &#123;</span><br><span class="line">            crimes.add(cursor.getCrime());</span><br><span class="line">            cursor.moveToNext();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cursor.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> crimes;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取单个记录</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Crime <span class="title">getCrime</span><span class="params">(UUID id)</span> </span>&#123;</span><br><span class="line">    CrimeCursorWrapper cursor = queryCrimes(</span><br><span class="line">            Cols.UUID + <span class="string">" = ?"</span>,</span><br><span class="line">            <span class="keyword">new</span> String[] &#123; id.toString() &#125;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (cursor.getCount() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cursor.moveToFirst();</span><br><span class="line">        <span class="keyword">return</span> cursor.getCrime();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cursor.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="6-Application-Context-应用上下文"><a href="#6-Application-Context-应用上下文" class="headerlink" title="6 Application Context(应用上下文)"></a>6 Application Context(应用上下文)</h1><p>前面,我们在CrimeLab的构造方法中使用了Application Context。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">CrimeLab</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">	mContext = context.getApplicationContext();</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Application Context 有什么特别呢?就上例来看,为什么要用 Application Context ,而不直接用activity 作为 context 呢?</p>
+<p>要回答上述问题,关键就在于考虑它们的生命周期。只要有 activity 在,Android 肯定也创建 有 application 对象。用户在应用的不同界面间导航时,各个 activity 时而存在时而消亡,但 application 对象不会受任何影响。可以说,它的生命周期要比任何 activity 都要长。</p>
+<p>CrimeLab 是个单例。这表明,一旦创建,它就会一直存在直至整个应用进程被销毁。由代码可知, CrimeLab 引用着 mContext 对象。显然,如果把 activity 作为 mContext 对象保存的话,这个由 CrimeLab 一直引用着的 activity 肯定会免遭垃圾回收器的清理,即便用户跳转离开这个 activity 时也是如此。</p>
+<p>为了避免资源浪费,我们使用了应用程序上下文。这样, CrimeLab 仍可以引用 Context 对象, 而 activity 的存在和消亡也不用受它束缚了。</p>
+<h1 id="7-挑战练习：删除-Crime-记录"><a href="#7-挑战练习：删除-Crime-记录" class="headerlink" title="7 挑战练习：删除 Crime 记录"></a>7 挑战练习：删除 Crime 记录</h1><p>在上一章中，我们为 CrimeFragment 的 ToolBar 中添加了删除按钮，这一章我们改用数据库来存储数据，需要对代码进行相应的改写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeLab.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteCrime</span><span class="params">(Crime c)</span> </span>&#123;</span><br><span class="line">    mDatabase.delete(</span><br><span class="line">            CrimeTable.NAME,</span><br><span class="line">            Cols.UUID + <span class="string">" = ?"</span>,</span><br><span class="line">            <span class="keyword">new</span> String[] &#123;c.getId().toString()&#125;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CrimeFragment.java</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (item.getItemId()) &#123;</span><br><span class="line">        <span class="keyword">case</span> R.id.menu_item_delete_crime:</span><br><span class="line">            CrimeLab.get(getActivity()).deleteCrime(mCrime);</span><br><span class="line">            getActivity().finish();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2014%20SQLite%20%E6%95%B0%E6%8D%AE%E5%BA%93-20170109.html" title="Android编程权威指南（第二版）学习笔记（十四）—— 第14章 SQLite 数据库">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 14 SQLite 数据库-20170109.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2013%20ToolBar-20161124.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十三）—— 第13章 工具栏（Toolbar）">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十三）—— 第13章 工具栏（Toolbar）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent">
+      Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-定义-Schema（架构）"><span class="nav-text">1. 定义 Schema（架构）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-初始创建数据库"><span class="nav-text">2. 初始创建数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-打开数据库"><span class="nav-text">3. 打开数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-写入数据库（插入与更新）"><span class="nav-text">4. 写入数据库（插入与更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-使用-ContentValues"><span class="nav-text">4.1 使用 ContentValues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-插入和更新记录"><span class="nav-text">4.2 插入和更新记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-插入记录"><span class="nav-text">4.2.1 插入记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-更新记录"><span class="nav-text">4.2.2 更新记录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-读取数据库"><span class="nav-text">5. 读取数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Cursor-与-CursorWrapper"><span class="nav-text">5.1 Cursor 与 CursorWrapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-创建-Model-层对象"><span class="nav-text">5.2 创建 Model 层对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Application-Context-应用上下文"><span class="nav-text">6 Application Context(应用上下文)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-挑战练习：删除-Crime-记录"><span class="nav-text">7 挑战练习：删除 Crime 记录</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
