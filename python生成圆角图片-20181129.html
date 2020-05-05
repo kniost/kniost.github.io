@@ -1,1 +1,516 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文介绍了如何使用python生成圆形图片，以及使用一张图片构造圆形头像并贴上另一张图片的方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python使用Pillow(PIL)库生成圆形图片的方法和优化">
+<meta property="og:url" content="https://blog.kniost.top/python%E7%94%9F%E6%88%90%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-20181129.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本文介绍了如何使用python生成圆形图片，以及使用一张图片构造圆形头像并贴上另一张图片的方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pic.kniost.top/putalpha-2018122.jpg-blog">
+<meta property="og:image" content="http://pic.kniost.top/paste_with_mask-2018122.jpg-blog">
+<meta property="og:image" content="http://pic.kniost.top/circle_result_antialias-2018122.png-blog">
+<meta property="article:published_time" content="2018-11-29T11:54:03.000Z">
+<meta property="article:modified_time" content="2020-03-26T10:06:48.529Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="圆形图片">
+<meta property="article:tag" content="Image">
+<meta property="article:tag" content="PIL">
+<meta property="article:tag" content="Pillow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pic.kniost.top/putalpha-2018122.jpg-blog">
+
+<link rel="canonical" href="https://blog.kniost.top/python%E7%94%9F%E6%88%90%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-20181129.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python使用Pillow(PIL)库生成圆形图片的方法和优化 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/python%E7%94%9F%E6%88%90%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-20181129.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python使用Pillow(PIL)库生成圆形图片的方法和优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-29 19:54:03" itemprop="dateCreated datePublished" datetime="2018-11-29T19:54:03+08:00">2018-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-26 18:06:48" itemprop="dateModified" datetime="2020-03-26T18:06:48+08:00">2020-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span></span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>NaN:aN</span>
+            </span>
+            <div class="post-description">本文介绍了如何使用python生成圆形图片，以及使用一张图片构造圆形头像并贴上另一张图片的方法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>以下 PIL 和 Pillow 两个库只出现 Pillow， 但 PIL 具有相同功能</p>
+</blockquote>
+<p>最近遇到了在一张海报中贴上圆形头像的需求，贴图可以使用<code>Pillow</code>直接的<code>Image.paste()</code>方法，但是要实现圆形的话，也有许多方法，下面把我想到的和搜集到的方法一一说明。</p>
+<a id="more"></a>
+
+<p>基本的思路就是：<strong>让圆形外的像素透明</strong></p>
+<p>一个直接的方法是：图像首先转成’RGBA’，获取 size 找到中心点，然后取半径 r，遍历所有像素并对圆外的像素的 alpha 赋值为 0。但是这样写起来费劲，可以使用更好的方法来做。</p>
+<h2 id="1-使用Image-putalpha修改-alpha-层"><a href="#1-使用Image-putalpha修改-alpha-层" class="headerlink" title="1. 使用Image.putalpha修改 alpha 层"></a>1. 使用<code>Image.putalpha</code>修改 alpha 层</h2><p>这个方法中我们使用替换图像 alpha 层的方法实现除圆形外的区域透明，这种方法在我们只需要一个圆形图案时使用比较好</p>
+<p>先来看官方文档</p>
+<blockquote>
+<p><code>Image.putalpha(alpha)[source]</code><br>Adds or replaces the alpha layer in this image. If the image does not have an alpha layer, it’s converted to “LA” or “RGBA”. The new layer must be either “L” or “1”.</p>
+</blockquote>
+<p>这个方法添加或者替换图像的 alpha 层，如果本来没有 alpha 层将自动转为有 alpha 层的图像，需要一个模式为<code>&#39;L&#39;</code>（灰度）或者<code>&#39;1&#39;</code>（黑白）的图像</p>
+<p>上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先获取一个alpha图像:</span></span><br><span class="line"><span class="comment"># 假设经过前处理后已经有 w == h</span></span><br><span class="line">w, h = img.size</span><br><span class="line"><span class="comment"># 研究源码后发现，如果使用'1'模式的图像，内部也会转换成'L'，所以直接用'L'即可</span></span><br><span class="line">alpha_layer = Image.new(<span class="string">'L'</span>, (w, w), <span class="number">0</span>)</span><br><span class="line">draw = ImageDraw.Draw(alpha_layer)</span><br><span class="line">draw.ellipse((<span class="number">0</span>, <span class="number">0</span>, w, w), fill=<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接着替换图像的alpha层</span></span><br><span class="line">img.putalpha(alpha_layer)</span><br></pre></td></tr></table></figure>
+
+<p>实现效果：<br><img src="http://pic.kniost.top/putalpha-2018122.jpg-blog" alt="putalpha-2018122"></p>
+<h2 id="2-使用-Image-paste蒙版粘贴圆形图片"><a href="#2-使用-Image-paste蒙版粘贴圆形图片" class="headerlink" title="2. 使用 Image.paste蒙版粘贴圆形图片"></a>2. 使用 <code>Image.paste</code>蒙版粘贴圆形图片</h2><p>如果我们要在一张图片上盖上一个圆形头像，就需要用到 paste 方法，paste 方法有一个可选参数是 mask，我们看官方文档：</p>
+<blockquote>
+<p>If a mask is given, this method updates only the regions indicated by the mask. You can use either “1”, “L” or “RGBA” images (in the latter case, the alpha band is used as mask). Where the mask is 255, the given image is copied as is. Where the mask is 0, the current value is preserved. Intermediate values will mix the two images together, including their alpha channels if they have them.</p>
+</blockquote>
+<p>意思是我们同样需要一个圆形蒙版，圆形部分透明度是 255，其他部分透明度为 0，但是这个<code>mask</code>可以使用一个<code>&#39;RGBA&#39;</code>模式的图像。</p>
+<p>上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先获取一个alpha图像:</span></span><br><span class="line"><span class="comment"># 假设经过前处理后已经有 w == h</span></span><br><span class="line">w, h = img_paste.size</span><br><span class="line">alpha_layer = Image.new(<span class="string">'L'</span>, (w, w), <span class="number">0</span>)</span><br><span class="line">draw = ImageDraw.Draw(alpha_layer)</span><br><span class="line">draw.ellipse((<span class="number">0</span>, <span class="number">0</span>, w, w), fill=<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接着直接使用其作为模板粘贴即可</span></span><br><span class="line">img_origin.paste(image_paste, (<span class="number">0</span>, <span class="number">0</span>), alpha_layer)</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://pic.kniost.top/paste_with_mask-2018122.jpg-blog" alt="paste_with_mask-2018122"></p>
+<h2 id="3-锯齿问题和解决方案"><a href="#3-锯齿问题和解决方案" class="headerlink" title="3. 锯齿问题和解决方案"></a>3. 锯齿问题和解决方案</h2><p>使用透明度替换方法时很容易发现直接使用原始大小的 alpha 层会出现多边形现象，也就是圆的周围会出现锯齿，目前想到的解决方案就是：<strong>先绘制一个 scale 倍大的圆，然后使用<code>resize</code>方法将其缩小，使用<code>ANTIALIAS</code>(即<code>LANCZOS</code>)采样器</strong></p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先获取一个alpha图像:</span></span><br><span class="line">scale = <span class="number">3</span></span><br><span class="line"><span class="comment"># 假设经过前处理后已经有 w == h</span></span><br><span class="line">w, h = img_paste.size</span><br><span class="line"><span class="comment"># 使用新的半径构建alpha层</span></span><br><span class="line">r = w * scale</span><br><span class="line">alpha_layer = Image.new(<span class="string">'L'</span>, (r, r), <span class="number">0</span>)</span><br><span class="line">draw = ImageDraw.Draw(alpha_layer)</span><br><span class="line">draw.ellipse((<span class="number">0</span>, <span class="number">0</span>, r, r), fill=<span class="number">255</span>)</span><br><span class="line"><span class="comment"># 使用ANTIALIAS采样器缩小图像</span></span><br><span class="line">alpha_layer = alpha_layer.resize((w, w), Image.ANTIALIAS)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接着直接使用其作为模板粘贴即可</span></span><br><span class="line">img_origin.paste(image_paste, (<span class="number">0</span>, <span class="number">0</span>), alpha_layer)</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://pic.kniost.top/circle_result_antialias-2018122.png-blog" alt="scale为1，3，5的对比图"></p>
+<p>上面为<code>scale</code>分别为 1，3，5 时的对比图，可以明显发现边缘已经基本没有锯齿感了。</p>
+
+    </div>
+
+    
+    
+    
+      
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/python%E7%94%9F%E6%88%90%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-20181129.html" title="Python使用Pillow(PIL)库生成圆形图片的方法和优化">https://blog.kniost.top/python生成圆角图片-20181129.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html" rel="prev" title="网络通信安全详细解析，还原Alice和Bob的通信加密的进化史">
+      <i class="fa fa-chevron-left"></i> 网络通信安全详细解析，还原Alice和Bob的通信加密的进化史
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html" rel="next" title="LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法">
+      LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用Image-putalpha修改-alpha-层"><span class="nav-text">1. 使用Image.putalpha修改 alpha 层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用-Image-paste蒙版粘贴圆形图片"><span class="nav-text">2. 使用 Image.paste蒙版粘贴圆形图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-锯齿问题和解决方案"><span class="nav-text">3. 锯齿问题和解决方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">NaNm</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">NaN:aN</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

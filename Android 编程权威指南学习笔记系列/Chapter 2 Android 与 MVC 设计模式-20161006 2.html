@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章扩展了 GeoQuiz 程序，并介绍了 MVC 设计模式 GitHub 地址 ：GeoQuiz 第二章未完成挑战GeoQuiz 完成第二章所有挑战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（二）—— 第2章 Android 与 MVC 设计模式">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章扩展了 GeoQuiz 程序，并介绍了 MVC 设计模式 GitHub 地址 ：GeoQuiz 第二章未完成挑战GeoQuiz 完成第二章所有挑战">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007143005576">
+<meta property="article:published_time" content="2016-10-06T09:53:00.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161007143005576">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（二）—— 第2章 Android 与 MVC 设计模式 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（二）—— 第2章 Android 与 MVC 设计模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-06 17:53:00" itemprop="dateCreated datePublished" datetime="2016-10-06T17:53:00+08:00">2016-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章扩展了 GeoQuiz 程序，并介绍了 MVC 设计模式</p>
+<p>GitHub 地址 ：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/ac96c63ab29527f5e4e50764a7d6fa91800c3067" target="_blank" rel="noopener">GeoQuiz 第二章未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/8e1d5c0d84cd013b655a671736c664409583a03c" target="_blank" rel="noopener">GeoQuiz 完成第二章所有挑战</a></p>
+</blockquote>
+<a id="more"></a>
+<p>#1. MVC 设计模式<br>Android 应用基于模型-控制器-视图(Model - View - Controller, MVC)的架构模式进行设计。MVC 设计模式表明：应用的任何对象，归根结底都属于模型对象、视图对象以及控制对象中的一种。</p>
+<ul>
+<li><strong>模型对象存储着应用的数据和业务逻辑</strong>。<br>模型类通常用来映射与应用相关的一些事物，如 用户、商店里的商品、服务器上的图片或者一段电视节目；又或是 GeoQuiz 应用里的地理知识问题。<br>模型对象不关心用户界面，它存在的唯一目的就是存储和管理应用数据。</li>
+</ul>
+<p>** Android 应用里的模型类通常就是我们创建的定制类。应用的全部模型对象组成了模型层。**</p>
+<ul>
+<li><p><strong>视图对象知道如何在屏幕上绘制自己以及如何响应用户的输入，如用户的触摸等</strong>。<br>一个简单的经验法则是，凡是能够在屏幕上看见的对象，就是视图对象。Android 默认自带了很多可配置的视图类。当然，也可以定制开发自己的视图类。应用的 全部视图对象组成了视图层。 </p>
+</li>
+<li><p><strong>控制对象含有应用的逻辑单元，是视图与模型对象的联系纽带</strong>。<br>控制对象响应视图对象 触发的各类事件，此外还管理着模型对象与视图间的数据流动。 在 Android 的世界里，控制器通常是 Activity 、Fragment 或 Service 的一个子类。</p>
+</li>
+</ul>
+<blockquote>
+<p><img src="http://img.blog.csdn.net/20161007143005576" alt="MVC 模式图"></p>
+</blockquote>
+<blockquote>
+<p>上图展示了在响应用户单击按钮等事件时，对象间的交互控制数据流。<em>注意，模型对象与 视图对象不直接交互。控制器作为它们之间的联系纽带，接收对象发送的消息，然后向其他对象发送操作指令。</em></p>
+</blockquote>
+<p>随着应用功能的持续扩展，应用往往会变得过于复杂而让人难以理解。把 Java 类以模型、视图和控制层进行分类组织，也有助于我们设计和理解应用。这样，我们就可以按层而非一个个类来考虑设计开发了。</p>
+<p>使用 MVC 模式还可以让类的复用更加容易。相比功能多而全的类，功能单一的专用类更加有利于代码复用。</p>
+<p>尽管 GeoQuiz 应用不复杂，但以 MVC 分层模式设计它的好处还是显而易见的。举例来说，模型类 Question 与用作显示问题的组件毫无代码逻辑关联。这样，就很容易在应用里按需使用 Question 类。假设现在想显示所有地理知识问题列表，很简单，直接复用 Question 对象逐条显示就可以了。</p>
+<p>#2. 具体实现</p>
+<ul>
+<li>GeoQuiz 的模型层由 Question 类组成。</li>
+<li>GeoQuiz 应用的视图层是由 activity_quiz.xml 文件中定义的各类组件构成的。</li>
+<li>GeoQuiz 应用的控制层仅由 QuizActivity 类组成。</li>
+</ul>
+<p>构建模型层 Question 类，成员有文本的资源 ID 变量 mTextResId 和标记问题答案是否正确的 mAnswerTrue 变量。重写构造方法，添加了两个成员变量的 Getter 与 Setter 函数。</p>
+<blockquote>
+<p>Tip: <strong>如何在 Android Studio 中优雅地生成 Getter 和 Setter</strong><br>使用快捷键 Cmd + N</p>
+</blockquote>
+<ul>
+<li>修改视图层，增加 Next 按钮。</li>
+</ul>
+<p>修改控制层，增加题目库 mQuestionBank 数组、 updateQuestion() 函数与 checkAnswer() 函数。并完成实现逻辑</p>
+<p>添加箭头的图标资源放在 Next 按钮右侧。</p>
+<p>#3. 挑战</p>
+<p>本章挑战的难度较低，难点主要在于添加 Prev 按钮时要注意数组越界的问题。可以有以下几种实现：</p>
+<ul>
+<li>单独拎出越界的情况</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mCurrentIndex == <span class="number">0</span>) &#123;</span><br><span class="line">	mCurrentIndex = mQuestionBank.length - <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	mCurrentIndex = mCurrentIndex - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">updateQuestion();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接避免越界情况</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mCurrentIndex = (mCurrentIndex + mQuestionBank.length - <span class="number">1</span>) % mQuestionBank.length;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关阅读</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 0 前言-20160724.html" rel="bookmark">Android编程权威指南（第二版）学习笔记及代码（〇）——前言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%202%20Android%20%E4%B8%8E%20MVC%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-20161006.html" title="Android编程权威指南（第二版）学习笔记（二）—— 第2章 Android 与 MVC 设计模式">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 2 Android 与 MVC 设计模式-20161006.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%201%20Android%20%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C-20161006.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html" rel="next" title="Android编程权威指南（第二版）学习笔记（三）—— 第3章 日志跟踪理解 Activity 生命周期">
+      Android编程权威指南（第二版）学习笔记（三）—— 第3章 日志跟踪理解 Activity 生命周期 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
