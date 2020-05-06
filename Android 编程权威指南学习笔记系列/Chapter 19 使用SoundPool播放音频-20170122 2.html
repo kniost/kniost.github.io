@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="既然音频资源文件已准备就绪,现在就来学习如何播放这些.wav音频文件。Android的大部分音频API都比较低级,掌握它们不是那么容易。不过没关系,针对BeatBox应用,可以使用SoundPool这个特别定制的实用工具。 SoundPool能加载一批声音资源到内存中,并支持同时播放多个音频文件。 GitHub 地址：完成第19章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="既然音频资源文件已准备就绪,现在就来学习如何播放这些.wav音频文件。Android的大部分音频API都比较低级,掌握它们不是那么容易。不过没关系,针对BeatBox应用,可以使用SoundPool这个特别定制的实用工具。 SoundPool能加载一批声音资源到内存中,并支持同时播放多个音频文件。 GitHub 地址：完成第19章">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-22T13:11:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-22 21:11:10" itemprop="dateCreated datePublished" datetime="2017-01-22T21:11:10+08:00">2017-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>既然音频资源文件已准备就绪,现在就来学习如何播放这些.wav音频文件。Android的大部分音频API都比较低级,掌握它们不是那么容易。不过没关系,针对BeatBox应用,可以使用SoundPool这个特别定制的实用工具。 SoundPool能加载一批声音资源到内存中,并支持同时播放多个音频文件。</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/4d670bf5680b3e2fbdc0a2ce46c5051cfad05fdc" target="_blank" rel="noopener">完成第19章</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-创建-SoundPool"><a href="#1-创建-SoundPool" class="headerlink" title="1. 创建 SoundPool"></a>1. 创建 SoundPool</h1><p>在 Lollipop 中引入了新的方式创建SoundPool:使用SoundPool.Builder。不过,为了兼容API 16 最低级别,只能选择使用SoundPool(int, int, int)这个老构造方法了。一个代码示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">21</span>) &#123;</span><br><span class="line">    mSoundPool = <span class="keyword">new</span> SoundPool.Builder()</span><br><span class="line">            .setMaxStreams(MAX_SOUNDS)</span><br><span class="line">            .setAudioAttributes(<span class="keyword">new</span> AudioAttributes.Builder()</span><br><span class="line">                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)</span><br><span class="line">                    .build())</span><br><span class="line">            .build();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// This old constructor is deprecated, but we need it for</span></span><br><span class="line">    <span class="comment">// compatibility.</span></span><br><span class="line">    mSoundPool = <span class="keyword">new</span> SoundPool(MAX_SOUNDS, AudioManager.STREAM_MUSIC, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于老的 API 来说，</p>
+<ul>
+<li>第一个参数指定同时播放多少个音频。这里指定了5个。在播放5个音频时,如果尝试再播放 第6个,SoundPool会停止播放原来的音频。</li>
+<li>第二个参数确定音频流类型。Android有很多不同的音频流,它们都有各自独立的音量控制 选项。这就是调低音乐音量,闹钟音量却不受影响的原因。打开文档,查看AudioManager类的 <code>AUDIO_*</code>常量,还可以看到其他控制选项。<code>STREAM_MUSIC</code>使用的是同音乐和游戏一样的音量控制。</li>
+<li>最后一个参数指定采样率转换品质。参考文档说这个参数不起作用,所以这里传入0值。</li>
+</ul>
+</blockquote>
+<h1 id="2-加载音频文件"><a href="#2-加载音频文件" class="headerlink" title="2. 加载音频文件"></a>2. 加载音频文件</h1><p>对于 SoundPool，加载音频文件时在播放前必须预先加载音频。SoundPool加载的音频文件都有自己的Integer类型ID。所以要在Sound类中添加mSoundId实例变量,并添加相应的Getter 和 Setter 方法管理这些ID。</p>
+<p>加载一个声音，我们用的是 SoundPool 的 <code>public int load(AssetFileDescriptor afd, int priority)</code> 方法，这个方法需要一个 AssetFileDescriptor 对象和一个整型的 priority（暂时没用，建议设为1）。</p>
+<p>AssetFileDescriptor 对象使用 AssetManager 的 openFd() 方法获取，传入的参数是音频文件的 Asset 路径。</p>
+<p>所以整个加载的方法就是这么写的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BeatBox.java</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(Sound sound)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    AssetFileDescriptor afd = mAssets.openFd(sound.getAssetPath());</span><br><span class="line">    <span class="keyword">int</span> soundId = mSoundPool.load(afd, <span class="number">1</span>);</span><br><span class="line">    sound.setSoundId(soundId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在添加 Sound 列表的时候，一一加载每个声音。</p>
+<h1 id="3-播放音频"><a href="#3-播放音频" class="headerlink" title="3. 播放音频"></a>3. 播放音频</h1><p>添加这样的一个播放方法和释放方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">(Sound sound)</span> </span>&#123;</span><br><span class="line">    Integer soundId = sound.getSoundId();</span><br><span class="line">    <span class="comment">// Id 设置成 Integer 类就是为了判断 null 较为方便</span></span><br><span class="line">    <span class="keyword">if</span> (soundId == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// play 函数的第一个参数是 sound 的 soundId</span></span><br><span class="line">    <span class="comment">// 应该是由 load() 方法返回的 id</span></span><br><span class="line">    <span class="comment">// 第二个是左声道的音量</span></span><br><span class="line">    <span class="comment">// 第三个是右声道的音量</span></span><br><span class="line">    <span class="comment">// 第四个是priority（无效）</span></span><br><span class="line">    <span class="comment">// 第五个是是否循环</span></span><br><span class="line">    <span class="comment">// 第六个是播放速度</span></span><br><span class="line">    mSoundPool.play(soundId, <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1.0f</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">release</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mSoundPool.release();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在点击 ViewHolder 的时候播放，在 onDestroy 的时候释放即可</p>
+<h1 id="4-设备旋转和对象保存"><a href="#4-设备旋转和对象保存" class="headerlink" title="4.设备旋转和对象保存"></a>4.设备旋转和对象保存</h1><p>使用 retainInstance() 即可</p>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关阅读</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 0 前言-20160724.html" rel="bookmark">Android编程权威指南（第二版）学习笔记及代码（〇）——前言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2019%20%E4%BD%BF%E7%94%A8SoundPool%E6%92%AD%E6%94%BE%E9%9F%B3%E9%A2%91-20170122.html" title="Android编程权威指南（第二版）学习笔记（十九）—— 第19章 使用 SoundPool 播放音频">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 19 使用SoundPool播放音频-20170122.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2018%20Assets-20170121.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十八）—— 第18章 Assets
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2020%20%E6%A0%B7%E5%BC%8F%E4%B8%8E%E4%B8%BB%E9%A2%98-20170131.html" rel="next" title="Android编程权威指南（第二版）学习笔记（二十）—— 第20章 样式与主题">
+      Android编程权威指南（第二版）学习笔记（二十）—— 第20章 样式与主题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-创建-SoundPool"><span class="nav-text">1. 创建 SoundPool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-加载音频文件"><span class="nav-text">2. 加载音频文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-播放音频"><span class="nav-text">3. 播放音频</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-设备旋转和对象保存"><span class="nav-text">4.设备旋转和对象保存</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

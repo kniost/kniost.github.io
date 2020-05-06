@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲了 Android 的一大组件：服务。使用 IntentService 作为后台服务，用 AlarmManager 定时启动，以及应用通知的发出，还介绍了新的 JobScheduler 及其使用。 GitHub 地址：完成第26章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（二十六）—— 第26章 后台服务">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲了 Android 的一大组件：服务。使用 IntentService 作为后台服务，用 AlarmManager 定时启动，以及应用通知的发出，还介绍了新的 JobScheduler 及其使用。 GitHub 地址：完成第26章">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-23T04:59:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（二十六）—— 第26章 后台服务 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（二十六）—— 第26章 后台服务
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-23 12:59:10" itemprop="dateCreated datePublished" datetime="2017-02-23T12:59:10+08:00">2017-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲了 Android 的一大组件：服务。使用 IntentService 作为后台服务，用 AlarmManager 定时启动，以及应用通知的发出，还介绍了新的 JobScheduler 及其使用。</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/5d5771376dd12ca3d41cc52939707297d29e5aa7" target="_blank" rel="noopener">完成第26章</a></p>
+</blockquote>
+<a id="more"></a>
+
+<p>Activity 就是 Android 应用的前台。所有应用代码都专注于提供良好的用户视觉体验。服务就是 Android 应用的后台，用户无需关心后台发生的一切。即使前台关闭，activity 消失好久了，后台服务依然可以持续不断地工作。<br><strong>服务最关键的特性就是：用户离开当前应用后(打开其他应用或退回主屏幕)，服务依然可以在后台运行。</strong></p>
+<h1 id="1-服务的使用"><a href="#1-服务的使用" class="headerlink" title="1. 服务的使用"></a>1. 服务的使用</h1><h2 id="1-1-服务的能与不能"><a href="#1-1-服务的能与不能" class="headerlink" title="1.1 服务的能与不能"></a>1.1 服务的能与不能</h2><p>与 activity 一样，服务是一个有生命周期回调方法的应用组件。这些回调方法同样也会在主 UI 线程上运行。<br>初始创建的服务不会在后台线程上运行任何代码。而大多数重要服务都需要某种后台线程，IntentService 类提供了一套标准实现代码，所以推荐使用 IntentService 完成本章。</p>
+<h2 id="1-2-服务的生命周期"><a href="#1-2-服务的生命周期" class="headerlink" title="1.2 服务的生命周期"></a>1.2 服务的生命周期</h2><p>如果是<code>startService(Intent)</code>方法启动的服务，其生命周期很简单，并具有三种生命周期回调方法。</p>
+<ol>
+<li><code>onCreate(...)</code>方法:服务创建时调用。</li>
+<li><code>onStartCommand(Intent,int,int)</code>方法:每次组件通过 startService(Intent)方法<br>启动服务时调用一次。它有两个整数参数，一个是标识符集，一个是启动 ID。标识符集用来表示当前 intent 发送究竟是一次重新发送，还是一次从没成功过的发送。每次调用 onStartCommand(Intent,int,int)方法，启动 ID 都会不同。因此，启动 ID 也可用于区分不同的命令。</li>
+<li><code>onDestroy()</code>方法:服务不再需要时调用。通常是在服务停止后。 服务停止时会调用 onDestroy()方法。服务停止的方式取决于服务的类型。</li>
+<li>服务的类型由 onStartCommand(…)方法的返回值确定，可能的服务类型有 Service.<code>START_NOT_STICKY</code>、<br><code>START_REDELIVER_INTENT</code>和<code>START_STICKY</code>。<strong>IntentService 是一种 non-sticky 服务</strong>。</li>
+</ol>
+<h2 id="1-3-不同类型的服务"><a href="#1-3-不同类型的服务" class="headerlink" title="1.3 不同类型的服务"></a>1.3 不同类型的服务</h2><ol>
+<li><p><strong>non-sticky 服务</strong><br> non-sticky 服务在服务自己认为已完成任务时停止。为获得 non-sticky 服务，应返回<code>START_NOT_STICKY</code>或<code>START_REDELIVER_INTENT</code>。两者区别在于，如果系统需要在服务完成任务之前关闭它，则服务的具体表现会有所不同。<code>START_NOT_STICKY</code>型服务说消亡就消亡了;而<code>START_REDELIVER_INTENT</code>型服务则会在资源不再吃紧时，尝试再次启动服务。</p>
+<blockquote>
+<p>通过调用 stopSelf()或 stopSelf(int)方法，我们告诉 Android 任务已完成。stopSelf() 是个无条件方法。不管 onStartCommand(…)方法调用多少次，该方法总是会成功停止服务。stopSelf(int)是个有条件的方法。该方法需要来自于 onStartCommand(…)方法的启动 ID。只有在接收到最新启动 ID 后，该方法才会停止服务。(这也是 IntentService 的后台工作原理。)</p>
+</blockquote>
+</li>
+<li><p><strong>sticky 服务</strong><br>sticky 服务会持续运行，直到外部组件调用 Context.stopService(Intent)方法让它停止。 为获得 sticky 服务，应返回 START_STICKY。<br>sticky 服务启动后会持续运行，除非某个组件调用 Context.stopService(Intent)方法停止它。如因某种原因需终止服务，可传入一个 null intent 给 onStartCommand(…)方法，实现服务的重启。sticky 服务适用于长时间运行的服务，如音乐播放器这种启动后一直保持运行状态，直到用户主动停止的服务。</p>
+</li>
+</ol>
+<h2 id="1-3-服务的使用"><a href="#1-3-服务的使用" class="headerlink" title="1.3 服务的使用"></a>1.3 服务的使用</h2><p>一个最基本的 IntentService 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PollService</span> <span class="keyword">extends</span> <span class="title">IntentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"PollService"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 外界获取服务的实例</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Intent <span class="title">newIntent</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Intent(context, PollService<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PollService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(TAG);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 服务主要执行代码的地方</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onHandleIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">		Log.i(TAG, <span class="string">"Received an intent: "</span> + intent);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在外界使用 Context.startService(Intent) 即可开启服务。</p>
+<h1 id="2-使用-AlarmManager-定时启动服务"><a href="#2-使用-AlarmManager-定时启动服务" class="headerlink" title="2. 使用 AlarmManager 定时启动服务"></a>2. 使用 AlarmManager 定时启动服务</h1><p>一个基本的定时启动代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先获取服务启动的 intent</span></span><br><span class="line">Intent i = PollService.newIntent(context);</span><br><span class="line"><span class="comment">// 将其放入 PendingIntent 中</span></span><br><span class="line">PendingIntent pi = PendingIntent.getService(context, <span class="number">0</span>, i, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 获取 AlarmManager 服务</span></span><br><span class="line">AlarmManager alarmManager = (AlarmManager)</span><br><span class="line">        context.getSystemService(Context.ALARM_SERVICE);</span><br><span class="line"><span class="comment">// 如果开启服务</span></span><br><span class="line"><span class="keyword">if</span> (isOn) &#123;</span><br><span class="line">	<span class="comment">// 将这个 PendingIntent 放到 AlarmManager 中定时启动</span></span><br><span class="line">    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,</span><br><span class="line">            SystemClock.elapsedRealtime(), POLL_INTERVAL, pi);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">// 如果没有开启服务，就让 AlarmManager 撤销该定时器</span></span><br><span class="line">    alarmManager.cancel(pi);</span><br><span class="line">    <span class="comment">// 它自己也要撤销</span></span><br><span class="line">    pi.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-1-PendingIntent"><a href="#2-1-PendingIntent" class="headerlink" title="2.1 PendingIntent"></a>2.1 PendingIntent</h2><p>PendingIntent 是一种 token 对象。调用 PendingIntent.getService(…)方法获取 PendingIntent 时，我们告诉操作系统：“请记住， 我需要使用 startService(Intent)方法发送这个 intent。”随后，调用 PendingIntent 对象的 send()方法时，操作系统会按照要求发送原来封装的 intent。<br>PendingIntent 真正精妙的地方在于，将 PendingIntent token 交给其他应用使用时，它是代表当前应用发送 token 对象的。另外，PendingIntent 本身存在于操作系统而不是 token 里。如果不顾及别人感受的话，也可以在交给别人一个 PendingIntent 对象后，立即撤销它，让 send()方法什么也做不了。<strong>如果使用同一个 intent 请求 PendingIntent 两次，得到的 PendingIntent 仍会是同一个。</strong>我们可借此测试某个 PendingIntent 是否已存在，或撤销已发出的 PendingIntent。</p>
+<p><code>PendingIntent.getService(...)</code> 方法打包了启动服务的方法的调用。它有四个参数:一个用来发送 intent 的 Context，一个区分 PendingIntent 来源的请求代码，一个待发送的 Intent 对象以及一组用来决定如何创建 PendingIntent 的标志符。</p>
+<h2 id="2-2-使用-AlarmManager"><a href="#2-2-使用-AlarmManager" class="headerlink" title="2.2 使用 AlarmManager"></a>2.2 使用 AlarmManager</h2><p>我们用 AlarmManager.setInexactRepeating(…) 方法开启了定时启动，该方法同样具有四个参数: 一个描述定时器时间基准的常量，定时器启动的时间，定时器循环的时间间隔以及一个到时要发送的 PendingIntent。</p>
+<ol>
+<li>AlarmManager.ELAPSED_REALTIME 是基准时间值 ， 这表明我们是以 SystemClock. elapsedRealtime()走过的时间来确定何时启动时间的。也就是说，经过一段指定的时间，就启动定时器。假如使用 AlarmManager.RTC，启动基准时间就是当前时刻(例如，System. currentTimeMillis())。也就是说，一旦到了某个固定时刻，就启动定时器。</li>
+<li>时间间隔由我们自己确定，不过推荐使用 AlarmManager 自身定义的常量。</li>
+</ol>
+<h2 id="2-3-获取定时器激活状态"><a href="#2-3-获取定时器激活状态" class="headerlink" title="2.3 获取定时器激活状态"></a>2.3 获取定时器激活状态</h2><p>由于我们在代码中撤销定时器的同时也撤销了 PendingIntent，所以通过发送一个 <code>PendingIntent.FLAG_NO_CREATE</code> 标志给 getService 方法可以获取这个 PendingIntent 存在状态。</p>
+<h1 id="3-通知"><a href="#3-通知" class="headerlink" title="3. 通知"></a>3. 通知</h1><p>如果服务需要与用户沟通，通知信息(notification)总是一个不错的选择。通知信息是指显示在通知抽屉上的消息条目，用户可向下滑动屏幕读取。 想要发送通知信息，首先要创建 Notification 对象。</p>
+<p>Notification 需使用构造对象来创建。完整的 Notification 至少应包括:</p>
+<ul>
+<li>在 Lollipop 之前的设备上，首次显示通知信息时，在状态栏上显示的 ticker text(Lollipop<br>之后，ticker text 不再显示在状态栏上，但仍与可访问性服务相关);</li>
+<li>在状态栏上显示的图标(在 Lollipop 之前的设备上，图标在 ticker text 消失后出现); </li>
+<li>代表通知信息自身，在通知抽屉中显示的视图;</li>
+<li>待触发的 PendingIntent，用户点击抽屉中的通知信息时触发。</li>
+</ul>
+<p>完成 Notification 对象的创建后，可调用 NotificationManager 系统服务的 notify(int, Notification)方法发送它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Resources resources = getResources();</span><br><span class="line">Intent i = PhotoGalleryActivity.newIntent(<span class="keyword">this</span>);</span><br><span class="line">PendingIntent pi = PendingIntent.getActivity(<span class="keyword">this</span>, <span class="number">0</span>, i, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setTicker(resources.getString(R.string.new_pictures_title))</span><br><span class="line">        .setSmallIcon(android.R.drawable.ic_menu_report_image)</span><br><span class="line">        .setContentTitle(resources.getString(R.string.new_pictures_title))</span><br><span class="line">        .setContentText(resources.getString(R.string.new_pictures_text))</span><br><span class="line">        .setContentIntent(pi)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line">NotificationManagerCompat notificationManager =</span><br><span class="line">        NotificationManagerCompat.from(<span class="keyword">this</span>);</span><br><span class="line">notificationManager.notify(<span class="number">0</span>, notification);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>首先，调用 setTicker(CharSequence)和 setSmallIcon (int)方法，配置 ticker text 和小图标。</li>
+<li>然后配置 Notification 在下拉抽屉中的外观。图标的值来自于 setSmallIcon(int) 方法 ， 而设置标题和显示文字则需分别调用 setContentTitle (CharSequence)和 setContentText(CharSequence)方法。</li>
+<li>接下来，须指定用户点击 Notification 消息时所触发的动作行为。这里使用的是 PendingIntent。用户在下拉抽屉中点击 Notification 消息时，传入 setContentIntent(PendingIntent)方法的 PendingIntent 会被触发。</li>
+<li>调用 setAutoCancel (true)方法可调整上述行为。一旦执行了 setAutoCancel(true)设置方法，用户点击 Notification 消息时，该消息就会从消息抽屉中删除。</li>
+<li>最后，从当前 context 中取出一个 NotificationManagerCompat 实例，然后调用 Notifi- cationManagerCompat.notify(…)方法贴出消息。传入的整数参数是通知消息的标识符，在整个应用中该值应该是唯一的。如果使用同一 ID 发送两条消息，则第二条消息会替换掉第一条消息。在实际开发中，这也是进度条或其他动态视觉效果的实现方式。</li>
+</ol>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关阅读</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 0 前言-20160724.html" rel="bookmark">Android编程权威指南（第二版）学习笔记及代码（〇）——前言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2026%20%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1-20170223.html" title="Android编程权威指南（第二版）学习笔记（二十六）—— 第26章 后台服务">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 26 后台服务-20170223.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2025%20%E6%90%9C%E7%B4%A2-20170220.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（二十五）—— 第25章 搜索">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（二十五）—— 第25章 搜索
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2027%20broadcast%20intent-20170301.html" rel="next" title="Android编程权威指南（第二版）学习笔记（二十七）—— 第27章 broadcast intent">
+      Android编程权威指南（第二版）学习笔记（二十七）—— 第27章 broadcast intent <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-服务的使用"><span class="nav-text">1. 服务的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-服务的能与不能"><span class="nav-text">1.1 服务的能与不能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-服务的生命周期"><span class="nav-text">1.2 服务的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-不同类型的服务"><span class="nav-text">1.3 不同类型的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-服务的使用"><span class="nav-text">1.3 服务的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用-AlarmManager-定时启动服务"><span class="nav-text">2. 使用 AlarmManager 定时启动服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-PendingIntent"><span class="nav-text">2.1 PendingIntent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-使用-AlarmManager"><span class="nav-text">2.2 使用 AlarmManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-获取定时器激活状态"><span class="nav-text">2.3 获取定时器激活状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-通知"><span class="nav-text">3. 通知</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="经典的空中轮廓线问题的扫描线解法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 218. The Skyline Problem 空中轮廓线问题">
+<meta property="og:url" content="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="经典的空中轮廓线问题的扫描线解法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline2.png">
+<meta property="article:published_time" content="2018-12-08T03:28:44.000Z">
+<meta property="article:modified_time" content="2018-12-09T07:51:56.338Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="空中轮廓线">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png">
+
+<link rel="canonical" href="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode 218. The Skyline Problem 空中轮廓线问题 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode 218. The Skyline Problem 空中轮廓线问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-08 11:28:44" itemprop="dateCreated datePublished" datetime="2018-12-08T11:28:44+08:00">2018-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-09 15:51:56" itemprop="dateModified" datetime="2018-12-09T15:51:56+08:00">2018-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">经典的空中轮廓线问题的扫描线解法</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题目原文"><a href="#题目原文" class="headerlink" title="题目原文"></a>题目原文</h2><h3 id="218-The-Skyline-Problem"><a href="#218-The-Skyline-Problem" class="headerlink" title="218. The Skyline Problem"></a><a href="https://leetcode.com/problems/the-skyline-problem/description/">218. The Skyline Problem</a></h3><p>Difficulty: <strong>Hard</strong></p>
+<p>A city’s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are <strong>given the locations and height of all the buildings</strong> as shown on a cityscape photo (Figure A), write a program to <strong>output the skyline</strong> formed by these buildings collectively (Figure B).</p>
+<img alt="Buildings" src="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png" style="max-width: 45%; border-width: 0px; border-style: solid;"> 
+<img alt="Skyline Contour" src="https://assets.leetcode.com/uploads/2018/10/22/skyline2.png" style="max-width: 45%; border-width: 0px; border-style: solid;">
+
+<p>The geometric information of each building is represented by a triplet of integers <code>[Li, Ri, Hi]</code>, where <code>Li</code> and <code>Ri</code> are the x coordinates of the left and right edge of the ith building, respectively, and <code>Hi</code> is its height. It is guaranteed that <code>0 ≤ Li, Ri ≤ INT_MAX</code>, <code>0 &lt; Hi ≤ INT_MAX</code>, and <code>Ri - Li &gt; 0</code>. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.</p>
+<p>For instance, the dimensions of all buildings in Figure A are recorded as: <code>[ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ]</code> .</p>
+<p>The output is a list of “<strong>key points</strong>“ (red dots in Figure B) in the format of <code>[ [x1,y1], [x2, y2], [x3, y3], ... ]</code> that uniquely defines a skyline. <strong>A key point is the left endpoint of a horizontal line segment</strong>. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour.</p>
+<p>For instance, the skyline in Figure B should be represented as:<code>[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ]</code>.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The number of buildings in any input list is guaranteed to be in the range <code>[0, 10000]</code>.</li>
+<li>The input list is already sorted in ascending order by the left x position <code>Li</code>.</li>
+<li>The output list must be sorted by the x position.</li>
+<li>There must be no consecutive horizontal lines of equal height in the output skyline. For instance, <code>[...[2 3], [4 5], [7 5], [11 5], [12 7]...]</code> is not acceptable; the three lines of height 5 should be merged into one in the final output as such: <code>[...[2 3], [4 5], [12 7], ...]</code></li>
+</ul>
+<a id="more"></a>
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>这是一个经典的扫描线问题，给了一堆建筑，并需要找出轮廓，轮廓的定义就是重叠的建筑物中远远看去<strong>最大高度</strong>发生变化的点，这里称之为<code>轮廓点</code>。</p>
+<p>根据扫描线问题的基本思路，我们将一个建筑物拆解成两条线，一条上升，一条下降，这样，每条线具有三个特征，即<strong>坐标，高度和上升状态</strong>，我们要去找到<strong>最大高度发生变化的点</strong>，就需要对这些线进行<strong>排序访问</strong>。</p>
+<h3 id="如何知道当前的最大高度"><a href="#如何知道当前的最大高度" class="headerlink" title="如何知道当前的最大高度"></a>如何知道当前的最大高度</h3><p>显然，在动态添加线时，使用最大堆（PriorityQueue)或者红黑树Set（TreeSet）可以轻易求出当前的最大高度，但是在删除一个建筑时，<code>TreeSet</code>的表现是最好的<code>O(log(n))</code>，所以我们选用<code>TreeSet</code>用于存储目前存在的建筑，并使用<code>first()</code>(按高度从大到小)方法获取最高的高度。</p>
+<h3 id="对线以什么顺序排序"><a href="#对线以什么顺序排序" class="headerlink" title="对线以什么顺序排序"></a>对线以什么顺序排序</h3><p>经过分析，我们可以按照以下优先级对访问顺序进行排序：</p>
+<ol>
+<li><strong>先比较坐标，坐标不同时，按照自然顺序，坐标小的优先</strong></li>
+<li><strong>坐标相同时，比较上升和下降状态，上升优先</strong> </li>
+<li><strong>坐标和状态均相同时，如果是上升状态，则高度更高的优先；下降状态时，高度更低的优先</strong></li>
+</ol>
+<p>下面是对这个优先级的解释：</p>
+<blockquote>
+<ol>
+<li>先按照坐标比较这一点毋庸置疑，扫描线问题都是这样做的。</li>
+<li>坐标相同时，如果不管状态，直接比较高度，就可能出现高低交替的情况，导致同一个坐标出现数个轮廓点。所以需要先按照状态排序，问题是上升优先还是下降优先呢？考虑一种情况，就是两个相同高度的建筑连接在一起，按照题意，这种情况下中间其实是没有发生高度变化的。如果先下降，后上升，那么最大高度就发生了两次变化，这明显是不对的。所以应该先上升，后下降。</li>
+<li>如果坐标和状态状态相同的话呢？显然，对于上升状态，我们应该先扫更高的，这样那些矮的同坐标的上升线无法改变最大高度，便不会记录最高点。对于下降状态，我们要删除建筑，所以应该先把低的删除，避免引起高度的变化。比如有两个坐标重叠的建筑，高度不同，那么在扫描到下降线时必须要先下降高度小的，否则高度会发生两次变化。</li>
+</ol>
+</blockquote>
+<h3 id="如何控制建筑的进出"><a href="#如何控制建筑的进出" class="headerlink" title="如何控制建筑的进出"></a>如何控制建筑的进出</h3><p>还有一个问题就在于我们如何控制一个建筑的进出，目前使用了线的一个成员变量记录下降线对应的上升线。</p>
+<h3 id="还有什么问题？"><a href="#还有什么问题？" class="headerlink" title="还有什么问题？"></a>还有什么问题？</h3><p>在定义<code>TreeSet</code>的Comparator的时候需要注意，<code>TreeSet</code>在插入元素时是根据Comparator判断元素是否相等的，这样如果Comparator的<code>compare()</code>方法中只根据高度来判断时，同一高度的建筑物将只能存储一个！所以有必要再加入一个参数用于区分这些建筑，可以直接使用<code>hashCode()</code>或者新增一个参数。</p>
+<p>下面是个人的代码，仅供参考，使用了<code>opposite</code>成员变量记录下降线对应的上升线。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UP = <span class="number">1</span>, DOWN = -<span class="number">1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Line</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> x, height, status;</span><br><span class="line">        <span class="keyword">public</span> Line opposite;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Line</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> height, <span class="keyword">int</span> status, Line opposite)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.x = x;</span><br><span class="line">            <span class="keyword">this</span>.height = height;</span><br><span class="line">            <span class="keyword">this</span>.status = status;</span><br><span class="line">            <span class="keyword">this</span>.opposite = opposite;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">int</span>[]&gt; getSkyline(<span class="keyword">int</span>[][] buildings) &#123;</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (buildings == <span class="keyword">null</span> || buildings.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将建筑拆成两条线，并记录下降线对应的上升线</span></span><br><span class="line">        Line[] lines = <span class="keyword">new</span> Line[buildings.length * <span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buildings.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] b = buildings[i];</span><br><span class="line">            <span class="keyword">int</span> j = i * <span class="number">2</span>;</span><br><span class="line">            lines[j] = <span class="keyword">new</span> Line(b[<span class="number">0</span>], b[<span class="number">2</span>], UP, <span class="keyword">null</span>);</span><br><span class="line">            lines[j + <span class="number">1</span>] = <span class="keyword">new</span> Line(b[<span class="number">1</span>], b[<span class="number">2</span>], DOWN, lines[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 按照三个优先级排序</span></span><br><span class="line">        Arrays.sort(lines, <span class="keyword">new</span> Comparator&lt;Line&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Line l1, Line l2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (l1.x != l2.x) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.x - l2.x;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status != l2.status) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.status - l1.status;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status == UP) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.height - l1.height;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.height - l2.height;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 使用lambda表达式定义TreeSet的Comparator，此处的heap只是形象表达，内部数据结构其实是红黑树</span></span><br><span class="line">        TreeSet&lt;Line&gt; heightHeap = <span class="keyword">new</span> TreeSet&lt;&gt;((a, b) -&gt; b.height == a.height ? a.hashCode() - b.hashCode() : b.height - a.height);</span><br><span class="line">        <span class="keyword">int</span> curMax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Line tmp : lines) &#123;</span><br><span class="line">            <span class="comment">// 上升时将建筑加入</span></span><br><span class="line">            <span class="keyword">if</span> (tmp.status == UP ) &#123;</span><br><span class="line">                heightHeap.add(tmp);</span><br><span class="line">                <span class="keyword">if</span> (tmp.height &gt; curMax) &#123;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, tmp.height&#125;);</span><br><span class="line">                    curMax = tmp.height;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="comment">// 下降时将建筑删除</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                heightHeap.remove(tmp.opposite);</span><br><span class="line">                <span class="comment">// 特殊情况：删除以后没有建筑</span></span><br><span class="line">                <span class="keyword">if</span> (heightHeap.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                    curMax = <span class="number">0</span>;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, <span class="number">0</span>&#125;);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (heightHeap.first().height &lt; curMax) &#123;</span><br><span class="line">                    curMax = heightHeap.first().height;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, curMax&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html" title="LeetCode 218. The Skyline Problem 空中轮廓线问题">https://blog.kniost.top/LeetCode/The Skyline Problem 空中轮廓线问题-20181208.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+              <a href="/tags/%E6%89%AB%E6%8F%8F%E7%BA%BF/" rel="tag"><i class="fa fa-tag"></i> 扫描线</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/LeetCode/Maximum%20XOR%20of%20Two%20Numbers%20in%20an%20Array%E8%A7%A3%E6%B3%95-20181204.html" rel="prev" title="LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法">
+      <i class="fa fa-chevron-left"></i> LeetCode 412. Maximum XOR of Two Numbers in an Array 的Trie树加分治法解法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/LeetCode/House-Robber-20181209.html" rel="next" title="LeetCode 198/213/337 House Robber 系列问题">
+      LeetCode 198/213/337 House Robber 系列问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目原文"><span class="nav-text">题目原文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#218-The-Skyline-Problem"><span class="nav-text">218. The Skyline Problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何知道当前的最大高度"><span class="nav-text">如何知道当前的最大高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对线以什么顺序排序"><span class="nav-text">对线以什么顺序排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何控制建筑的进出"><span class="nav-text">如何控制建筑的进出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有什么问题？"><span class="nav-text">还有什么问题？</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

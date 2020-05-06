@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲了如何使用 intent 拍照，存储照片和展示照片 GitHub 地址：完成16章，未完成挑战完成16章挑战1完成16章挑战2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲了如何使用 intent 拍照，存储照片和展示照片 GitHub 地址：完成16章，未完成挑战完成16章挑战1完成16章挑战2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-12T09:55:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照 | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-12 17:55:10" itemprop="dateCreated datePublished" datetime="2017-01-12T17:55:10+08:00">2017-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲了如何使用 intent 拍照，存储照片和展示照片</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/a3abc7009d2c225159c71e6d71e351eb6284bdfb" target="_blank" rel="noopener">完成16章，未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/acaa89b7be9f3b7f481a5e4c190bfaf224c3e3ee" target="_blank" rel="noopener">完成16章挑战1</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/2462577c3c4b4acb614b6e01a69124d235028cef" target="_blank" rel="noopener">完成16章挑战2</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="1-外部存储"><a href="#1-外部存储" class="headerlink" title="1. 外部存储"></a>1. 外部存储</h1><p>相机照片动辄几 MB 大小，直接保存在数据库中肯定不现实。很自然，大家会想到直接使用设备的文件系统。<br>一般来讲，应用都应该使用私有存储空间保存各类文件。还记得吗?在前面章节中，我们在私有存储空间保存过 SQLite 数据文件。使用类似 Context.getFileStreamPath(String)和 Context.getFilesDir()这样的方法，我们也可以实现这样的存储目标，下表所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Context 类提供的方法</th>
+<th align="left">使用目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>File getFilesDir()</code></td>
+<td align="left">获取/data/data/<packagename>/files 目录</td>
+</tr>
+<tr>
+<td align="left"><code>FileInputStream openFileInput(String name)</code></td>
+<td align="left">打开现有文件进行读取</td>
+</tr>
+<tr>
+<td align="left"><code>FileOutputStream openFileOutput(String name, int mode)</code></td>
+<td align="left">打开文件进行写入，如不存在就创建它</td>
+</tr>
+<tr>
+<td align="left"><code>File getDir(String name, int mode)</code></td>
+<td align="left">获取/data/data/<packagename>/目录的子目录(如不存在就先创建它)</td>
+</tr>
+<tr>
+<td align="left"><code>String[] fileList()</code></td>
+<td align="left">获取/data/data/<packagename>/files 目录下的文件列表。可与其他方法配合使用，例如 openFileInput(String)</td>
+</tr>
+<tr>
+<td align="left"><code>File getCacheDir()</code></td>
+<td align="left">获取/data/data/<packagename>/cache 目录。应注意及时清理该目录，并节约使用空间</td>
+</tr>
+</tbody></table>
+<p>如果想存储的文件仅供应用内部使用，使用上表中的各类方法就可以了。而如果想共享文件给其他应用或是接收其他应用的文件(如相机应用拍摄的照片)时，路只有一条:使用外部存储保存文件。<br>外部存储有两类:主外部存储和其他各类存储介质。所有的 Android 设备至少应有一个主外部存储地。使用<code>Environment.getExternalStorageDirectory()</code>可以返回这个外部存储目录。 以前，这个存储地通常是指 SD 卡，但现在都已基本整合至了设备内部。即使现在还有设备使用扩展外部存储，也应算作其他各类存储介质这一类了。<br>Context 也提供了一些访问外部存储空间要用到的方法，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">使用目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>File getExternalCacheDir()</code></td>
+<td align="left">获取主外部存储上的缓存文件目录。用法类似 getCacheDir()方法，但要注意，Android 一般不会自动清理该目录</td>
+</tr>
+<tr>
+<td align="left"><code>File[] getExternalCacheDirs()</code></td>
+<td align="left">获取多个外部存储上的缓存文件目录</td>
+</tr>
+<tr>
+<td align="left"><code>File getExternalFilesDir(String)</code></td>
+<td align="left">获取主外部存储上存放常规文件的文件目录。通过 String 参数，可访问特定内容类型的子目录。内容类型常量以 DIRECTORY_为前缀，定义在 Environment 中 。 例如 , 用于 图像 文件 的 Environment.DIRECTORY_ PICTURES</td>
+</tr>
+<tr>
+<td align="left"><code>File[] getExternalFilesDirs(String)</code></td>
+<td align="left">类似 getExternalFilesDir(String)方法，但该方法可获取指定类型的所有文件目录</td>
+</tr>
+<tr>
+<td align="left"><code>File[] getExternalMediaDirs()</code></td>
+<td align="left">获取 Android 存储图片、视频和音乐文件的所有外部文件目录。和 getExternalFilesDir(Environment.DIRECTORY_PICTURES) 方法 区别 在于，调用该方法，多媒体扫描器会自动扫描目标目录，并将存放的多媒体文件暴露给能够播放音乐、浏览视频和图片的应用。也就是说， getExternalMediaDirs()方法返回目录中存放的任何文件都会自动出现在多媒体应用中</td>
+</tr>
+</tbody></table>
+<h2 id="1-1-指定照片存放位置"><a href="#1-1-指定照片存放位置" class="headerlink" title="1.1 指定照片存放位置"></a>1.1 指定照片存放位置</h2><p>首先，一张照片的文件名我们用一个 Crime 的 ID 来标识，所以在 Crime.java 中加入了获取文件名的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getPhotoFileName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">"IMG_"</span> + getId().toString() + <span class="string">".jpg"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 CrimeLab.java 中加入获取路径文件的函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> File <span class="title">getPhotoFile</span><span class="params">(Crime crime)</span> </span>&#123;</span><br><span class="line">    File externalFilesDir = mContext</span><br><span class="line">            .getExternalFilesDir(Environment.DIRECTORY_PICTURES);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (externalFilesDir == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> File(externalFilesDir, crime.getPhotoFileName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-外部存储使用权限"><a href="#1-2-外部存储使用权限" class="headerlink" title="1.2 外部存储使用权限"></a>1.2 外部存储使用权限</h2><p>读写外部存储需要获得权限，一般在<code>AndroidManifest.xml</code>中使用<code>&lt;uses-permission&gt;</code>标签来使用。而对于 API 19（Android 4.4）及以后的新版系统来说，应用不需要再申请 <code>Context.getExternalFilesDir(String)</code> 所需要的权限了，所以这个权限申请是这么写的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.READ_EXTERNAL_STORAGE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:maxSdkVersion</span>=<span class="string">"18"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-使用相机-intent"><a href="#2-使用相机-intent" class="headerlink" title="2. 使用相机 intent"></a>2. 使用相机 intent</h1><p>实现拍照功能只需要使用一个隐式 intent，分为下面几步：</p>
+<ul>
+<li>获取保存图片的文件存储位置</li>
+<li>处理拍照按钮，实现触发拍照，其实就是发送一个带有 <code>MediaStore.ACTION_IMAGE_CAPTURE</code>的 intent 即可。</li>
+</ul>
+<p>对于 intent 的操作，我们需要定义在 MediaStore 类中的<code>ACTION_CAPTURE_IMAGE</code>。MediaStore 类定义了一些公共接口，可用于处理图像、视频以及音乐这些常见的多媒体任务。当然，这也包括触发相机应用的拍照 intent。</p>
+<p>如果只用<code>ACTION_IMAGE_CAPTURE</code>打开相机应用，默认只能拍摄缩略图这样的低分辨率照片，而且照片会保存在 onActivityResult(…)返回的 Intent 对象里。要想获得全尺寸照片，就要让它使用文件系统存储照片。这可以通过传入保存在 <code>MediaStore.EXTRA_OUTPUT</code> 中的指向存储路径的 Uri 来完成。<br>  编写用于拍照的隐式 intent，拍摄的照片应该保存在 mPhotoFile 指定的地方。同时，别忘了检查设备上是否安装有相机应用，以及是否有地方存储照片。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mPhotoButton = (ImageButton) v.findViewById(R.id.crime_camera);</span><br><span class="line"><span class="comment">// 首先创建一个用于拍照的 Intent 对象</span></span><br><span class="line"><span class="keyword">final</span> Intent captureImage = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line"><span class="comment">// 检查是否有可拍照的应用</span></span><br><span class="line"><span class="keyword">boolean</span> canTakePhoto = mPhotoFile != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">        captureImage.resolveActivity(packageManager) != <span class="keyword">null</span>;</span><br><span class="line">mPhotoButton.setEnabled(canTakePhoto);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (canTakePhoto) &#123;</span><br><span class="line">	<span class="comment">// 建立访问照片目录的 Uri</span></span><br><span class="line">    Uri uri = Uri.fromFile(mPhotoFile);</span><br><span class="line">    <span class="comment">// 将该 Uri 放入 intent 对象中</span></span><br><span class="line">    captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mPhotoButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">// 使用 startActivityForResult 是为了拍完照后刷新视图</span></span><br><span class="line">        startActivityForResult(captureImage, REQUEST_PHOTO);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-缩放和显示位图"><a href="#3-缩放和显示位图" class="headerlink" title="3. 缩放和显示位图"></a>3. 缩放和显示位图</h1><p>有了照片，接下来就是找到并加载它，然后展示给用户看。在技术实现上，这需要加载照片到大小合适的 Bitmap 对象中。而要从文件生成 Bitmap 对象，我们需要 BitmapFactory 类:<br>    <code>Bitmap bitmap = BitmapFactory.decodeFile(mPhotoFile.getPath());</code></p>
+<p>Bitmap 是个简单对象，它只存储实际像素数据。也就是说，即使原始照片已压缩过，但存入 Bitmap 对象时，文件并不会同样压缩。因此，如果有一个16万像素24位已压缩为5Mb 大小的 JPG 照片文件，一旦载入 Bitmap 对象，就会立即膨胀至48Mb 大小!<br>这个问题可以设法解决，但需要手工缩放位图照片。具体做法就是，首先确认文件到底有多大，然后考虑按照给定区域大小合理缩放文件。最后，重新读取缩放后的文件，创建 Bitmap 对象。<br>既然需要处理图像文件，我们建立一个通用的工具类，名为 PictureUtils.java。在其中添加 getScaledBitmap(String, int, int)缩放方法，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PictureUtils</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">getScaledBitmap</span><span class="params">(String path, <span class="keyword">int</span> destWidth, <span class="keyword">int</span> destHeight)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Read in the dimensions of the image on disk</span></span><br><span class="line">        BitmapFactory.Options options = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">        options.inJustDecodeBounds = <span class="keyword">true</span>;</span><br><span class="line">        BitmapFactory.decodeFile(path, options);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">float</span> srcWidth = options.outWidth;</span><br><span class="line">        <span class="keyword">float</span> srcHeight = options.outHeight;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Figure out how much to scale down by</span></span><br><span class="line">        <span class="keyword">int</span> inSampleSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (srcHeight &gt; destHeight || srcWidth &gt; destWidth) &#123;</span><br><span class="line">            <span class="keyword">if</span> (srcWidth &gt; srcHeight) &#123;</span><br><span class="line">                inSampleSize = Math.round(srcHeight / destHeight);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                inSampleSize = Math.round(srcWidth / destWidth);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        options = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">        options.inSampleSize = inSampleSize;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Read in and create final bitmap</span></span><br><span class="line">        <span class="keyword">return</span> BitmapFactory.decodeFile(path, options);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法中，inSampleSize 值很关键。它决定着缩略图像素的大小。假设这个值是1的话，就表明缩略图和原始照片的水平像素大小一样。如果是2的话，它们的水平像素比就是1∶2。因此，inSampleSize 值为2时，缩略图的像素数就是原始文件的四分之一。<br>问题总是接踵而来。解决了缩放问题，又冒出了新问题:fragment 刚启动时，PhotoView 究竟有多大无人知道。onCreate(…)、onStart()和 onResume()方法启动后，才会有首个实例化布局出现。也就在此时，显示在屏幕上的视图才会有大小尺寸。这也是出现新问题的原因。<br>解决方案有两个:要么等布局实例化完成并显示，要么干脆使用保守估算值。特定条件下， 尽管估算比较主观，但确实是一个切实可行的办法。再添加一个 getScaledBitmap(String, Activity)静态 Bitmap 估算方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">getScaledBitmap</span><span class="params">(String path, Activity activity)</span> </span>&#123;</span><br><span class="line">    Point size = <span class="keyword">new</span> Point();</span><br><span class="line">    activity.getWindowManager().getDefaultDisplay()</span><br><span class="line">            .getSize(size);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> getScaledBitmap(path, size.x, size.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-功能声明"><a href="#4-功能声明" class="headerlink" title="4. 功能声明"></a>4. 功能声明</h1><p>应用的拍照功能用起来不错，但还有件事情要做:告诉目标用户应用具有拍照功能。</p>
+<p>假如应用要用到诸如相机、NFC，或者任何其他的随设备走的功能时，都应该要让 Android 系统知道。否则，假如设备缺少这样的功能，类似 Google Play 商店的安装程序就会拒绝安装应用。<br>为声明需要使用相机，在 AndroidManifest.xml 中加入<code>&lt;uses-feature&gt;</code>标签：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-feature</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.hardware.camera2"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"false"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="5-布局文件中的-lt-include-gt-标签"><a href="#5-布局文件中的-lt-include-gt-标签" class="headerlink" title="5. 布局文件中的 &lt;include&gt; 标签"></a>5. 布局文件中的 <code>&lt;include&gt;</code> 标签</h1><p>如果有重复的布局可以使用，那么可以采用 include 标签，直接在不同的 layout 中引用。<br>然而，经验表明，布局文件的优点是可靠又好用。例如，直接查看布局文件内容，就可以快速准确地知道应用视图是如何构建的。然而，一旦用了 include 标签，一切就不好说了。还想明白视图构成的话，就得仔细翻看布局主文件以及所有 include 的布局文件。这种非直观的感觉，极易让人失去耐心。<br>用户界面是应用改动相对频繁的部分。既然这样，不顾一切地追求复用原则很可能会适得其反。因此，在视图层开发时，我们一定要多多考量，尽量做到审慎、合理地使用 include 标签。</p>
+<h1 id="6-挑战练习"><a href="#6-挑战练习" class="headerlink" title="6. 挑战练习"></a>6. 挑战练习</h1><h2 id="6-1-优化照片显示"><a href="#6-1-优化照片显示" class="headerlink" title="6.1 优化照片显示"></a>6.1 优化照片显示</h2><p>新建一个 GlancePictureFragment，继承自 DialogFragment，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlancePictureFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG_PATH = <span class="string">"path"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ImageView mImage;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 由于文件比较大，所以将文件路径传入即可</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GlancePictureFragment <span class="title">newInstance</span><span class="params">(String path)</span> </span>&#123;</span><br><span class="line">        Bundle args = <span class="keyword">new</span> Bundle();</span><br><span class="line">        args.putString(ARG_PATH, path);</span><br><span class="line">        GlancePictureFragment fragment = <span class="keyword">new</span> GlancePictureFragment();</span><br><span class="line">        fragment.setArguments(args);</span><br><span class="line">        <span class="keyword">return</span> fragment;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 使用 getArguments() 方法取出照片文件路径</span></span><br><span class="line">        String path = getArguments().getString(ARG_PATH);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 这个新的 style 其实就做了一件事，那就是使窗口全屏</span></span><br><span class="line">		<span class="comment">// 注意如果继承了 @android:Theme.Dialog 的话，窗口</span></span><br><span class="line">		<span class="comment">// 大小就限定了，所以我没有继承</span></span><br><span class="line">        <span class="keyword">final</span> Dialog dialog = <span class="keyword">new</span> Dialog(getActivity(), R.style.CustomDialogTheme);</span><br><span class="line">        <span class="comment">// 这个 layout 中只有一个 ImageView</span></span><br><span class="line">        dialog.setContentView(R.layout.dialog_image_glance);</span><br><span class="line"></span><br><span class="line">        mImage = (ImageView) dialog.findViewById(R.id.glance_image);</span><br><span class="line">        <span class="comment">// 仍然使用 PictureUtils 类的工具来获得缩放的 Bitmap</span></span><br><span class="line">        mImage.setImageBitmap(</span><br><span class="line">                PictureUtils.getScaledBitmap(path, getActivity()));</span><br><span class="line">        mImage.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 点击图片则退出该 dialog</span></span><br><span class="line">                dialog.dismiss();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> dialog;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在图片的点击事件中声明即可</p>
+<h2 id="6-2-优化缩略图加载"><a href="#6-2-优化缩略图加载" class="headerlink" title="6.2 优化缩略图加载"></a>6.2 优化缩略图加载</h2><p>首先修改更新视图的函数，接受高宽的指定像素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updatePhotoView</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mPhotoFile == <span class="keyword">null</span> || !mPhotoFile.exists()) &#123;</span><br><span class="line">        mPhotoView.setImageDrawable(<span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Bitmap bitmap = PictureUtils.getScaledBitmap(</span><br><span class="line">                mPhotoFile.getPath(), width, height);</span><br><span class="line">        mPhotoView.setImageBitmap(bitmap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，先获取 mPhotoView 的 ViewTreeObserver，然后设置 OnGlobalLayoutListener 监听器，在监听器中即可获取视图的高度和宽度，然后进行图片显示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mPhotoObserver = mPhotoView.getViewTreeObserver();</span><br><span class="line">mPhotoObserver.addOnGlobalLayoutListener(</span><br><span class="line">        <span class="keyword">new</span> ViewTreeObserver.OnGlobalLayoutListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        updatePhotoView(</span><br><span class="line">                mPhotoView.getWidth(),</span><br><span class="line">                mPhotoView.getHeight());</span><br><span class="line">        Log.i(<span class="string">"CrimeFragment"</span>, <span class="string">"onGlobalLayout: Observed"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关阅读</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 0 前言-20160724.html" rel="bookmark">Android编程权威指南（第二版）学习笔记及代码（〇）——前言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2016%20%E4%BD%BF%E7%94%A8%20intent%20%E6%8B%8D%E7%85%A7-20170112.html" title="Android编程权威指南（第二版）学习笔记（十六）—— 第16章 使用 intent 拍照">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 16 使用 intent 拍照-20170112.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2015%20%E9%9A%90%E5%BC%8F%20intent-20170111.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（十五）—— 第15章 隐式 Intent
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2017%20Master-Detail%20%E7%95%8C%E9%9D%A2-20170115.html" rel="next" title="Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面">
+      Android编程权威指南（第二版）学习笔记（十七）—— 第17章 Master-Detail 用户界面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-外部存储"><span class="nav-text">1. 外部存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-指定照片存放位置"><span class="nav-text">1.1 指定照片存放位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-外部存储使用权限"><span class="nav-text">1.2 外部存储使用权限</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用相机-intent"><span class="nav-text">2. 使用相机 intent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-缩放和显示位图"><span class="nav-text">3. 缩放和显示位图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-功能声明"><span class="nav-text">4. 功能声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-布局文件中的-lt-include-gt-标签"><span class="nav-text">5. 布局文件中的 &lt;include&gt; 标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-挑战练习"><span class="nav-text">6. 挑战练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-优化照片显示"><span class="nav-text">6.1 优化照片显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-优化缩略图加载"><span class="nav-text">6.2 优化缩略图加载</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

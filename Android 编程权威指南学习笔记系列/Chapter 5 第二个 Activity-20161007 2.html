@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。 GitHub 地址：第五章未完成挑战第五章完成挑战问题1，2第五章完成所有挑战问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android编程权威指南（第二版）学习笔记（五）—— 第5章 第二个 Activity">
+<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。 GitHub 地址：第五章未完成挑战第五章完成挑战问题1，2第五章完成所有挑战问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161021101552925">
+<meta property="article:published_time" content="2016-10-07T03:49:10.000Z">
+<meta property="article:modified_time" content="2018-11-25T07:19:47.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161021101552925">
+
+<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android编程权威指南（第二版）学习笔记（五）—— 第5章 第二个 Activity | kniost</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kniost</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android编程权威指南（第二版）学习笔记（五）—— 第5章 第二个 Activity
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-07 11:49:10" itemprop="dateCreated datePublished" datetime="2016-10-07T11:49:10+08:00">2016-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Android编程权威指南学习笔记</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。</p>
+<p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/0124102dcf27020a51341eaf48ac870b315e7bd4" target="_blank" rel="noopener">第五章未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/2c1de49585be793c2395635bcc0ce55e40cd1ac9" target="_blank" rel="noopener">第五章完成挑战问题1，2</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/1bf8869969409edd10ac1566446fb9a04a03dd2b" target="_blank" rel="noopener">第五章完成所有挑战问题</a></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="1-新建一个-Activity"><a href="#1-新建一个-Activity" class="headerlink" title="1. 新建一个 Activity"></a>1. 新建一个 Activity</h1><p>最好的方法是使用 Android Studio 自带的创建方法，若要手动创建，一定要有三个环环相扣的地方需要建立：</p>
+<ul>
+<li>一个 JAVA 类：即 Activity 类， 可以视需求继承 Activity 或者其他的衍生类</li>
+<li>一个布局文件：对于任意一个 Activity 来说，都需要加载一个布局文件，在 res/layout 文件夹下新建一个布局文件，并在代码中使用 setContentView() 方法加载布局</li>
+<li>★★★★★ <strong>一定要在 AndroidManifest.xml 中声明新的 Activity!</strong></li>
+</ul>
+<h1 id="2-启动Activity"><a href="#2-启动Activity" class="headerlink" title="2. 启动Activity"></a>2. 启动Activity</h1><p>Activity 类中的一个函数 <code>public void startActivity(Intent intent)</code>， 调用该方法时，启动 Activity 的请求直接发给了操作系统的 ActivityManager。ActivityManager 负责创建 Activity 实例并调用其 onCreate()方法。示意图如下：</p>
+<p><img src="http://img.blog.csdn.net/20161021101552925" alt="基于 Intent 的交互"></p>
+<blockquote>
+<p>###基于Intent的通信<br>Intent 对象是 component 用来与操作系统通信的一种媒介工具。Intent 类提供了多种构造方法以满足不同的使用需求， 这章使用的就是最简单的启动一个新的 Activity 的构造方法。</p>
+</blockquote>
+<blockquote>
+<p>component 就是四大组件：Activity, Service, Broadcast Receiver, Content Provider</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Intent</span><span class="params">(Context packageContext, Class&lt;?&gt; cls)</span></span></span><br><span class="line"><span class="function"><span class="comment">//Class 对象必须已经在 AndroidManifest.xml 中声明才可以使用，否则将抛出 ActivityNotFoundException</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-Activity-间的数据传递"><a href="#3-Activity-间的数据传递" class="headerlink" title="3. Activity 间的数据传递"></a>3. Activity 间的数据传递</h1><h2 id="3-1-使用-Intent-Extra"><a href="#3-1-使用-Intent-Extra" class="headerlink" title="3.1 使用 Intent Extra"></a>3.1 使用 Intent Extra</h2><p>在使用 Intent 对象启动另一个 Activitiy 的时候使用了其构造方法，如果要让另一个 Activity 知道前一个 component 需要展示什么（比如用户到底点击了哪个按钮随之要展示什么详情），就需要在 Intent 中说明。使用 Intent 对象方法<code>public Intent putExtra(String name, &lt;Type&gt; data)</code> 将数据存到 Intent 对象内部，然后给操作系统。</p>
+<p>这整个过程有点像送信：</p>
+<ul>
+<li>一个 component 应该先准备一个信封（Intent），在信封上写好发件人和收件人（显式 Intent 的构造方法）。</li>
+<li>接着写信（Intent Extra），装到信封里（Intent），用 startActivity() 方法把信投递给操作系统的 ActivityManager。</li>
+<li>ActivityManager 看到收件人的地址，去找到收件人，敲他家的门（调用其 onCreate() 方法），然后把信给他。</li>
+</ul>
+<p>这样，一个 Activity 就被启动了。</p>
+<blockquote>
+<p>一般来说，我们会在一个 Activity 中写入自己的启动方法或者一个『用于获取启动本 Activity 的 Intent 对象』的方法，因为这样的话，其他 component 在启动时能够清楚地知道需要什么参数。比如可以写一个 <code>public static void actionStart(Context, Extra)</code>函数，传入参数是本 Activity 的上下文，和需要传递的额外信息，这样别的 component 在启动时，只需要调用该静态方法即可。</p>
+</blockquote>
+<h2 id="3-2-从子-Activity-获取返回结果"><a href="#3-2-从子-Activity-获取返回结果" class="headerlink" title="3.2 从子 Activity 获取返回结果"></a>3.2 从子 Activity 获取返回结果</h2><p>还是用送信来类比，如果一封信被另一个 Activity 收到了，他拆了信看完以后就丢弃了，并不会回信。那么如果发信者想要收信者回信，需要先跟 ActivityManager 说好，而且还要约定一个暗号，以便回信时不会弄错，然后 ActivityManager 再投递信，敲门并告诉另一个 Activity 应该回信。</p>
+<p>也就是说，如果启动另一个 Activity 并希望其在退出时返回结果，那么应该使用下面的方法，即先跟 ActivityManager 说好，暗号就是 requestCode 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(Intent intent, <span class="keyword">int</span> requestCode)</span></span></span><br><span class="line"><span class="function">``` </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">自己也要做好准备接受消息，即重写方法 </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这个多出来的 resultCode 顾名思义，就是结果的正确与否，一般会使用 Activity.RESULT_OK 或者 Activity.RESULT_CANCELED 来标志， 或者自定义常量 Activity.RESULT_FIRST_USER 以便根据 Activity 返回结果来做出不同操作。如果下一个 Activity 不设置结果的话（也就是不回信），用户退出该 Activity 时会默认返回 RESULT_CANCELED。</p>
+<p>而回信的人只需要写信即可，直接使用 Activity 的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setResult</span><span class="params">(<span class="keyword">int</span> requestCode, Intent data)</span></span></span><br><span class="line"><span class="function"><span class="comment">//或者</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setResult</span><span class="params">(<span class="keyword">int</span> requestCode)</span></span></span><br></pre></td></tr></table></figure>
+<p>回传的数据也是使用 Intent 封装的。</p>
+<h2 id="3-3-最后大概总结一下这个过程："><a href="#3-3-最后大概总结一下这个过程：" class="headerlink" title="3.3 最后大概总结一下这个过程："></a>3.3 <strong>最后大概总结一下这个过程</strong>：</h2><ul>
+<li><p>如果需要在启动另一个 Activity 时传递数据，就使用 Intent 的 putExtra() 方法</p>
+</li>
+<li><p>如果还需要返回结果，就要使用 startActivityForResult() 函数， 需要事先规定好 requestCode</p>
+</li>
+<li><p>同时父 Activity 需要重写 onActivityResult() 函数，对返回的结果进行处理</p>
+</li>
+<li><p>子 Activity 若要回传数据，调用 setResult() 方法将数据放入即可。</p>
+</li>
+</ul>
+<blockquote>
+<p>注： SharedPreferences 有时也能起到传递信息的作用，但是一般只用来保存基本类型的数据，所以作用有限，就像把东西放在一个共有的环境里，大家都知道那里有东西，谁需要都可以去取。</p>
+</blockquote>
+<h1 id="4-Activity-的使用与管理"><a href="#4-Activity-的使用与管理" class="headerlink" title="4.  Activity 的使用与管理"></a>4.  Activity 的使用与管理</h1><p>对于一个应用来说，启动时系统只是先启动了其中的一个 Activity，这个 Activity 理应已经在 AndroidManifest.xml 文件中声明为 Launcher Activity。</p>
+<p>对于所有应用，其 Activity 共享同一个『回退栈』。如果没有重写 onBackPressed() 函数的话，按下返回键就将当前 Activity 弹出栈顶，或者自己调用了 Activity.finish() 函数时也同样会弹出栈顶。</p>
+<h1 id="5-章末挑战"><a href="#5-章末挑战" class="headerlink" title="5. 章末挑战"></a>5. 章末挑战</h1><ol>
+<li><p>用户作弊后，可以旋转 CheatActivity 来清除作弊痕迹。</p>
+<blockquote>
+<p>这个问题比较好处理，问题原因是由于旋转时需使用新的布局文件，重新调用了 onCreate() 方法，从而导致作弊痕迹丢失。那么重写 onSaveInstanceState() 方法，将其保存，在 onCreate() 中对数据进行恢复即可。</p>
+</blockquote>
+</li>
+<li><p>作弊返回后， 用户可以旋转 QuizActivity 来清除 mIsCheater 变量值。</p>
+<blockquote>
+<p>同上</p>
+</blockquote>
+</li>
+<li><p>用户可以不断单击NEXT按钮，跳到偷看过答案的问题，从而使作弊记录丢失。</p>
+<blockquote>
+<p>由于每道题有每道题的作弊记录，所以我的思路是采用一个 boolean 数组记录作弊情况，并且这个数组也应该在旋转的时候进行保存，在应用启动期间长期存在即可。如果有长期保存的需求，就要用到 SharedPreferences 或者数据库了。</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<p>GitHub Page: <a href="http://kniost.github.io" target="_blank" rel="noopener">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42" target="_blank" rel="noopener">http://www.jianshu.com/u/723da691aa42</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关阅读</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 快捷键-20170518.html" rel="bookmark">Android Studio常用快捷键</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 开发技巧篇/Android Studio 高级调试技巧-20171224.html" rel="bookmark">Android 常用高级调试技巧</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 0 前言-20160724.html" rel="bookmark">Android编程权威指南（第二版）学习笔记及代码（〇）——前言</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 1 Android 开发初体验-20161006.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（一）——第1章 Android开发初体验</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/Android 编程权威指南学习笔记系列/Chapter 11 使用 ViewPager-20161117.html" rel="bookmark">Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html" title="Android编程权威指南（第二版）学习笔记（五）—— 第5章 第二个 Activity">https://blog.kniost.top/Android 编程权威指南学习笔记系列/Chapter 5 第二个 Activity-20161007.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%204%20Android%20%E5%BA%94%E7%94%A8%E7%9A%84%E8%B0%83%E8%AF%95-20161007.html" rel="prev" title="Android编程权威指南（第二版）学习笔记（四）—— 第4章 Android 应用的调试">
+      <i class="fa fa-chevron-left"></i> Android编程权威指南（第二版）学习笔记（四）—— 第4章 Android 应用的调试
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%206%20Android%20%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9-20161020.html" rel="next" title="Android编程权威指南（第二版）学习笔记（六）—— 第6章 Android SDK 版本与兼容">
+      Android编程权威指南（第二版）学习笔记（六）—— 第6章 Android SDK 版本与兼容 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-新建一个-Activity"><span class="nav-text">1. 新建一个 Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-启动Activity"><span class="nav-text">2. 启动Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity-间的数据传递"><span class="nav-text">3. Activity 间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-使用-Intent-Extra"><span class="nav-text">3.1 使用 Intent Extra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-从子-Activity-获取返回结果"><span class="nav-text">3.2 从子 Activity 获取返回结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-最后大概总结一下这个过程："><span class="nav-text">3.3 最后大概总结一下这个过程：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Activity-的使用与管理"><span class="nav-text">4.  Activity 的使用与管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-章末挑战"><span class="nav-text">5. 章末挑战</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kniost</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">385k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:50</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'IXEIMiXVlRs4elUwO0dpKCVN-gzGzoHsz',
+      appKey     : 'iWF3A9yPpAwwpDgfuPOGyKTd',
+      placeholder: "在此留下你的高见吧~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
