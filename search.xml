@@ -80,23 +80,32 @@
     <title>「动物森友会圈圈」版本更新说明</title>
     <url>/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E-20200330.html</url>
     <content><![CDATA[<p>动物森友会圈圈（以下简称动森圈圈）是集<del>攻略</del>，<del>新闻</del>，交友和绘图于一身的小程序！</p>
-<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><blockquote>
-<p>2020年5月14日0时</p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h2 id="1-0-6"><a href="#1-0-6" class="headerlink" title="1.0.6"></a>1.0.6</h2><blockquote>
+<p>2020年5月15日23时</p>
 </blockquote>
 <h4 id="主要更新："><a href="#主要更新：" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>图鉴页的入口发生变更，以前的分享可能会失效~</li>
+<li>家具图鉴加入筛选功能，目前支持系列筛选和来源筛选啦~</li>
+<li>图鉴的加载速度和搜索速度又双叒变快了</li>
+<li>大头菜交易和森友の邀请函列表页的悬浮菜单开始记录你选择隐藏还是展开了，隐藏后下次打开会默认显示几秒再隐藏哦</li>
+</ol>
+<h2 id="1-0-5"><a href="#1-0-5" class="headerlink" title="1.0.5"></a>1.0.5</h2><blockquote>
+<p>2020年5月14日0时</p>
+</blockquote>
+<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>岛主不再能评价排队中退出的访客</li>
 <li>评价的数量显示变为无上限，使用最新的50个评价计算总评</li>
 </ol>
 <h2 id="1-0-4"><a href="#1-0-4" class="headerlink" title="1.0.4"></a>1.0.4</h2><blockquote>
 <p>2020年5月10日23时</p>
 </blockquote>
-<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-2"><a href="#主要更新：-2" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>图鉴中加入是否可以改造图案的显示</li>
 </ol>
 <h2 id="1-0-3"><a href="#1-0-3" class="headerlink" title="1.0.3"></a>1.0.3</h2><blockquote>
 <p>2020年5月9日23时</p>
 </blockquote>
-<h4 id="主要更新：-2"><a href="#主要更新：-2" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-3"><a href="#主要更新：-3" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>图鉴使用拼音排序 </li>
 <li>不同颜色加入图案显示</li>
 <li>物品原色同样放到多色列表中</li>
@@ -110,7 +119,7 @@
 <h2 id="1-0-1"><a href="#1-0-1" class="headerlink" title="1.0.1"></a>1.0.1</h2><blockquote>
 <p>2020年5月8日23时</p>
 </blockquote>
-<h4 id="主要更新：-3"><a href="#主要更新：-3" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-4"><a href="#主要更新：-4" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>家具图鉴加入详情页，可以显示所有配色</li>
 <li>加速图鉴加载速度</li>
 </ol>
@@ -120,7 +129,7 @@
 <h2 id="1-0-0"><a href="#1-0-0" class="headerlink" title="1.0.0"></a>1.0.0</h2><blockquote>
 <p>2020年5月8日1时</p>
 </blockquote>
-<h4 id="主要更新：-4"><a href="#主要更新：-4" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-5"><a href="#主要更新：-5" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入家具图鉴！目前可以查询到所有家具、摆饰、壁挂物、地毯、地板、墙纸。当然也包括了所有婚礼相关的东西~</li>
 <li>还可以使用简繁体中文、英文、日文进行搜索~</li>
 <li>目前信息包括能否改造、DIY、互摸，共有多少种颜色以及占地面积等</li>
@@ -128,7 +137,7 @@
 <h2 id="0-9-6"><a href="#0-9-6" class="headerlink" title="0.9.6"></a>0.9.6</h2><blockquote>
 <p>2020年5月5日23时</p>
 </blockquote>
-<h4 id="主要更新：-5"><a href="#主要更新：-5" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-6"><a href="#主要更新：-6" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>优化性能，应该可以减缓高峰期的卡顿</li>
 <li>加入图鉴功能预告[离完工还有一段时间]</li>
 </ol>
@@ -138,20 +147,20 @@
 <h2 id="0-9-5"><a href="#0-9-5" class="headerlink" title="0.9.5"></a>0.9.5</h2><blockquote>
 <p>2020年5月3日21时</p>
 </blockquote>
-<h4 id="主要更新：-6"><a href="#主要更新：-6" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-7"><a href="#主要更新：-7" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>退岛间隔时间改为三分钟</li>
 <li>修复可能出现的排队人数内外显示不一致的问题</li>
 </ol>
 <h2 id="0-9-4"><a href="#0-9-4" class="headerlink" title="0.9.4"></a>0.9.4</h2><blockquote>
 <p>2020年5月3日13时</p>
 </blockquote>
-<h4 id="主要更新：-7"><a href="#主要更新：-7" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-8"><a href="#主要更新：-8" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>修复评价列表中评价显示错误的问题</li>
 </ol>
 <h2 id="0-9-3"><a href="#0-9-3" class="headerlink" title="0.9.3"></a>0.9.3</h2><blockquote>
 <p>2020年5月2日21时</p>
 </blockquote>
-<h4 id="主要更新：-8"><a href="#主要更新：-8" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-9"><a href="#主要更新：-9" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入举报功能</li>
 <li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
 <li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
@@ -160,7 +169,7 @@
 <h2 id="0-9-2"><a href="#0-9-2" class="headerlink" title="0.9.2"></a>0.9.2</h2><blockquote>
 <p>2020年5月1日18时</p>
 </blockquote>
-<h4 id="主要更新：-9"><a href="#主要更新：-9" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-10"><a href="#主要更新：-10" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入新的反馈平台</li>
 <li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
 <li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
@@ -169,7 +178,7 @@
 <h2 id="0-9-1"><a href="#0-9-1" class="headerlink" title="0.9.1"></a>0.9.1</h2><blockquote>
 <p>2020年4月29日23时</p>
 </blockquote>
-<h4 id="主要更新：-10"><a href="#主要更新：-10" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-11"><a href="#主要更新：-11" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>列表页的加号默认展开，防止有的人找不到按钮</li>
 <li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
 <li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
@@ -178,7 +187,7 @@
 <h2 id="0-9-0"><a href="#0-9-0" class="headerlink" title="0.9.0"></a>0.9.0</h2><blockquote>
 <p>2020年4月28日22时</p>
 </blockquote>
-<h4 id="主要更新：-11"><a href="#主要更新：-11" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-12"><a href="#主要更新：-12" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入评价访客功能，还可以在成员列表中查看岛民的历史评价</li>
 <li>房主评价中可以看到互评</li>
 <li>优化访客列表UI，加入评价按钮</li>
@@ -189,7 +198,7 @@
 <h2 id="0-8-9"><a href="#0-8-9" class="headerlink" title="0.8.9"></a>0.8.9</h2><blockquote>
 <p>2020年4月26日23时</p>
 </blockquote>
-<h4 id="主要更新：-12"><a href="#主要更新：-12" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-13"><a href="#主要更新：-13" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>修改岛屿列表页的UI，按钮使用悬浮菜单</li>
 <li>修改创建岛屿报名页的UI，更加美观和工整，并且密码中的不可用的<code>I</code> <code>O</code> <code>Z</code>将会被替换成<code>?</code></li>
 <li>优化首页启动性能，优化列表页和报名页进入动画</li>
@@ -209,7 +218,7 @@
 <h2 id="0-8-6"><a href="#0-8-6" class="headerlink" title="0.8.6"></a>0.8.6</h2><blockquote>
 <p>2020年4月23日23时</p>
 </blockquote>
-<h4 id="主要更新：-13"><a href="#主要更新：-13" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-14"><a href="#主要更新：-14" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>增加了停止排队功能，岛主停止排队更加方便</li>
 <li>增加了延后上岛功能，如果没有准备好现在可以延后上岛了</li>
 <li>增加了活动通知功能，期待一下五一的活动吧</li>
@@ -226,7 +235,7 @@
 <h2 id="0-8-5"><a href="#0-8-5" class="headerlink" title="0.8.5"></a>0.8.5</h2><blockquote>
 <p>2020年4月21日21时</p>
 </blockquote>
-<h4 id="主要更新：-14"><a href="#主要更新：-14" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-15"><a href="#主要更新：-15" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>“森友の邀请函”的事件分类加入了岛民搬家</li>
 <li>“森友の邀请函”的特殊NPC中加入了然然和狐利</li>
 </ol>
@@ -236,7 +245,7 @@
 <h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-8-4"><a href="#0-8-4" class="headerlink" title="0.8.4"></a>0.8.4</h2><blockquote>
 <p>2020年4月20日16时</p>
 </blockquote>
-<h4 id="主要更新：-15"><a href="#主要更新：-15" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-16"><a href="#主要更新：-16" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>”森友の邀请函“模块加入筛选</li>
 <li>”大头菜交易“加入价格排序，参与计时</li>
 <li>”森友の邀请函“中加入了定时的离岛提醒</li>
@@ -247,7 +256,7 @@
 <h2 id="0-8-3"><a href="#0-8-3" class="headerlink" title="0.8.3"></a>0.8.3</h2><blockquote>
 <p>2020年4月19日18时</p>
 </blockquote>
-<h4 id="主要更新：-16"><a href="#主要更新：-16" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-17"><a href="#主要更新：-17" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入“森友の邀请函”模块</li>
 </ol>
 <h4 id="问题修复：-9"><a href="#问题修复：-9" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
@@ -259,13 +268,13 @@
 <h2 id="0-8-1"><a href="#0-8-1" class="headerlink" title="0.8.1"></a>0.8.1</h2><blockquote>
 <p>2020年4月17日2时</p>
 </blockquote>
-<h4 id="主要更新：-17"><a href="#主要更新：-17" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-18"><a href="#主要更新：-18" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入大头菜价格预测功能！</li>
 </ol>
 <h2 id="0-8-0a"><a href="#0-8-0a" class="headerlink" title="0.8.0a"></a>0.8.0a</h2><blockquote>
 <p>2020年4月15日20时</p>
 </blockquote>
-<h4 id="主要更新：-18"><a href="#主要更新：-18" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-19"><a href="#主要更新：-19" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>大头菜报名加入评价 </li>
 <li>主页UI改版</li>
 <li>大头菜首页可以只看未满的岛屿了<h4 id="问题修复：-10"><a href="#问题修复：-10" class="headerlink" title="问题修复："></a>问题修复：</h4></li>
@@ -274,7 +283,7 @@
 <h2 id="0-7-9"><a href="#0-7-9" class="headerlink" title="0.7.9"></a>0.7.9</h2><blockquote>
 <p>2020年4月14日2时</p>
 </blockquote>
-<h4 id="主要更新：-19"><a href="#主要更新：-19" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-20"><a href="#主要更新：-20" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>引入了内容敏感检查，加入封禁功能</li>
 </ol>
 <h2 id="0-7-8rr"><a href="#0-7-8rr" class="headerlink" title="0.7.8rr"></a>0.7.8rr</h2><blockquote>
@@ -295,7 +304,7 @@
 <h2 id="0-7-8"><a href="#0-7-8" class="headerlink" title="0.7.8"></a>0.7.8</h2><blockquote>
 <p>2020年4月13日1时</p>
 </blockquote>
-<h4 id="主要更新：-20"><a href="#主要更新：-20" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-21"><a href="#主要更新：-21" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>如果不打开通知，将无法加入房间</li>
 </ol>
 <h4 id="问题修复：-13"><a href="#问题修复：-13" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
@@ -304,7 +313,7 @@
 <h2 id="0-7-6"><a href="#0-7-6" class="headerlink" title="0.7.6"></a>0.7.6</h2><blockquote>
 <p>2020年4月12日10时</p>
 </blockquote>
-<h4 id="主要更新：-21"><a href="#主要更新：-21" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-22"><a href="#主要更新：-22" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入超时通知功能，需要点击三次才能看到密码</li>
 <li>分离标题和描述，现在可以写的更多啦，标题45字，内容150字</li>
 <li>大头菜房间周六可以选择100人啦！</li>
@@ -317,7 +326,7 @@
 <h2 id="0-7-5"><a href="#0-7-5" class="headerlink" title="0.7.5"></a>0.7.5</h2><blockquote>
 <p>2020年4月11日9时</p>
 </blockquote>
-<h4 id="主要更新：-22"><a href="#主要更新：-22" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-23"><a href="#主要更新：-23" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入圈圈口令功能！可以便捷分享到其他平台</li>
 </ol>
 <h4 id="问题修复：-15"><a href="#问题修复：-15" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
@@ -327,7 +336,7 @@
 <h2 id="0-7-3"><a href="#0-7-3" class="headerlink" title="0.7.3"></a>0.7.3</h2><blockquote>
 <p>2020年4月9日23时</p>
 </blockquote>
-<h4 id="主要更新：-23"><a href="#主要更新：-23" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-24"><a href="#主要更新：-24" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li><p>加入排队功能！</p>
 <p><strong>自动排队：</strong></p>
 <p>参与人未满时，参加的人可以直接参与房间看到信息，人满时将加入队列。</p>
@@ -357,7 +366,7 @@
 <h2 id="0-7-2"><a href="#0-7-2" class="headerlink" title="0.7.2"></a>0.7.2</h2><blockquote>
 <p>2020年4月9日1时</p>
 </blockquote>
-<h4 id="主要更新：-24"><a href="#主要更新：-24" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-25"><a href="#主要更新：-25" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>服务器炸了，加入广告</li>
 <li>切图加入最高15的选项，但是宽高之积最多50，超过了你也放不下</li>
 <li>切图生成过程使用进度条，更加直观</li>
@@ -368,7 +377,7 @@
 <h2 id="0-7-1r"><a href="#0-7-1r" class="headerlink" title="0.7.1r"></a>0.7.1r</h2><blockquote>
 <p>2020年4月8日21时</p>
 </blockquote>
-<h4 id="主要更新：-25"><a href="#主要更新：-25" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-26"><a href="#主要更新：-26" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入私有房间功能</li>
 </ol>
 <h4 id="问题修复：-18"><a href="#问题修复：-18" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
@@ -382,13 +391,13 @@
 <h2 id="0-7-0r"><a href="#0-7-0r" class="headerlink" title="0.7.0r"></a>0.7.0r</h2><blockquote>
 <p>2020年4月7日23时</p>
 </blockquote>
-<h4 id="主要更新：-26"><a href="#主要更新：-26" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-27"><a href="#主要更新：-27" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入大头菜房间功能</li>
 </ol>
 <h2 id="0-5-9"><a href="#0-5-9" class="headerlink" title="0.5.9"></a>0.5.9</h2><blockquote>
 <p>2020年4月5日23时</p>
 </blockquote>
-<h4 id="主要更新：-27"><a href="#主要更新：-27" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-28"><a href="#主要更新：-28" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入护照生成和分享功能</li>
 </ol>
 <h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
@@ -397,7 +406,7 @@
 <h2 id="0-5-8r"><a href="#0-5-8r" class="headerlink" title="0.5.8r"></a>0.5.8r</h2><blockquote>
 <p>2020年4月3日0时</p>
 </blockquote>
-<h4 id="主要更新：-28"><a href="#主要更新：-28" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<h4 id="主要更新：-29"><a href="#主要更新：-29" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
 <li>加入图片导入的实时预览</li>
 <li>加入图片导入时的图像算法、透明度、平滑度等选项</li>
 <li>加入切图生成多个二维码按钮</li>
