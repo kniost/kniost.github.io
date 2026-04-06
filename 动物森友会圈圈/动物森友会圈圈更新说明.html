@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kniost.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"tomorrow-night"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="更新日志3.0.0 2026年4月4日  主要更新： 新功能「梦境岛屿」：分享和浏览梦境门牌号，支持点赞、评论、分类筛选，可关联小红书链接 大头菜和邀请函岛屿新增超时自动踢人功能 大头菜预测算法更精确，支持多设备同步 图鉴进度云同步，多设备自动合并 整体UI和配色更新，全新沉浸式导航栏和筛选栏 图鉴功能UI全面更新，分类弹窗改为grid布局 服务端全面升级，加载更快更稳定  2.3.1 2026年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「动物森友会圈圈」版本更新说明">
+<meta property="og:url" content="https://blog.kniost.top/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="更新日志3.0.0 2026年4月4日  主要更新： 新功能「梦境岛屿」：分享和浏览梦境门牌号，支持点赞、评论、分类筛选，可关联小红书链接 大头菜和邀请函岛屿新增超时自动踢人功能 大头菜预测算法更精确，支持多设备同步 图鉴进度云同步，多设备自动合并 整体UI和配色更新，全新沉浸式导航栏和筛选栏 图鉴功能UI全面更新，分类弹窗改为grid布局 服务端全面升级，加载更快更稳定  2.3.1 2026年">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-06T05:09:03.573Z">
+<meta property="article:modified_time" content="2026-04-06T05:19:07.998Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="动物森友会">
+<meta property="article:tag" content="小程序">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kniost.top/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E.html">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":"","permalink":"https://blog.kniost.top/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E.html","path":"动物森友会圈圈/动物森友会圈圈更新说明.html","title":"「动物森友会圈圈」版本更新说明"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>「动物森友会圈圈」版本更新说明 | kniost</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">kniost</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="nav-text">更新日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-0-0"><span class="nav-text">3.0.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1"><span class="nav-text">2.3.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-0"><span class="nav-text">2.3.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-1"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-7"><span class="nav-text">2.2.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-1"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-6"><span class="nav-text">2.2.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-2"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-5"><span class="nav-text">2.2.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-3"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3"><span class="nav-text">2.2.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-2"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-1"><span class="nav-text">2.2.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-3"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-0"><span class="nav-text">2.2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-4"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-9"><span class="nav-text">2.1.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-5"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-8"><span class="nav-text">2.1.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-6"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-7"><span class="nav-text">2.1.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-4"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-6"><span class="nav-text">2.1.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-7"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-5"><span class="nav-text">2.1.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-8"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-4"><span class="nav-text">2.1.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-5"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-3"><span class="nav-text">2.1.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-9"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-1"><span class="nav-text">2.1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-6"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-0"><span class="nav-text">2.1.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-10"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-9"><span class="nav-text">2.0.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-7"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-8"><span class="nav-text">2.0.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-8"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-7"><span class="nav-text">2.0.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-11"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-6"><span class="nav-text">2.0.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-12"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-4"><span class="nav-text">2.0.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-13"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-2"><span class="nav-text">2.0.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-14"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-1"><span class="nav-text">2.0.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-15"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-0"><span class="nav-text">2.0.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-16"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-903"><span class="nav-text">1.9.903</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-17"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-9"><span class="nav-text">1.9.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-18"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-8"><span class="nav-text">1.9.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-19"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-6"><span class="nav-text">1.9.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-20"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-5"><span class="nav-text">1.9.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-21"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-2"><span class="nav-text">1.9.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-22"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-1"><span class="nav-text">1.9.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-23"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-0"><span class="nav-text">1.9.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-24"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-9"><span class="nav-text">1.8.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-25"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-9"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-3"><span class="nav-text">1.8.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-26"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-0-1-8-2"><span class="nav-text">1.8.0 - 1.8.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-27"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-4"><span class="nav-text">1.7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-28"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-3"><span class="nav-text">1.7.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-29"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-10"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-1"><span class="nav-text">1.7.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-30"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-3-1-6-4"><span class="nav-text">1.6.3 - 1.6.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-31"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-11"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-2"><span class="nav-text">1.6.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-12"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-1"><span class="nav-text">1.6.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-32"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-13"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-0"><span class="nav-text">1.5.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-33"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-8"><span class="nav-text">1.4.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-14"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-7"><span class="nav-text">1.4.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-15"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-6"><span class="nav-text">1.4.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-34"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-3"><span class="nav-text">1.4.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-35"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-0-1-4-2"><span class="nav-text">1.4.0 - 1.4.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-36"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-16"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-4"><span class="nav-text">1.3.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-37"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-17"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-2"><span class="nav-text">1.3.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-38"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-1"><span class="nav-text">1.3.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-18"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-0"><span class="nav-text">1.3.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-39"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-4"><span class="nav-text">1.2.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-40"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-3"><span class="nav-text">1.2.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-41"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-1"><span class="nav-text">1.2.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-42"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-0"><span class="nav-text">1.2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-43"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-6"><span class="nav-text">1.1.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-44"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-19"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-5"><span class="nav-text">1.1.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-45"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-4"><span class="nav-text">1.1.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-46"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-3"><span class="nav-text">1.1.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-47"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-1"><span class="nav-text">1.1.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-48"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-0"><span class="nav-text">1.1.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-49"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-20"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-6"><span class="nav-text">1.0.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-50"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-21"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-4"><span class="nav-text">1.0.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-22"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-3"><span class="nav-text">1.0.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-51"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-1"><span class="nav-text">1.0.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-52"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-0"><span class="nav-text">1.0.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-53"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-6"><span class="nav-text">0.9.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-54"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-23"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-5"><span class="nav-text">0.9.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-55"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-4"><span class="nav-text">0.9.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-56"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-3"><span class="nav-text">0.9.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-57"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-2"><span class="nav-text">0.9.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-58"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-1"><span class="nav-text">0.9.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-59"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-9-0"><span class="nav-text">0.9.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-60"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-24"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-9"><span class="nav-text">0.8.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-61"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-8"><span class="nav-text">0.8.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-25"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-7"><span class="nav-text">0.8.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-26"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-6"><span class="nav-text">0.8.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-62"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-27"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-5"><span class="nav-text">0.8.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-63"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-28"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E"><span class="nav-text">版本更新说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-4"><span class="nav-text">0.8.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-64"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-29"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-3"><span class="nav-text">0.8.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-65"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-30"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-1"><span class="nav-text">0.8.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-66"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-8-0a"><span class="nav-text">0.8.0a</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-67"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-31"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-9"><span class="nav-text">0.7.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-68"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-8rr"><span class="nav-text">0.7.8rr</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-32"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-8r"><span class="nav-text">0.7.8r</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-33"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-8"><span class="nav-text">0.7.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-69"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-34"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-6"><span class="nav-text">0.7.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-70"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-35"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-5"><span class="nav-text">0.7.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-71"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-36"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-3"><span class="nav-text">0.7.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-72"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-37"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-2"><span class="nav-text">0.7.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-73"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-38"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-1r"><span class="nav-text">0.7.1r</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-74"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D%EF%BC%9A-39"><span class="nav-text">问题修复：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-7-0r"><span class="nav-text">0.7.0r</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-75"><span class="nav-text">主要更新：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-5-9"><span class="nav-text">0.5.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-76"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D"><span class="nav-text">问题修复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-5-8r"><span class="nav-text">0.5.8r</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0%EF%BC%9A-77"><span class="nav-text">主要更新：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D-1"><span class="nav-text">问题修复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-5-2"><span class="nav-text">0.5.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0"><span class="nav-text">主要更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D-2"><span class="nav-text">问题修复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-5-0"><span class="nav-text">0.5.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0-1"><span class="nav-text">主要更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D-3"><span class="nav-text">问题修复</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="「动物森友会圈圈」版本更新说明 | kniost">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          「动物森友会圈圈」版本更新说明
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-04-06 13:09:03 / 修改时间：13:19:07" itemprop="dateCreated datePublished" datetime="2026-04-06T13:09:03+08:00">2026-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A/" itemprop="url" rel="index"><span itemprop="name">动物森友会</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h2 id="3-0-0"><a href="#3-0-0" class="headerlink" title="3.0.0"></a>3.0.0</h2><blockquote>
+<p>2026年4月4日</p>
+</blockquote>
+<h4 id="主要更新："><a href="#主要更新：" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>新功能「梦境岛屿」：分享和浏览梦境门牌号，支持点赞、评论、分类筛选，可关联小红书链接</li>
+<li>大头菜和邀请函岛屿新增超时自动踢人功能</li>
+<li>大头菜预测算法更精确，支持多设备同步</li>
+<li>图鉴进度云同步，多设备自动合并</li>
+<li>整体UI和配色更新，全新沉浸式导航栏和筛选栏</li>
+<li>图鉴功能UI全面更新，分类弹窗改为grid布局</li>
+<li>服务端全面升级，加载更快更稳定</li>
+</ol>
+<h2 id="2-3-1"><a href="#2-3-1" class="headerlink" title="2.3.1"></a>2.3.1</h2><blockquote>
+<p>2026年1月19日</p>
+</blockquote>
+<h4 id="问题修复："><a href="#问题修复：" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复图鉴搜索可能出现的问题</li>
+<li>修复其他已知问题</li>
+</ol>
+<h2 id="2-3-0"><a href="#2-3-0" class="headerlink" title="2.3.0"></a>2.3.0</h2><blockquote>
+<p>2026年1月17日</p>
+</blockquote>
+<h4 id="主要更新：-1"><a href="#主要更新：-1" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入动森3.0更新！生物图鉴加入售卖价和图示说明</li>
+<li>更新部分UI颜色</li>
+</ol>
+<h2 id="2-2-7"><a href="#2-2-7" class="headerlink" title="2.2.7"></a>2.2.7</h2><blockquote>
+<p>2025年7月23日</p>
+</blockquote>
+<h4 id="问题修复：-1"><a href="#问题修复：-1" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>恢复大头菜预测页面输入，调整样式</li>
+<li>修复因CDN导致的图片加载问题</li>
+<li>修复部分来源筛选失效问题</li>
+</ol>
+<h2 id="2-2-6"><a href="#2-2-6" class="headerlink" title="2.2.6"></a>2.2.6</h2><blockquote>
+<p>2025年7月22日</p>
+</blockquote>
+<h4 id="问题修复：-2"><a href="#问题修复：-2" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复因CDN导致的图片加载问题</li>
+<li>修复部分来源筛选失效问题</li>
+</ol>
+<h2 id="2-2-5"><a href="#2-2-5" class="headerlink" title="2.2.5"></a>2.2.5</h2><blockquote>
+<p>2025年7月22日</p>
+</blockquote>
+<h4 id="问题修复：-3"><a href="#问题修复：-3" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修改domain</li>
+<li>修复版本号</li>
+</ol>
+<h2 id="2-2-3"><a href="#2-2-3" class="headerlink" title="2.2.3"></a>2.2.3</h2><blockquote>
+<p>2024年6月15日</p>
+</blockquote>
+<h4 id="主要更新：-2"><a href="#主要更新：-2" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>村民筛选增加性别筛选</li>
+</ol>
+<h2 id="2-2-1"><a href="#2-2-1" class="headerlink" title="2.2.1"></a>2.2.1</h2><blockquote>
+<p>2024年1月26日</p>
+</blockquote>
+<h4 id="主要更新：-3"><a href="#主要更新：-3" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>家具详情页面添加控制【同时标记可改造图案的变体】的开关</li>
+</ol>
+<h2 id="2-2-0"><a href="#2-2-0" class="headerlink" title="2.2.0"></a>2.2.0</h2><blockquote>
+<p>2024年1月25日</p>
+</blockquote>
+<h4 id="主要更新：-4"><a href="#主要更新：-4" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复全部家具变体的翻译问题</li>
+<li>更新新的图鉴包</li>
+<li>重构了很多代码</li>
+</ol>
+<h2 id="2-1-9"><a href="#2-1-9" class="headerlink" title="2.1.9"></a>2.1.9</h2><blockquote>
+<p>2023年5月9日</p>
+</blockquote>
+<h4 id="主要更新：-5"><a href="#主要更新：-5" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入家具、服饰可以选择已拥有和部分拥有功能</li>
+</ol>
+<h2 id="2-1-8"><a href="#2-1-8" class="headerlink" title="2.1.8"></a>2.1.8</h2><blockquote>
+<p>2022年11月29日</p>
+</blockquote>
+<h4 id="主要更新：-6"><a href="#主要更新：-6" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>关闭自动选择所有可以改色的功能（但可改图案仍然自动全标）</li>
+</ol>
+<h2 id="2-1-7"><a href="#2-1-7" class="headerlink" title="2.1.7"></a>2.1.7</h2><blockquote>
+<p>2022年11月29日</p>
+</blockquote>
+<h4 id="问题修复：-4"><a href="#问题修复：-4" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复潜水衣不计入服饰图鉴的bug</li>
+</ol>
+<h2 id="2-1-6"><a href="#2-1-6" class="headerlink" title="2.1.6"></a>2.1.6</h2><blockquote>
+<p>2022年5月12日</p>
+</blockquote>
+<h4 id="主要更新：-7"><a href="#主要更新：-7" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>更新2.0.4图鉴（如生肖摆件）</li>
+<li>加入部分缺失的岛民头像</li>
+<li>加入村民座右铭和快乐家乐园任务</li>
+</ol>
+<h2 id="2-1-5"><a href="#2-1-5" class="headerlink" title="2.1.5"></a>2.1.5</h2><blockquote>
+<p>2022年2月21日</p>
+</blockquote>
+<h4 id="主要更新：-8"><a href="#主要更新：-8" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>鱼、虫、海洋生物图鉴加入按小时筛选</li>
+</ol>
+<h2 id="2-1-4"><a href="#2-1-4" class="headerlink" title="2.1.4"></a>2.1.4</h2><blockquote>
+<p>2021年12月2日</p>
+</blockquote>
+<h4 id="问题修复：-5"><a href="#问题修复：-5" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>DIY图鉴、家具图鉴修复筛选</li>
+</ol>
+<h2 id="2-1-3"><a href="#2-1-3" class="headerlink" title="2.1.3"></a>2.1.3</h2><blockquote>
+<p>2021年11月26日</p>
+</blockquote>
+<h4 id="主要更新：-9"><a href="#主要更新：-9" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>完善图鉴，将食物图鉴合并至小物件图鉴并增加筛选，与游戏保持一致</li>
+<li>DIY按照拼音排序</li>
+<li>版本活动图鉴修复问题并加入类别筛选</li>
+</ol>
+<p>注：由于数据类别发生变化，食物标记需要重新开始，烦请谅解。</p>
+<h2 id="2-1-1"><a href="#2-1-1" class="headerlink" title="2.1.1"></a>2.1.1</h2><blockquote>
+<p>2021年11月10日</p>
+</blockquote>
+<h4 id="问题修复：-6"><a href="#问题修复：-6" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>完善图鉴，修复食物中的摸和买筛选</li>
+<li>修复拼音排序中的多音字问题</li>
+</ol>
+<h2 id="2-1-0"><a href="#2-1-0" class="headerlink" title="2.1.0"></a>2.1.0</h2><blockquote>
+<p>2021年11月10日</p>
+</blockquote>
+<h4 id="主要更新：-10"><a href="#主要更新：-10" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>完善图鉴，修复服饰中的季节筛选</li>
+</ol>
+<p>注：DIY图鉴默认是以系列排序的</p>
+<h2 id="2-0-9"><a href="#2-0-9" class="headerlink" title="2.0.9"></a>2.0.9</h2><blockquote>
+<p>2021年11月8日</p>
+</blockquote>
+<h4 id="问题修复：-7"><a href="#问题修复：-7" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复DIY手册食品中材料不显示的问题</li>
+<li>加入更多的来源信息</li>
+</ol>
+<h2 id="2-0-8"><a href="#2-0-8" class="headerlink" title="2.0.8"></a>2.0.8</h2><blockquote>
+<p>2021年11月</p>
+</blockquote>
+<h4 id="问题修复：-8"><a href="#问题修复：-8" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复部分翻译问题</li>
+<li>加入更多的来源信息</li>
+</ol>
+<h2 id="2-0-7"><a href="#2-0-7" class="headerlink" title="2.0.7"></a>2.0.7</h2><blockquote>
+<p>2021年11月6日</p>
+</blockquote>
+<h4 id="主要更新：-11"><a href="#主要更新：-11" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复DIY分类，加入食物分类</li>
+<li>修复部分包包看不到图片的问题</li>
+<li>家具中加入屋内架构类别图鉴</li>
+</ol>
+<h2 id="2-0-6"><a href="#2-0-6" class="headerlink" title="2.0.6"></a>2.0.6</h2><blockquote>
+<p>2021年11月6日</p>
+</blockquote>
+<h4 id="主要更新：-12"><a href="#主要更新：-12" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>久等啦，加入2.0.0版本图鉴，可能会有一点BUG，后期将修复完成</li>
+<li>关闭了剪切板的访问，圈圈码不再使用了哦~</li>
+<li>修复了部分可DIY物品未关联到DIY的问题</li>
+</ol>
+<h2 id="2-0-4"><a href="#2-0-4" class="headerlink" title="2.0.4"></a>2.0.4</h2><blockquote>
+<p>2021年5月7日</p>
+</blockquote>
+<h4 id="主要更新：-13"><a href="#主要更新：-13" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入1.10.0版本图鉴</li>
+</ol>
+<h2 id="2-0-2"><a href="#2-0-2" class="headerlink" title="2.0.2"></a>2.0.2</h2><blockquote>
+<p>2021年3月20日</p>
+</blockquote>
+<h4 id="主要更新：-14"><a href="#主要更新：-14" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入1.9.0版本图鉴</li>
+<li>关闭广告</li>
+</ol>
+<h2 id="2-0-1"><a href="#2-0-1" class="headerlink" title="2.0.1"></a>2.0.1</h2><blockquote>
+<p>2021年2月26日</p>
+</blockquote>
+<h4 id="主要更新：-15"><a href="#主要更新：-15" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入1.8.0版本图鉴</li>
+<li>版本和活动图鉴中新增马力欧和三叶草节筛选以及1.8.0版本筛选</li>
+</ol>
+<h2 id="2-0-0"><a href="#2-0-0" class="headerlink" title="2.0.0"></a>2.0.0</h2><blockquote>
+<p>2021年2月19日</p>
+</blockquote>
+<h4 id="主要更新：-16"><a href="#主要更新：-16" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入版本和活动图鉴，可以方便地查看当前的活动对应的或者某个版本新增的全部图鉴！</li>
+<li>家具和服饰图鉴中加入可同时选择未收集完成和部分收集选项</li>
+<li>工具中加入改色图示，修复部分图鉴翻译，修复部分筛选</li>
+</ol>
+<h2 id="1-9-903"><a href="#1-9-903" class="headerlink" title="1.9.903"></a>1.9.903</h2><blockquote>
+<p>2020年12月18日</p>
+</blockquote>
+<h4 id="主要更新：-17"><a href="#主要更新：-17" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复部分数据源，修复DIY种类，完善了圣诞节分类</li>
+<li>在护照页加入了清空收藏功能，重新开岛的玩家可以重新记录自己的家具啦！</li>
+<li>加入扫码传图功能，快速加入NS的WiFi</li>
+<li>动森全新1.6.0版本图鉴数据已更新</li>
+</ol>
+<h2 id="1-9-9"><a href="#1-9-9" class="headerlink" title="1.9.9"></a>1.9.9</h2><blockquote>
+<p>2020年12月2日</p>
+</blockquote>
+<h4 id="主要更新：-18"><a href="#主要更新：-18" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>动森全新1.6.0版本图鉴数据已更新，部分数据错误已修复</li>
+</ol>
+<h2 id="1-9-8"><a href="#1-9-8" class="headerlink" title="1.9.8"></a>1.9.8</h2><blockquote>
+<p>2020年11月20日</p>
+</blockquote>
+<h4 id="主要更新：-19"><a href="#主要更新：-19" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>动森全新1.6.0版本图鉴数据已更新，部分数据错误已修复</li>
+</ol>
+<h2 id="1-9-6"><a href="#1-9-6" class="headerlink" title="1.9.6"></a>1.9.6</h2><blockquote>
+<p>2020年11月9日</p>
+</blockquote>
+<h4 id="主要更新：-20"><a href="#主要更新：-20" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复下月始捕错误显示成1月的问题</li>
+<li>修复家具中里程商店分类来源不见的问题</li>
+<li>万圣节1.5.0版本所有图鉴数据已更新~DIY图鉴和家具图鉴加入万圣节分类</li>
+<li>所有服装加入第二个风格</li>
+</ol>
+<h2 id="1-9-5"><a href="#1-9-5" class="headerlink" title="1.9.5"></a>1.9.5</h2><blockquote>
+<p>2020年10月17日</p>
+</blockquote>
+<h4 id="主要更新：-21"><a href="#主要更新：-21" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复家具中里程商店分类来源不见的问题</li>
+<li>万圣节1.5.0版本所有图鉴数据已更新~DIY图鉴和家具图鉴加入万圣节分类</li>
+<li>所有服装加入第二个风格</li>
+</ol>
+<h2 id="1-9-2"><a href="#1-9-2" class="headerlink" title="1.9.2"></a>1.9.2</h2><blockquote>
+<p>2020年8月10日</p>
+</blockquote>
+<h4 id="主要更新：-22"><a href="#主要更新：-22" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>岛屿聊天功能中针对Windows用户和海外地区用户增加了定时刷新模式</li>
+<li>修改森友の邀请函的时间设置，加入梦境参观分类</li>
+<li>个人护照中加入梦境码，快来修改个人信息吧！</li>
+<li>已更新1.4.0版本出现的全部新图鉴，包括服饰&#x2F;家具&#x2F;DIY&#x2F;工具等，在服饰中加入了潜水服</li>
+<li>部分小动物增加了独家秘闻，并将持续更新！快来探索一下吧</li>
+<li>当评价数超过100时将显示皇冠图标</li>
+<li>关闭房间后将重置圈圈码，原圈圈码将无法访问房间</li>
+</ol>
+<h2 id="1-9-1"><a href="#1-9-1" class="headerlink" title="1.9.1"></a>1.9.1</h2><blockquote>
+<p>2020年8月7日</p>
+</blockquote>
+<h4 id="主要更新：-23"><a href="#主要更新：-23" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>恢复部分广告以承载CDN流量费用</li>
+<li>个人护照中加入梦境码，快来修改个人信息吧！</li>
+<li>已更新1.4.0版本出现的全部新图鉴，包括服饰&#x2F;家具&#x2F;DIY&#x2F;工具等，在服饰中加入了潜水服</li>
+<li>部分小动物增加了独家秘闻，并将持续更新！快来探索一下吧</li>
+<li>修改森友の邀请函的时间设置，加入梦境参观分类</li>
+<li>当评价数超过100时将显示皇冠图标</li>
+<li>关闭房间后将重置圈圈码，原圈圈码将无法访问房间</li>
+</ol>
+<h2 id="1-9-0"><a href="#1-9-0" class="headerlink" title="1.9.0"></a>1.9.0</h2><blockquote>
+<p>2020年7月31日</p>
+</blockquote>
+<h4 id="主要更新：-24"><a href="#主要更新：-24" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>已更新1.4.0版本出现的28个新图鉴，包括服饰&#x2F;家具&#x2F;DIY&#x2F;工具等，在服饰中加入了潜水服</li>
+<li>部分小动物增加了独家秘闻，并将持续更新！快来探索一下吧</li>
+<li>修改森友の邀请函的时间设置，加入梦见馆分类</li>
+<li>当评价数超过100时将显示皇冠图标</li>
+<li>修复DIY图鉴中类别选择的问题</li>
+<li>关闭所有广告，添加声明和赞赏码</li>
+<li>关闭房间后将重置圈圈码，原圈圈码将无法访问房间</li>
+</ol>
+<h2 id="1-8-9"><a href="#1-8-9" class="headerlink" title="1.8.9"></a>1.8.9</h2><blockquote>
+<p>2020年7月30日</p>
+</blockquote>
+<h4 id="主要更新：-25"><a href="#主要更新：-25" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修改森友の邀请函的时间设置，加入梦见馆分类，准备更新1.4.0的内容</li>
+<li>当评价数超过100时将显示皇冠图标</li>
+<li>修复DIY图鉴中类别选择的问题</li>
+<li>关闭所有广告，添加声明和赞赏码</li>
+<li>关闭房间后将重置圈圈码，原圈圈码将无法访问房间</li>
+<li>大头菜新模型正在测试中</li>
+</ol>
+<h4 id="问题修复：-9"><a href="#问题修复：-9" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复皇冠的显示问题</li>
+</ol>
+<h2 id="1-8-3"><a href="#1-8-3" class="headerlink" title="1.8.3"></a>1.8.3</h2><blockquote>
+<p>2020年7月20日</p>
+</blockquote>
+<h4 id="主要更新：-26"><a href="#主要更新：-26" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>更新部分UI</li>
+<li>加入海洋生物图鉴与进度，加入人鱼海盗系列家具服饰和DIY图鉴</li>
+<li>服饰图鉴中加入了喜欢服饰的岛民，进度页中可以展开详细的家具和服饰类别进度</li>
+<li>留言功能优化！岛屿描述&#x2F;密码等信息和排队信息发生变更时会自动刷新界面！</li>
+</ol>
+<h2 id="1-8-0-1-8-2"><a href="#1-8-0-1-8-2" class="headerlink" title="1.8.0 - 1.8.2"></a>1.8.0 - 1.8.2</h2><blockquote>
+<p>2020年7月8日</p>
+</blockquote>
+<h4 id="主要更新：-27"><a href="#主要更新：-27" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入人鱼和海盗系列服饰图鉴</li>
+<li>加入海洋生物图鉴与进度&#x2F;人鱼系列家具&#x2F;海盗系列家具&#x2F;阿獭给的人鱼家具DIY</li>
+<li>服饰图鉴中加入了喜欢服饰的岛民，进度页中可以展开详细的家具和服饰类别进度</li>
+<li>留言功能优化！岛屿描述&#x2F;密码等信息和排队信息发生变更时会自动刷新界面！</li>
+<li>UI进行了美化，森友の邀请函加入多标签选择</li>
+</ol>
+<h2 id="1-7-4"><a href="#1-7-4" class="headerlink" title="1.7.4"></a>1.7.4</h2><blockquote>
+<p>2020年6月30日</p>
+</blockquote>
+<h4 id="主要更新：-28"><a href="#主要更新：-28" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>服饰图鉴中加入了喜欢服饰的自己的岛民</li>
+<li>进度页中可以展开详细的家具和服饰类别进度</li>
+<li>留言功能优化！岛屿描述&#x2F;密码等信息和排队信息发生变更时会自动刷新界面！</li>
+<li>UI进行了美化</li>
+<li>森友の邀请函加入多标签选择</li>
+<li>村民图鉴中加入了相遇概率计算</li>
+<li>随时准备适配夏日海洋更新！</li>
+</ol>
+<h2 id="1-7-3"><a href="#1-7-3" class="headerlink" title="1.7.3"></a>1.7.3</h2><blockquote>
+<p>2020年6月30日</p>
+</blockquote>
+<h4 id="主要更新：-29"><a href="#主要更新：-29" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>岛主更新房间信息时会在留言中提示，并自动刷新界面！</li>
+</ol>
+<h4 id="问题修复：-10"><a href="#问题修复：-10" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复封禁的问题</li>
+<li>修复留言的问题</li>
+</ol>
+<h2 id="1-7-1"><a href="#1-7-1" class="headerlink" title="1.7.1"></a>1.7.1</h2><blockquote>
+<p>2020年6月29日</p>
+</blockquote>
+<h4 id="主要更新：-30"><a href="#主要更新：-30" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修改图鉴和样式，更加美观</li>
+<li>森友の邀请函可以多选标签并方便筛选了</li>
+<li>聊天功能优化</li>
+</ol>
+<h2 id="1-6-3-1-6-4"><a href="#1-6-3-1-6-4" class="headerlink" title="1.6.3 - 1.6.4"></a>1.6.3 - 1.6.4</h2><blockquote>
+<p>2020年6月28日</p>
+</blockquote>
+<h4 id="主要更新：-31"><a href="#主要更新：-31" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修改图标和样式</li>
+<li>村民图鉴中加入村民相遇概率计算</li>
+</ol>
+<h4 id="问题修复：-11"><a href="#问题修复：-11" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>彻底修复了图鉴加载偶尔会失败的问题</li>
+</ol>
+<h2 id="1-6-2"><a href="#1-6-2" class="headerlink" title="1.6.2"></a>1.6.2</h2><blockquote>
+<p>2020年6月26日</p>
+</blockquote>
+<h4 id="问题修复：-12"><a href="#问题修复：-12" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>彻底修复了图鉴加载偶尔会失败的问题</li>
+</ol>
+<h2 id="1-6-1"><a href="#1-6-1" class="headerlink" title="1.6.1"></a>1.6.1</h2><blockquote>
+<p>2020年6月20日</p>
+</blockquote>
+<h4 id="主要更新：-32"><a href="#主要更新：-32" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入留言功能Beta版！需要注意的是关闭房间时会删除所有留言哦</li>
+<li>修改数据CDN</li>
+</ol>
+<h4 id="问题修复：-13"><a href="#问题修复：-13" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了可能导致图鉴无法加载的问题</li>
+</ol>
+<h2 id="1-5-0"><a href="#1-5-0" class="headerlink" title="1.5.0"></a>1.5.0</h2><blockquote>
+<p>2020年6月13日</p>
+</blockquote>
+<h4 id="主要更新：-33"><a href="#主要更新：-33" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入音乐图鉴的筛选和喜欢该音乐的岛民</li>
+</ol>
+<h2 id="1-4-8"><a href="#1-4-8" class="headerlink" title="1.4.8"></a>1.4.8</h2><blockquote>
+<p>2020年6月7日</p>
+</blockquote>
+<h4 id="问题修复：-14"><a href="#问题修复：-14" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复图鉴加载失败时的问题</li>
+</ol>
+<h2 id="1-4-7"><a href="#1-4-7" class="headerlink" title="1.4.7"></a>1.4.7</h2><blockquote>
+<p>2020年6月7日</p>
+</blockquote>
+<h4 id="问题修复：-15"><a href="#问题修复：-15" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复日文系统问题</li>
+<li>加入攻略</li>
+</ol>
+<h2 id="1-4-6"><a href="#1-4-6" class="headerlink" title="1.4.6"></a>1.4.6</h2><blockquote>
+<p>2020年6月6日</p>
+</blockquote>
+<h4 id="主要更新：-34"><a href="#主要更新：-34" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>更新内容</li>
+</ol>
+<h2 id="1-4-3"><a href="#1-4-3" class="headerlink" title="1.4.3"></a>1.4.3</h2><blockquote>
+<p>2020年6月4日</p>
+</blockquote>
+<h4 id="主要更新：-35"><a href="#主要更新：-35" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入保存图鉴图片和一键生成二维码的功能</li>
+</ol>
+<h2 id="1-4-0-1-4-2"><a href="#1-4-0-1-4-2" class="headerlink" title="1.4.0 - 1.4.2"></a>1.4.0 - 1.4.2</h2><blockquote>
+<p>2020年6月1日</p>
+</blockquote>
+<h4 id="主要更新：-36"><a href="#主要更新：-36" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入全部服饰图鉴，丰富的筛选尽情使用</li>
+<li>鱼类和昆虫图鉴加入和游戏完全一致的”图鉴模式”，轻松对比游戏进行标记！！</li>
+<li>加入雨伞图鉴、加入工具图鉴、加入栅栏图鉴</li>
+<li>有DIY的图鉴可以直接跳转到相应的DIY手册！反之亦然</li>
+<li>DIY手册顺序和游戏一致，加入类别筛选、系列筛选</li>
+<li>家具图鉴同样加入能否DIY和能否在目录中买到的详细筛选</li>
+</ol>
+<h4 id="问题修复：-16"><a href="#问题修复：-16" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复邀请函中选择图鉴的bug</li>
+</ol>
+<h2 id="1-3-4"><a href="#1-3-4" class="headerlink" title="1.3.4"></a>1.3.4</h2><blockquote>
+<p>2020年5月30日</p>
+</blockquote>
+<h4 id="主要更新：-37"><a href="#主要更新：-37" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入禁止上岛功能</li>
+</ol>
+<h4 id="问题修复：-17"><a href="#问题修复：-17" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复uid带来的bug</li>
+</ol>
+<h2 id="1-3-2"><a href="#1-3-2" class="headerlink" title="1.3.2"></a>1.3.2</h2><blockquote>
+<p>2020年5月29日</p>
+</blockquote>
+<h4 id="主要更新：-38"><a href="#主要更新：-38" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>除村民图鉴外的其他图鉴可以切换至列表模式！！！信息量更丰富</li>
+<li>标记所有的按钮进行了悬浮，方便一键标记</li>
+<li>邀请函的岛屿内图鉴UI优化，必须关联图鉴</li>
+<li>昆虫和鱼类图鉴从按当前小时是否可捕&#x2F;钓显示南北半球，修改为按本月显示，详情中显示当前是否可以捕&#x2F;钓</li>
+<li>材料图鉴中关联的DIY手册列表全部显示</li>
+<li>大头菜预测功能显示全部的概率</li>
+</ol>
+<h2 id="1-3-1"><a href="#1-3-1" class="headerlink" title="1.3.1"></a>1.3.1</h2><blockquote>
+<p>2020年5月28日</p>
+</blockquote>
+<h4 id="问题修复：-18"><a href="#问题修复：-18" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复搜索的bug</li>
+<li>更新UI</li>
+</ol>
+<h2 id="1-3-0"><a href="#1-3-0" class="headerlink" title="1.3.0"></a>1.3.0</h2><blockquote>
+<p>2020年5月28日</p>
+</blockquote>
+<h4 id="主要更新：-39"><a href="#主要更新：-39" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>森友の邀请函加入图鉴关联和搜索</li>
+<li>图鉴内搜索和筛选同时生效</li>
+<li>图鉴支持一次标记和反标记页内所有图鉴</li>
+<li>鱼类和昆虫图鉴中南北半球进行了拆分</li>
+<li>材料图鉴中加入了可以制作的DIY手册</li>
+</ol>
+<h2 id="1-2-4"><a href="#1-2-4" class="headerlink" title="1.2.4"></a>1.2.4</h2><blockquote>
+<p>2020年5月27日</p>
+</blockquote>
+<h4 id="主要更新：-40"><a href="#主要更新：-40" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入鱼类图鉴和昆虫图鉴</li>
+<li>大大加快图鉴的加载速度</li>
+</ol>
+<h2 id="1-2-3"><a href="#1-2-3" class="headerlink" title="1.2.3"></a>1.2.3</h2><blockquote>
+<p>2020年5月25日</p>
+</blockquote>
+<h4 id="主要更新：-41"><a href="#主要更新：-41" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入DIY图鉴、材料植被图鉴、照片图鉴、海报图鉴、情绪反应图鉴</li>
+</ol>
+<h2 id="1-2-1"><a href="#1-2-1" class="headerlink" title="1.2.1"></a>1.2.1</h2><blockquote>
+<p>2020年5月24日</p>
+</blockquote>
+<h4 id="主要更新：-42"><a href="#主要更新：-42" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>重构图鉴页，加入材料图鉴</li>
+</ol>
+<h2 id="1-2-0"><a href="#1-2-0" class="headerlink" title="1.2.0"></a>1.2.0</h2><blockquote>
+<p>2020年5月23日</p>
+</blockquote>
+<h4 id="主要更新：-43"><a href="#主要更新：-43" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>村民图鉴加入标记功能，可以直接标记自己的岛民啦！</li>
+<li>图鉴加入云同步功能！！目前是最后一次标记后3分钟进行同步，之后可能视服务器压力进行调整！</li>
+</ol>
+<h2 id="1-1-6"><a href="#1-1-6" class="headerlink" title="1.1.6"></a>1.1.6</h2><blockquote>
+<p>2020年5月22日</p>
+</blockquote>
+<h4 id="主要更新：-44"><a href="#主要更新：-44" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入寻人启事分类</li>
+</ol>
+<h4 id="问题修复：-19"><a href="#问题修复：-19" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复点击3次的bug</li>
+</ol>
+<h2 id="1-1-5"><a href="#1-1-5" class="headerlink" title="1.1.5"></a>1.1.5</h2><blockquote>
+<p>2020年5月21日</p>
+</blockquote>
+<h4 id="主要更新：-45"><a href="#主要更新：-45" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入音乐、化石、艺术品图鉴</li>
+</ol>
+<h2 id="1-1-4"><a href="#1-1-4" class="headerlink" title="1.1.4"></a>1.1.4</h2><blockquote>
+<p>2020年5月18日</p>
+</blockquote>
+<h4 id="主要更新：-46"><a href="#主要更新：-46" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>增加提醒岛主密码错误的功能！</li>
+</ol>
+<h2 id="1-1-3"><a href="#1-1-3" class="headerlink" title="1.1.3"></a>1.1.3</h2><blockquote>
+<p>2020年5月18日</p>
+</blockquote>
+<h4 id="主要更新：-47"><a href="#主要更新：-47" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>岛屿描述中可以换行了！最大字数400字！详情页可以滚动！</li>
+</ol>
+<h2 id="1-1-1"><a href="#1-1-1" class="headerlink" title="1.1.1"></a>1.1.1</h2><blockquote>
+<p>2020年5月17日</p>
+</blockquote>
+<h4 id="主要更新：-48"><a href="#主要更新：-48" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入岛民图鉴，按照当天起的生日顺序排序</li>
+<li>同样支持简繁日英的名字搜索，以及种族、口头禅、喜欢的歌的搜索</li>
+<li>支持种族、性格、爱好、生日的高级筛选</li>
+</ol>
+<h2 id="1-1-0"><a href="#1-1-0" class="headerlink" title="1.1.0"></a>1.1.0</h2><blockquote>
+<p>2020年5月16日</p>
+</blockquote>
+<h4 id="主要更新：-49"><a href="#主要更新：-49" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入标记功能，支持在列表页以及详情页进行标记</li>
+<li>可改造物品不用多点，一次即标记</li>
+<li>标记存档目前在本地，之后会在云端，在此期间不要删除小程序哦</li>
+</ol>
+<h4 id="问题修复：-20"><a href="#问题修复：-20" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复下拉菜单在小屏机器上出现按钮显示不全的问题，顺便改了改样式</li>
+</ol>
+<h2 id="1-0-6"><a href="#1-0-6" class="headerlink" title="1.0.6"></a>1.0.6</h2><blockquote>
+<p>2020年5月15日</p>
+</blockquote>
+<h4 id="主要更新：-50"><a href="#主要更新：-50" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>图鉴页的入口发生变更，以前的分享可能会失效~</li>
+<li>家具图鉴加入筛选功能，目前支持系列筛选和来源筛选啦~</li>
+<li>图鉴的加载速度和搜索速度又双叒变快了</li>
+<li>大头菜交易和森友の邀请函列表页的悬浮菜单开始记录你选择隐藏还是展开了，隐藏后下次打开会默认显示几秒再隐藏哦</li>
+</ol>
+<h4 id="问题修复：-21"><a href="#问题修复：-21" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复评价个数问题</li>
+</ol>
+<h2 id="1-0-4"><a href="#1-0-4" class="headerlink" title="1.0.4"></a>1.0.4</h2><blockquote>
+<p>2020年5月13日</p>
+</blockquote>
+<h4 id="问题修复：-22"><a href="#问题修复：-22" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复若干问题</li>
+</ol>
+<h2 id="1-0-3"><a href="#1-0-3" class="headerlink" title="1.0.3"></a>1.0.3</h2><blockquote>
+<p>2020年5月9日</p>
+</blockquote>
+<h4 id="主要更新：-51"><a href="#主要更新：-51" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>图鉴使用拼音排序</li>
+<li>不同颜色加入图案显示</li>
+<li>物品原色同样放到多色列表中</li>
+</ol>
+<h2 id="1-0-1"><a href="#1-0-1" class="headerlink" title="1.0.1"></a>1.0.1</h2><blockquote>
+<p>2020年5月8日</p>
+</blockquote>
+<h4 id="主要更新：-52"><a href="#主要更新：-52" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入图鉴详情页</li>
+<li>优化图鉴加载速度</li>
+</ol>
+<h2 id="1-0-0"><a href="#1-0-0" class="headerlink" title="1.0.0"></a>1.0.0</h2><blockquote>
+<p>2020年5月8日</p>
+</blockquote>
+<h4 id="主要更新：-53"><a href="#主要更新：-53" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入图鉴功能！</li>
+</ol>
+<h2 id="0-9-6"><a href="#0-9-6" class="headerlink" title="0.9.6"></a>0.9.6</h2><blockquote>
+<p>2020年5月5日23时</p>
+</blockquote>
+<h4 id="主要更新：-54"><a href="#主要更新：-54" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>优化性能，应该可以减缓高峰期的卡顿</li>
+<li>加入图鉴功能预告[离完工还有一段时间]</li>
+</ol>
+<h4 id="问题修复：-23"><a href="#问题修复：-23" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复可能导致时间显示错误的问题</li>
+</ol>
+<h2 id="0-9-5"><a href="#0-9-5" class="headerlink" title="0.9.5"></a>0.9.5</h2><blockquote>
+<p>2020年5月3日21时</p>
+</blockquote>
+<h4 id="主要更新：-55"><a href="#主要更新：-55" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>退岛间隔时间改为三分钟</li>
+<li>修复可能出现的排队人数内外显示不一致的问题</li>
+</ol>
+<h2 id="0-9-4"><a href="#0-9-4" class="headerlink" title="0.9.4"></a>0.9.4</h2><blockquote>
+<p>2020年5月3日13时</p>
+</blockquote>
+<h4 id="主要更新：-56"><a href="#主要更新：-56" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修复评价列表中评价显示错误的问题</li>
+</ol>
+<h2 id="0-9-3"><a href="#0-9-3" class="headerlink" title="0.9.3"></a>0.9.3</h2><blockquote>
+<p>2020年5月2日21时</p>
+</blockquote>
+<h4 id="主要更新：-57"><a href="#主要更新：-57" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入举报功能</li>
+<li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
+<li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
+<li>大头菜加入违规封禁提示</li>
+</ol>
+<h2 id="0-9-2"><a href="#0-9-2" class="headerlink" title="0.9.2"></a>0.9.2</h2><blockquote>
+<p>2020年5月1日18时</p>
+</blockquote>
+<h4 id="主要更新：-58"><a href="#主要更新：-58" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入新的反馈平台</li>
+<li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
+<li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
+<li>大头菜加入违规封禁提示</li>
+</ol>
+<h2 id="0-9-1"><a href="#0-9-1" class="headerlink" title="0.9.1"></a>0.9.1</h2><blockquote>
+<p>2020年4月29日23时</p>
+</blockquote>
+<h4 id="主要更新：-59"><a href="#主要更新：-59" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>列表页的加号默认展开，防止有的人找不到按钮</li>
+<li>列表页可以查看历史上岛和历史岛民了，岛主可以评价，岛民可以再次上岛哦</li>
+<li>超时岛屿现已不可通过其他方式进入（参与者除外）</li>
+<li>大头菜加入违规封禁提示</li>
+</ol>
+<h2 id="0-9-0"><a href="#0-9-0" class="headerlink" title="0.9.0"></a>0.9.0</h2><blockquote>
+<p>2020年4月28日22时</p>
+</blockquote>
+<h4 id="主要更新：-60"><a href="#主要更新：-60" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入评价访客功能，还可以在成员列表中查看岛民的历史评价</li>
+<li>房主评价中可以看到互评</li>
+<li>优化访客列表UI，加入评价按钮</li>
+</ol>
+<h4 id="问题修复：-24"><a href="#问题修复：-24" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复大头菜预测中价格输入时输入法不下拉的情况</li>
+</ol>
+<h2 id="0-8-9"><a href="#0-8-9" class="headerlink" title="0.8.9"></a>0.8.9</h2><blockquote>
+<p>2020年4月26日23时</p>
+</blockquote>
+<h4 id="主要更新：-61"><a href="#主要更新：-61" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>修改岛屿列表页的UI，按钮使用悬浮菜单</li>
+<li>修改创建岛屿报名页的UI，更加美观和工整，并且密码中的不可用的<code>I</code> <code>O</code> <code>Z</code>将会被替换成<code>?</code></li>
+<li>优化首页启动性能，优化列表页和报名页进入动画</li>
+</ol>
+<h2 id="0-8-8"><a href="#0-8-8" class="headerlink" title="0.8.8"></a>0.8.8</h2><blockquote>
+<p>2020年4月25日23时</p>
+</blockquote>
+<h4 id="问题修复：-25"><a href="#问题修复：-25" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复PC版小程序无法正常使用首页的问题</li>
+</ol>
+<h2 id="0-8-7"><a href="#0-8-7" class="headerlink" title="0.8.7"></a>0.8.7</h2><blockquote>
+<p>2020年4月25日15时</p>
+</blockquote>
+<h4 id="问题修复：-26"><a href="#问题修复：-26" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>圈圈口令更新样式</li>
+</ol>
+<h2 id="0-8-6"><a href="#0-8-6" class="headerlink" title="0.8.6"></a>0.8.6</h2><blockquote>
+<p>2020年4月23日23时</p>
+</blockquote>
+<h4 id="主要更新：-62"><a href="#主要更新：-62" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>增加了停止排队功能，岛主停止排队更加方便</li>
+<li>增加了延后上岛功能，如果没有准备好现在可以延后上岛了</li>
+<li>增加了活动通知功能，期待一下五一的活动吧</li>
+<li>增加了用户封禁功能，针对被反馈不规矩的用户将加以封禁</li>
+<li>排队者只能给出4心及以上评价</li>
+</ol>
+<h4 id="问题修复：-27"><a href="#问题修复：-27" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了”森友の邀请函”中圈圈口令失效的问题</li>
+<li>修复了房主评价出现重复的问题</li>
+<li>修复排队人数和上岛人数显示有问题的情况</li>
+<li>修复时间显示刚开始会有负值的情况</li>
+<li>修复UI问题</li>
+</ol>
+<h2 id="0-8-5"><a href="#0-8-5" class="headerlink" title="0.8.5"></a>0.8.5</h2><blockquote>
+<p>2020年4月21日21时</p>
+</blockquote>
+<h4 id="主要更新：-63"><a href="#主要更新：-63" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>“森友の邀请函”的事件分类加入了岛民搬家</li>
+<li>“森友の邀请函”的特殊NPC中加入了然然和狐利</li>
+</ol>
+<h4 id="问题修复：-28"><a href="#问题修复：-28" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了隔一段时间刷新有重复的岛屿报名出现的现象</li>
+</ol>
+<h1 id="版本更新说明"><a href="#版本更新说明" class="headerlink" title="版本更新说明"></a>版本更新说明</h1><h2 id="0-8-4"><a href="#0-8-4" class="headerlink" title="0.8.4"></a>0.8.4</h2><blockquote>
+<p>2020年4月20日16时</p>
+</blockquote>
+<h4 id="主要更新：-64"><a href="#主要更新：-64" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>”森友の邀请函“模块加入筛选</li>
+<li>”大头菜交易“加入价格排序，参与计时</li>
+<li>”森友の邀请函“中加入了定时的离岛提醒</li>
+</ol>
+<h4 id="问题修复：-29"><a href="#问题修复：-29" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了名字过长时排队和上岛人的显示问题</li>
+</ol>
+<h2 id="0-8-3"><a href="#0-8-3" class="headerlink" title="0.8.3"></a>0.8.3</h2><blockquote>
+<p>2020年4月19日18时</p>
+</blockquote>
+<h4 id="主要更新：-65"><a href="#主要更新：-65" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入“森友の邀请函”模块</li>
+</ol>
+<h4 id="问题修复：-30"><a href="#问题修复：-30" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li><p>修复绘制我的设计中生成二维码图标造成误解的问题</p>
+</li>
+<li><p>修复大头菜价格预测的描述问题</p>
+</li>
+</ol>
+<h2 id="0-8-1"><a href="#0-8-1" class="headerlink" title="0.8.1"></a>0.8.1</h2><blockquote>
+<p>2020年4月17日2时</p>
+</blockquote>
+<h4 id="主要更新：-66"><a href="#主要更新：-66" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入大头菜价格预测功能！</li>
+</ol>
+<h2 id="0-8-0a"><a href="#0-8-0a" class="headerlink" title="0.8.0a"></a>0.8.0a</h2><blockquote>
+<p>2020年4月15日20时</p>
+</blockquote>
+<h4 id="主要更新：-67"><a href="#主要更新：-67" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>大头菜报名加入评价 </li>
+<li>主页UI改版</li>
+<li>大头菜首页可以只看未满的岛屿了</li>
+</ol>
+<h4 id="问题修复：-31"><a href="#问题修复：-31" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了排队时手动叫号导致上岛人数上限增加的问题</li>
+</ol>
+<h2 id="0-7-9"><a href="#0-7-9" class="headerlink" title="0.7.9"></a>0.7.9</h2><blockquote>
+<p>2020年4月14日2时</p>
+</blockquote>
+<h4 id="主要更新：-68"><a href="#主要更新：-68" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>引入了内容敏感检查，加入封禁功能</li>
+</ol>
+<h2 id="0-7-8rr"><a href="#0-7-8rr" class="headerlink" title="0.7.8rr"></a>0.7.8rr</h2><blockquote>
+<p>2020年4月13日18时</p>
+</blockquote>
+<h4 id="问题修复：-32"><a href="#问题修复：-32" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复岛屿的描述</li>
+</ol>
+<h2 id="0-7-8r"><a href="#0-7-8r" class="headerlink" title="0.7.8r"></a>0.7.8r</h2><blockquote>
+<p>2020年4月13日16时</p>
+</blockquote>
+<h4 id="问题修复：-33"><a href="#问题修复：-33" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复画图界面的作者信息丢失问题</li>
+<li>修复切图后选项没有回到1*1的问题</li>
+<li>修改默认的排队方式为上岛2人，排队4人</li>
+<li>修复UI显示的问题</li>
+</ol>
+<h2 id="0-7-8"><a href="#0-7-8" class="headerlink" title="0.7.8"></a>0.7.8</h2><blockquote>
+<p>2020年4月13日1时</p>
+</blockquote>
+<h4 id="主要更新：-69"><a href="#主要更新：-69" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>如果不打开通知，将无法加入房间</li>
+</ol>
+<h4 id="问题修复：-34"><a href="#问题修复：-34" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了自动排队不叫号的问题</li>
+</ol>
+<h2 id="0-7-6"><a href="#0-7-6" class="headerlink" title="0.7.6"></a>0.7.6</h2><blockquote>
+<p>2020年4月12日10时</p>
+</blockquote>
+<h4 id="主要更新：-70"><a href="#主要更新：-70" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入超时通知功能，需要点击三次才能看到密码</li>
+<li>分离标题和描述，现在可以写的更多啦，标题45字，内容150字</li>
+<li>大头菜房间周六可以选择100人啦！</li>
+</ol>
+<h4 id="问题修复：-35"><a href="#问题修复：-35" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>修复了排队人数显示不全的问题</li>
+<li>修正按钮太多显示不好看的问题</li>
+<li>修复bug</li>
+</ol>
+<h2 id="0-7-5"><a href="#0-7-5" class="headerlink" title="0.7.5"></a>0.7.5</h2><blockquote>
+<p>2020年4月11日9时</p>
+</blockquote>
+<h4 id="主要更新：-71"><a href="#主要更新：-71" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入圈圈口令功能！可以便捷分享到其他平台</li>
+</ol>
+<h4 id="问题修复：-36"><a href="#问题修复：-36" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>更新UI</li>
+<li>修复bug</li>
+</ol>
+<h2 id="0-7-3"><a href="#0-7-3" class="headerlink" title="0.7.3"></a>0.7.3</h2><blockquote>
+<p>2020年4月9日23时</p>
+</blockquote>
+<h4 id="主要更新：-72"><a href="#主要更新：-72" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li><p>加入排队功能！</p>
+<p><strong>自动排队：</strong></p>
+<p>参与人未满时，参加的人可以直接参与房间看到信息，人满时将加入队列。</p>
+<p>如果有人退出则自动将把排队的第一个人变成参与状态，并且发送通知给他。</p>
+<p><strong>手动排队：</strong></p>
+<p>不能直接参与，加入房间都是进入等待叫号队伍，房主在有人退出时可以收到通知（房主需要通过点击按钮增加可通知次数）。</p>
+<p>必须房主手动叫号，被叫号的人将变成参与状态，并收到通知。</p>
+<p><strong>队伍人满时都不能加入！</strong></p>
+</li>
+<li><p>加入关闭房间功能！房间关闭后无法在公开列表中看到，且房间内所有成员将被踢出。</p>
+</li>
+<li><p>加入通知功能</p>
+<p>目前有三个地方会收到通知</p>
+<ul>
+<li><p>手动排队时，用户退出时房主会收到通知（需要手动增加通知次数）</p>
+</li>
+<li><p>自动排队时，轮到自己的时候会收到通知</p>
+</li>
+<li><p>排队时，房主叫号会收到通知</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="问题修复：-37"><a href="#问题修复：-37" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>更新UI</li>
+</ol>
+<h2 id="0-7-2"><a href="#0-7-2" class="headerlink" title="0.7.2"></a>0.7.2</h2><blockquote>
+<p>2020年4月9日1时</p>
+</blockquote>
+<h4 id="主要更新：-73"><a href="#主要更新：-73" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>服务器炸了，加入广告</li>
+<li>切图加入最高15的选项，但是宽高之积最多50，超过了你也放不下</li>
+<li>切图生成过程使用进度条，更加直观</li>
+</ol>
+<h4 id="问题修复：-38"><a href="#问题修复：-38" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li>更新UI</li>
+</ol>
+<h2 id="0-7-1r"><a href="#0-7-1r" class="headerlink" title="0.7.1r"></a>0.7.1r</h2><blockquote>
+<p>2020年4月8日21时</p>
+</blockquote>
+<h4 id="主要更新：-74"><a href="#主要更新：-74" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入私有房间功能</li>
+</ol>
+<h4 id="问题修复：-39"><a href="#问题修复：-39" class="headerlink" title="问题修复："></a>问题修复：</h4><ol>
+<li><p>更新UI</p>
+</li>
+<li><p>修复可能存在的更新个人信息的bug</p>
+</li>
+<li><p>修复服务器时间慢的bug</p>
+</li>
+</ol>
+<h2 id="0-7-0r"><a href="#0-7-0r" class="headerlink" title="0.7.0r"></a>0.7.0r</h2><blockquote>
+<p>2020年4月7日23时</p>
+</blockquote>
+<h4 id="主要更新：-75"><a href="#主要更新：-75" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入大头菜房间功能</li>
+</ol>
+<h2 id="0-5-9"><a href="#0-5-9" class="headerlink" title="0.5.9"></a>0.5.9</h2><blockquote>
+<p>2020年4月5日23时</p>
+</blockquote>
+<h4 id="主要更新：-76"><a href="#主要更新：-76" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入护照生成和分享功能</li>
+</ol>
+<h4 id="问题修复"><a href="#问题修复" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复了可能导致卡住的问题</li>
+</ol>
+<h2 id="0-5-8r"><a href="#0-5-8r" class="headerlink" title="0.5.8r"></a>0.5.8r</h2><blockquote>
+<p>2020年4月3日0时</p>
+</blockquote>
+<h4 id="主要更新：-77"><a href="#主要更新：-77" class="headerlink" title="主要更新："></a>主要更新：</h4><ol>
+<li>加入图片导入的实时预览</li>
+<li>加入图片导入时的图像算法、透明度、平滑度等选项</li>
+<li>加入切图生成多个二维码按钮</li>
+<li>加入iPad的竖屏支持</li>
+<li>二维码生成速度加快，并且加入更好看的背景</li>
+<li>自动清理临时文件</li>
+</ol>
+<h4 id="问题修复-1"><a href="#问题修复-1" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复图片导入的颜色问题</li>
+<li>修复导入透明图片透明度失效的问题</li>
+</ol>
+<h2 id="0-5-2"><a href="#0-5-2" class="headerlink" title="0.5.2"></a>0.5.2</h2><blockquote>
+<p>2020年3月30日16时</p>
+</blockquote>
+<h4 id="主要更新"><a href="#主要更新" class="headerlink" title="主要更新"></a>主要更新</h4><ol>
+<li>增加了油漆桶！</li>
+<li>增加了撤销和重做功能！</li>
+<li>更新了新的UI，绘画区和功能区分离</li>
+</ol>
+<h4 id="问题修复-2"><a href="#问题修复-2" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复了切图生成二维码后再次点击生成不会自动跳转到第一个的问题</li>
+</ol>
+<h2 id="0-5-0"><a href="#0-5-0" class="headerlink" title="0.5.0"></a>0.5.0</h2><blockquote>
+<p>2020年3月30日2时30分</p>
+</blockquote>
+<h4 id="主要更新-1"><a href="#主要更新-1" class="headerlink" title="主要更新"></a>主要更新</h4><ol>
+<li>增加了透明颜色，现在可以使用透明色进行编辑啦~</li>
+<li>画图界面更加流畅啦！</li>
+<li>生成二维码图片流程大大优化，时间缩短，并增加了长按将所有图片添加到相册的功能</li>
+<li>切图界面增加了防抖动机制，并且将最大可切图拓展到7*7</li>
+<li>更新了部分UI，界面更加统一</li>
+<li>加入自动更新机制</li>
+</ol>
+<h4 id="问题修复-3"><a href="#问题修复-3" class="headerlink" title="问题修复"></a>问题修复</h4><ol>
+<li>修复了回到主页再进来还保留原来的图案的bug</li>
+<li>修复了从切图生成二维码时可能导致生成图片失败或者空白的问题</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kniost.top/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E.html" title="「动物森友会圈圈」版本更新说明">https://blog.kniost.top/动物森友会圈圈/动物森友会圈圈更新说明.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A/" rel="tag"><i class="fa fa-tag"></i> 动物森友会</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"><i class="fa fa-tag"></i> 小程序</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E8%BF%85%E6%B8%B8%E5%8A%A0%E9%80%9F%E5%99%A8%E5%8A%A8%E6%A3%AE%E4%B8%93%E7%89%88%E9%99%8D%E4%BB%B7.html" rel="prev" title="迅游加速器动森专版大优惠">
+                  <i class="fa fa-angle-left"></i> 迅游加速器动森专版大优惠
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">kniost</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">394k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:58</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

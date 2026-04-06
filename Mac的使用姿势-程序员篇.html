@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kniost.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"tomorrow-night"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="自从前几年入手了 MacBook Pro，感觉配合 macOS 开发越来越舒服，也眼见着 macOS 平台的软件越来越多。所以，我想在此向广大 Mac 用户推荐一点 Mac 的使用方式，就拿程序员们应该掌握的工具来举例吧~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac 的使用姿势 —— 程序员篇">
+<meta property="og:url" content="https://blog.kniost.top/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87.html">
+<meta property="og:site_name" content="kniost">
+<meta property="og:description" content="自从前几年入手了 MacBook Pro，感觉配合 macOS 开发越来越舒服，也眼见着 macOS 平台的软件越来越多。所以，我想在此向广大 Mac 用户推荐一点 Mac 的使用方式，就拿程序员们应该掌握的工具来举例吧~">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-14T07:48:00.000Z">
+<meta property="article:modified_time" content="2020-05-05T16:38:30.000Z">
+<meta property="article:author" content="kniost">
+<meta property="article:tag" content="Unix&#x2F;macOS&#x2F;Linux">
+<meta property="article:tag" content="使用技巧">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kniost.top/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87.html">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.kniost.top/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87.html","path":"Mac的使用姿势-程序员篇.html","title":"Mac 的使用姿势 —— 程序员篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mac 的使用姿势 —— 程序员篇 | kniost</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">kniost</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">谁怕，一蓑烟雨任平生</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-text">1. 包管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Homebrew-%E5%AE%89%E8%A3%85"><span class="nav-text">1.1 Homebrew 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Homebrew-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.2 Homebrew 常用命令介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%BB%88%E7%AB%AF"><span class="nav-text">2. 终端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Zsh"><span class="nav-text">3. Zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95"><span class="nav-text">3.1 安装方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-oh-my-zsh-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">3.2 oh-my-zsh 的配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-text">4. 编辑器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-IDE"><span class="nav-text">5. IDE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7Alfred"><span class="nav-text">6. 效率工具Alfred</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E6%96%87%E6%A1%A3%E6%92%B0%E5%86%99Markdown"><span class="nav-text">7. 文档撰写Markdown</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86"><span class="nav-text">8. 代码管理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kniost"
+      src="/images/blog-avatar-640.jpeg">
+  <p class="site-author-name" itemprop="name">kniost</p>
+  <div class="site-description" itemprop="description">记录技术之路上的点滴灵感与备忘</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
+      <meta itemprop="name" content="kniost">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kniost">
+      <meta itemprop="description" content="记录技术之路上的点滴灵感与备忘">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Mac 的使用姿势 —— 程序员篇 | kniost">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac 的使用姿势 —— 程序员篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-14 15:48:00" itemprop="dateCreated datePublished" datetime="2018-03-14T15:48:00+08:00">2018-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-05-06 00:38:30" itemprop="dateModified" datetime="2020-05-06T00:38:30+08:00">2020-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/macOS/" itemprop="url" rel="index"><span itemprop="name">macOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>自从前几年入手了 MacBook Pro，感觉配合 macOS 开发越来越舒服，也眼见着 macOS 平台的软件越来越多。所以，我想在此向广大 Mac 用户推荐一点 Mac 的使用方式，就拿程序员们应该掌握的工具来举例吧~</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="1-包管理工具"><a href="#1-包管理工具" class="headerlink" title="1. 包管理工具"></a>1. 包管理工具</h1><p>包管理工具就是类似于 RHEL系列（RedHat，CentOS 等） 上的 <code>yum</code>，Debian系列（Ubuntu，Debian）的 <code>apt-get</code>，主要用来安装一些开源软件，这些工具的存在大大简化了开源软件的安装过程，要不然安装一个软件可能需要提前安装一大堆依赖的软件。<br>在 macOS 上目前被普遍使用的就是 <a href="https://brew.sh/">Homebrew</a> 了。</p>
+<h2 id="1-1-Homebrew-安装"><a href="#1-1-Homebrew-安装" class="headerlink" title="1.1 Homebrew 安装"></a>1.1 Homebrew 安装</h2><p>Homebrew通过以下命令安装即可(首先要有 ruby 环境，一般都自带了～)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Homebrew上所有的软件以ruby代码封装成formula的形式提供，通过命令<code>brew install xxx</code>下载formula，得到formula中定义的软件的地址，通过wget获取软件安装包，然后本地解压编译。</p>
+<h2 id="1-2-Homebrew-常用命令介绍"><a href="#1-2-Homebrew-常用命令介绍" class="headerlink" title="1.2 Homebrew 常用命令介绍"></a>1.2 Homebrew 常用命令介绍</h2><ul>
+<li><p><strong>搜索软件包</strong> <code>brew search xxx</code></p>
+</li>
+<li><p><strong>安装软件包</strong> <code>brew install xxx</code></p>
+</li>
+<li><p><strong>列出已安装的软件包</strong> <code>brew list</code></p>
+</li>
+<li><p><strong>删除软件包</strong> <code>brew uninstall xxx</code></p>
+</li>
+<li><p><strong>更新Homebrew</strong> <code>brew update</code></p>
+</li>
+<li><p><strong>检查更新</strong> <code>brew outdated</code></p>
+</li>
+<li><p><strong>升级所有可以升级的软件</strong> <code>brew upgrade</code></p>
+</li>
+<li><p><strong>清理不用的版本和安装包缓存</strong> <code>brew cleanup</code></p>
+</li>
+</ul>
+<h1 id="2-终端"><a href="#2-终端" class="headerlink" title="2. 终端"></a>2. 终端</h1><p>终端我推荐iTerm2，很方便的快捷键呼出和隐藏，强大的分屏支持，方便的历史命令自动完成，丰富的UI定制等等，具体可参考 <a href="http://iterm2.com/features.html">iTerm 2 Features</a>。</p>
+<p>并且强烈建议大家花点时间学习并打造一个用得顺溜的iTerm2。</p>
+<h1 id="3-Zsh"><a href="#3-Zsh" class="headerlink" title="3. Zsh"></a>3. Zsh</h1><blockquote>
+<p>熟悉Shell的人都知道命令行界面在大部分情况下是可以高效替代图形界面，但因为命令行界面使用门槛高，而且图形界面长得更讨人喜欢，所以命令行界面才沦为少数人的工具，可以说是码农专用工具。</p>
+</blockquote>
+<p>在这里我要推荐大家放弃自带的 bash，去使用 zsh。为什么要用 zsh？可以不分大小写自动补全！还有更多精彩功能可以<a href="https://www.zhihu.com/question/21418449">查看知乎讨论</a></p>
+<p>zsh 本身要配置的地方太多，但已经有人做好了美妙的管理 zsh 的方法，那就是 <code>oh my zsh</code>（<a href="http://ohmyz.sh/">进入官网</a>），GitHub 上 stars 截至目前高达 5w+</p>
+<h2 id="3-1-安装方法"><a href="#3-1-安装方法" class="headerlink" title="3.1 安装方法"></a>3.1 安装方法</h2><p>进入终端，输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>回车，即可安装好 zsh</p>
+<h2 id="3-2-oh-my-zsh-的配置"><a href="#3-2-oh-my-zsh-的配置" class="headerlink" title="3.2 oh-my-zsh 的配置"></a>3.2 oh-my-zsh 的配置</h2><p>我们通过配置 <code>~/.zshrc</code> 可以让oh-my-zsh看起来焕然一新。</p>
+<ul>
+<li><p>选择一个漂亮的theme，终端是使用频率最高的软件之一，UI不美观会影响工作心情，不同主题的样式可参考<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes">官方 WiKi</a>。</p>
+</li>
+<li><p>配置你需要的插件，在<code>~/.zshrc</code>中编辑plugins&#x3D;(git ruby osx brew sublime)将你需要的插件选上，所有支持的插件可参考<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">官方 WiKi</a></p>
+</li>
+</ul>
+<p><a href="http://macshuo.com/?p=676">这里有一篇博客</a>对oh-my-zsh有一个不错的介绍。</p>
+<h1 id="4-编辑器"><a href="#4-编辑器" class="headerlink" title="4. 编辑器"></a>4. 编辑器</h1><p>这里推荐VSCode。这个就不多说了～</p>
+<h1 id="5-IDE"><a href="#5-IDE" class="headerlink" title="5. IDE"></a>5. IDE</h1><p>这里要重点推荐一下Jetbrains系列的IDE工具，比如久负盛名的 <code>IntelliJ IDEA</code>，还有其他类似的比如<code>RubyMine</code>，<code>WebStorm</code>，<code>PyCharm</code>，<code>Clion</code>等等。</p>
+<h1 id="6-效率工具Alfred"><a href="#6-效率工具Alfred" class="headerlink" title="6. 效率工具Alfred"></a>6. 效率工具Alfred</h1><p>作为检索工具，Mac自带的Spotlight功能已经十分强大了，但Alfred提供了除了检索以外更多的功能，我已经将Alfred作为我一切程序的入口，快捷键呼出-&gt;输入命令-&gt;打开，整个操作一气呵成，完全不需要借助touch pad或者鼠标，大大提高了工作的效率。</p>
+<h1 id="7-文档撰写Markdown"><a href="#7-文档撰写Markdown" class="headerlink" title="7. 文档撰写Markdown"></a>7. 文档撰写Markdown</h1><p>写文档应该是大部分码农比较痛苦的事情，特别是纠结于排版的时候，因此基于纯文本书写的Markdown在程序员之间开始流行开来，很多程序员使用Markdown来书写博客，著名的博客平台WordPress和Jekyll都能很好的支持Markdown，包括github的Readme也是兼容Markdown语法。Markdown使用易读易写的纯文本格式编写文档，然后转换成有效的HTML。</p>
+<p>Markdown的宗旨是易读易写，使用Markdown书写的文档具有很高的可读性，不会看起来像是由许多Tag或者命令组成的，其设计理念来自于纯文本电子邮件格式。<br>Markdown精选了一些符号作为语法，你花半小时基本就能学会。本文使用Markdown完成，这里有Markdown详细的语法介绍，这篇文章写得也不错。<br>在Mac下比较推荐MacDown，很小巧的一个免费软件，但基本具备一个Markdown编辑器该有的功能，左边书写，右边就可以看到结果，同时你也可以在Mou中配置CSS来更改最后生成的HTML的效果，比如有Github风格，Solarized风格，也可以导出PDF或者HTML。这里有大量Mou的CSS主题。<br>这里推荐一个比较流行的博客写作平台Git+Github+Markdown+Jekyll，有兴趣的同学可以搜索相应关键字，整个搭建过程并不复杂，这里就不赘述了。</p>
+<h1 id="8-代码管理"><a href="#8-代码管理" class="headerlink" title="8. 代码管理"></a>8. 代码管理</h1><p>如果你平时使用git，那我比较推荐SourceTree，它是一款功能很强大的git客户端，比如具备git项目的管理，可以同步github和bitbucket上托管的代码，可以图形化执行各种git命令，有着简单友好的diff功能（用来做简单的code review是个不错的选择），提供git-flow的支持，它几乎提供了git所有功能的图形化操作，但出于效率考虑，有些简单的git操作直接在终端里完成即可。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>kniost
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kniost.top/Mac%E7%9A%84%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF-%E7%A8%8B%E5%BA%8F%E5%91%98%E7%AF%87.html" title="Mac 的使用姿势 —— 程序员篇">https://blog.kniost.top/Mac的使用姿势-程序员篇.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Unix-macOS-Linux/" rel="tag"><i class="fa fa-tag"></i> Unix/macOS/Linux</a>
+              <a href="/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="tag"><i class="fa fa-tag"></i> 使用技巧</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Android%20%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7%E7%AF%87/Android%20Studio%20%E9%AB%98%E7%BA%A7%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7.html" rel="prev" title="Android 常用高级调试技巧">
+                  <i class="fa fa-angle-left"></i> Android 常用高级调试技巧
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82.html" rel="next" title="Java语言中不可忽视的细节">
+                  Java语言中不可忽视的细节 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2016 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="user"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">kniost</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">394k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:58</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
