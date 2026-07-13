@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章介绍了 fragment 的来由，activity 与 fragment 的关系，及其基础使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南（第二版）学习笔记（七）—— 第7章 UI fragment 与 fragment 管理器">
-<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="本章介绍了 fragment 的来由，activity 与 fragment 的关系，及其基础使用">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20161026113629866">
 
-<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
 
 
 <script id="page-configurations">
@@ -115,30 +115,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -163,15 +163,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%207%20UI%20fragment%20%E4%B8%8E%20fragment%20%E7%AE%A1%E7%90%86%E5%99%A8-20161021.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -190,7 +189,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -198,14 +197,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -216,14 +215,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>2 分钟</span>
@@ -241,7 +240,7 @@
         <blockquote>
 <p>本章介绍了 fragment 的来由，activity 与 fragment 的关系，及其基础使用</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <blockquote>
 <p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/0917ea242f26e72902e574860432fa7eb0bfaff8">完成第七章</a></p>
 </blockquote>
@@ -265,14 +264,14 @@
 <li>fragment 的视图建立不是在 <code>onCreate(…)</code> 中完成，而是在 <code>onCreateView(…)</code> 中完成（如下）。</li>
 </ul>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> View <span class="title function_">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span></span><br></pre></td></tr></table></figure>
 <p>该方法实例化 fragment 视图的布局，然后将实例化的 View 返回给托管的 activity。 LayoutInflater 及 ViewGroup 是实例化布局的必要参数。Bundle 用来存储恢复数据，可供该方法从保存状态下重建视图。</p>
 <h2 id="3-管理-fragment-的-FragmentManager-类"><a href="#3-管理-fragment-的-FragmentManager-类" class="headerlink" title="3. 管理 fragment 的 FragmentManager 类"></a>3. 管理 fragment 的 FragmentManager 类</h2><blockquote>
 <p>activity 通过 FragmentManager 类管理 fragment 的队列和事务回退栈。</p>
 </blockquote>
-<h2 id="3-1-FragmentManager-的获取"><a href="#3-1-FragmentManager-的获取" class="headerlink" title="3.1 FragmentManager 的获取"></a>3.1 FragmentManager 的获取</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用 support 依赖包的情况下，用下面语句</span></span><br><span class="line">FragmentManager fm = getSupportFragmentManager();</span><br><span class="line"><span class="comment">//如果使用系统原生的 Fragment 类，即不考虑向后兼容时，使用：</span></span><br><span class="line">FragmentManager fm = getFragmentManager();</span><br></pre></td></tr></table></figure>
+<h2 id="3-1-FragmentManager-的获取"><a href="#3-1-FragmentManager-的获取" class="headerlink" title="3.1 FragmentManager 的获取"></a>3.1 FragmentManager 的获取</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用 support 依赖包的情况下，用下面语句</span></span><br><span class="line"><span class="type">FragmentManager</span> <span class="variable">fm</span> <span class="operator">=</span> getSupportFragmentManager();</span><br><span class="line"><span class="comment">//如果使用系统原生的 Fragment 类，即不考虑向后兼容时，使用：</span></span><br><span class="line"><span class="type">FragmentManager</span> <span class="variable">fm</span> <span class="operator">=</span> getFragmentManager();</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-2-获取-fragment-并交由-FragmentManager-处理"><a href="#3-2-获取-fragment-并交由-FragmentManager-处理" class="headerlink" title="3.2 获取 fragment 并交由 FragmentManager 处理"></a>3.2 获取 fragment 并交由 FragmentManager 处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Fragment fragment = fm.findFragmentById(R.id.fragment_container);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">	fragment = <span class="keyword">new</span> CrimeFragment();</span><br><span class="line">	<span class="comment">//下列代码创建、添加并提交了一个 fragment 事务</span></span><br><span class="line">	fm.beginTransaction()</span><br><span class="line">		.add(R.id.fragment_container, fragment)</span><br><span class="line">		.commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-获取-fragment-并交由-FragmentManager-处理"><a href="#3-2-获取-fragment-并交由-FragmentManager-处理" class="headerlink" title="3.2 获取 fragment 并交由 FragmentManager 处理"></a>3.2 获取 fragment 并交由 FragmentManager 处理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Fragment</span> <span class="variable">fragment</span> <span class="operator">=</span> fm.findFragmentById(R.id.fragment_container);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fragment == <span class="literal">null</span>) &#123;</span><br><span class="line">	fragment = <span class="keyword">new</span> <span class="title class_">CrimeFragment</span>();</span><br><span class="line">	<span class="comment">//下列代码创建、添加并提交了一个 fragment 事务</span></span><br><span class="line">	fm.beginTransaction()</span><br><span class="line">		.add(R.id.fragment_container, fragment)</span><br><span class="line">		.commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>fragment 事务用来添加、移除、附加、分离或者替换 fragment 队列中的 fragment。 这是使用 fragment 在运行时组装和重新组装 UI 的关键。 Fragment Manager 管理着 fragment 事务回退栈。</p>
@@ -285,7 +284,7 @@
 </ul>
 <p>如果要从 FragmentManager 中获取 CrimeFragment，直接使用容器视图资源 ID 即可（即上面代码的第一句）。初始时 FragmentManager 队列为空，故而需要下面的语句用于创建提交 fragment 至队列中，如果是恢复性地调用（如 activity 被销毁），则直接引用即可。</p>
 <hr>
-<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+<p>GitHub Page: <a href="http://kniost.github.io/">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
 
     </div>
 
@@ -320,7 +319,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -371,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-为何要使用-fragment"><span class="nav-text">1. 为何要使用 fragment ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-fragment-的生命周期"><span class="nav-text">2. fragment 的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fragment-的生命周期方法与-activity-的异同"><span class="nav-text">fragment 的生命周期方法与 activity 的异同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-管理-fragment-的-FragmentManager-类"><span class="nav-text">3. 管理 fragment 的 FragmentManager 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-FragmentManager-的获取"><span class="nav-text">3.1 FragmentManager 的获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-获取-fragment-并交由-FragmentManager-处理"><span class="nav-text">3.2 获取 fragment 并交由 FragmentManager 处理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%BA%E4%BD%95%E8%A6%81%E4%BD%BF%E7%94%A8-fragment"><span class="nav-text">1. 为何要使用 fragment ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-fragment-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">2. fragment 的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fragment-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95%E4%B8%8E-activity-%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-text">fragment 的生命周期方法与 activity 的异同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%AE%A1%E7%90%86-fragment-%E7%9A%84-FragmentManager-%E7%B1%BB"><span class="nav-text">3. 管理 fragment 的 FragmentManager 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-FragmentManager-%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-text">3.1 FragmentManager 的获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%8E%B7%E5%8F%96-fragment-%E5%B9%B6%E4%BA%A4%E7%94%B1-FragmentManager-%E5%A4%84%E7%90%86"><span class="nav-text">3.2 获取 fragment 并交由 FragmentManager 处理</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,7 +405,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -432,21 +430,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

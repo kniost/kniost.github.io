@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章主要讨论了 Activity 的生命周期，用 Log 工具来观察它，以及如何在设备配置改变时保存之前的状态   GitHub地址：GeoQuiz 第三章">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南（第二版）学习笔记（三）—— 第3章 日志跟踪理解 Activity 生命周期">
-<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="本章主要讨论了 Activity 的生命周期，用 Log 工具来观察它，以及如何在设备配置改变时保存之前的状态   GitHub地址：GeoQuiz 第三章">
 <meta property="og:locale" content="zh_CN">
@@ -36,7 +36,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20161007150307614">
 
-<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
 
 
 <script id="page-configurations">
@@ -116,30 +116,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -164,15 +164,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%203%20%E6%97%A5%E5%BF%97%E8%B7%9F%E8%B8%AA%E7%90%86%E8%A7%A3%20Activity%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-20161006.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -191,7 +190,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -199,14 +198,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -217,14 +216,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>813</span>
+              <span>823</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>1 分钟</span>
@@ -245,23 +244,23 @@
 <blockquote>
 <p>GitHub地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/d6a3dfd1e087e5484e6c7dc022f76799ac12cc7d">GeoQuiz 第三章</a></p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="1-Activity-的生命周期"><a href="#1-Activity-的生命周期" class="headerlink" title="1. Activity 的生命周期"></a>1. Activity 的生命周期</h1><img src="http://img.blog.csdn.net/20161007150307614" width="20%" alt= "Activity 生命周期" align=center />
 
 
 <p>在设备运行中，设备配置（如屏幕方向、屏幕密度、屏幕尺寸、语言、键盘类型等）发生改变时，Android 需要自动完成最佳匹配资源的调用， 某些时候（如屏幕旋转时）它必须通过新建一个 Activity 来实现，所以需要重新调用 onCreate() 方法，从而设备配置改变前对 Activity 的更改将消失。</p>
 <p><strong>如何在设备配置改变发生时保存数据，在之后返回到改变前的状态呢？</strong></p>
 <p>就是通过复写 onSaveInstanceState() 方法保存需要保留的数据，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onSaveInstanceState</span><span class="params">(Bundle outState)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">super</span>.onSaveInstanceState(outState);</span><br><span class="line">	Log.i(TAG, <span class="string">"onSaveInstanceState"</span>);</span><br><span class="line">	outState.putInt(KEY_INDEX,mCurrentIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onSaveInstanceState</span><span class="params">(Bundle outState)</span> &#123;</span><br><span class="line">	<span class="built_in">super</span>.onSaveInstanceState(outState);</span><br><span class="line">	Log.i(TAG, <span class="string">&quot;onSaveInstanceState&quot;</span>);</span><br><span class="line">	outState.putInt(KEY_INDEX,mCurrentIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后在 onCreate() 方法中加入对 savedInstanceState 这个 Bundle 变量的非空判定然后获取其中的数据对 Activity 的数据进行赋值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="keyword">null</span>）&#123;</span><br><span class="line">	mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="literal">null</span>）&#123;</span><br><span class="line">	mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个完整的包含暂存状态的 Acitvity 生命周期图示如下：</p>
 <img src="http://img.blog.csdn.net/20161007153711019" width="40%" alt="完整的 Activity 生命周期" />
 
 <h1 id="2-Log-工具"><a href="#2-Log-工具" class="headerlink" title="2. Log 工具"></a>2. Log 工具</h1><p>使用 Log 方式跟踪程序是一个比较好的习惯，而不是使用 <code>System.out.println()</code></p>
 <hr>
-<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+<p>GitHub Page: <a href="http://kniost.github.io/">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
 
     </div>
 
@@ -296,7 +295,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -347,7 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Activity-的生命周期"><span class="nav-text">1. Activity 的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Log-工具"><span class="nav-text">2. Log 工具</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Activity-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">1. Activity 的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Log-%E5%B7%A5%E5%85%B7"><span class="nav-text">2. Log 工具</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,7 +381,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -408,21 +406,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

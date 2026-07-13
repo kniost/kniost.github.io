@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="LeetCode 157. Read N Characters Given Read4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode 157. Read N Characters Given Read4">
-<meta property="og:url" content="https://blog.kniost.top/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="LeetCode 157. Read N Characters Given Read4">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="Easy">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.kniost.top/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
 
 
 <script id="page-configurations">
@@ -115,30 +115,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -163,15 +163,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/LeetCode/LeetCode%20157.%20Read%20N%20Characters%20Given%20Read4-20190711.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -190,7 +189,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -198,14 +197,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-07-12 16:23:19" itemprop="dateModified" datetime="2019-07-12T16:23:19+08:00">2019-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -216,14 +215,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>3 分钟</span>
@@ -240,43 +239,43 @@
 
       
         <h2 id="157-Read-N-Characters-Given-Read4"><a href="#157-Read-N-Characters-Given-Read4" class="headerlink" title="157. Read N Characters Given Read4"></a><a href="https://leetcode.com/problems/read-n-characters-given-read4/">157. Read N Characters Given Read4</a></h2><p>Difficulty: <strong>Easy</strong></p>
-<p>Given a file and assume that you can only read the file using a given method <code>read4</code>, implement a method to read <em>n</em> characters.</p>
+<p>Given a file and assume that you can only read the file using a given method <code>read4</code>, implement a method to read <em>n</em> characters.</p>
 <p><strong>Method read4:</strong></p>
-<p>The API <code>read4</code> reads 4 consecutive characters from the file, then writes those characters into the buffer array <code>buf</code>.</p>
+<p>The API <code>read4</code> reads 4 consecutive characters from the file, then writes those characters into the buffer array <code>buf</code>.</p>
 <p>The return value is the number of actual characters read.</p>
-<p>Note that <code>read4()</code> has its own file pointer, much like <code>FILE *fp</code> in C.</p>
+<p>Note that <code>read4()</code> has its own file pointer, much like <code>FILE *fp</code> in C.</p>
 <p><strong>Definition of read4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    Parameter:  char[] buf</span><br><span class="line">    Returns:    int</span><br><span class="line"></span><br><span class="line">Note: buf[] is destination not source, the results from read4 will be copied to buf[]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    Parameter:  char[] buf</span><br><span class="line">    Returns:    int</span><br><span class="line"></span><br><span class="line">Note: buf[] is destination not source, the results from read4 will be copied to buf[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>Below is a high level example of how <code>read4</code> works:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">File file(&quot;abcdefghijk&quot;); &#x2F;&#x2F; File is &quot;abcdefghijk&quot;, initially file pointer (fp) points to &#39;a&#39;</span><br><span class="line">char[] buf &#x3D; new char[4]; &#x2F;&#x2F; Create buffer with enough space to store characters</span><br><span class="line">read4(buf); &#x2F;&#x2F; read4 returns 4\. Now buf &#x3D; &quot;abcd&quot;, fp points to &#39;e&#39;</span><br><span class="line">read4(buf); &#x2F;&#x2F; read4 returns 4\. Now buf &#x3D; &quot;efgh&quot;, fp points to &#39;i&#39;</span><br><span class="line">read4(buf); &#x2F;&#x2F; read4 returns 3\. Now buf &#x3D; &quot;ijk&quot;, fp points to end of file</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">File file(&quot;abcdefghijk&quot;); // File is &quot;abcdefghijk&quot;, initially file pointer (fp) points to &#x27;a&#x27;</span><br><span class="line">char[] buf = new char[4]; // Create buffer with enough space to store characters</span><br><span class="line">read4(buf); // read4 returns 4\. Now buf = &quot;abcd&quot;, fp points to &#x27;e&#x27;</span><br><span class="line">read4(buf); // read4 returns 4\. Now buf = &quot;efgh&quot;, fp points to &#x27;i&#x27;</span><br><span class="line">read4(buf); // read4 returns 3\. Now buf = &quot;ijk&quot;, fp points to end of file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Method read:</strong></p>
-<p>By using the <code>read4</code> method, implement the method <code>read</code> that reads <em>n</em> characters from the file and store it in the buffer array <code>buf</code>. Consider that you <strong>cannot</strong> manipulate the file directly.</p>
+<p>By using the <code>read4</code> method, implement the method <code>read</code> that reads <em>n</em> characters from the file and store it in the buffer array <code>buf</code>. Consider that you <strong>cannot</strong> manipulate the file directly.</p>
 <p>The return value is the number of actual characters read.</p>
 <p><strong>Definition of read:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    Parameters:	char[] buf, int n</span><br><span class="line">    Returns:	int</span><br><span class="line"></span><br><span class="line">Note: buf[] is destination not source, you will need to write the results to buf[]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    Parameters:	char[] buf, int n</span><br><span class="line">    Returns:	int</span><br><span class="line"></span><br><span class="line">Note: buf[] is destination not source, you will need to write the results to buf[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: file &#x3D; &quot;abc&quot;, n &#x3D; 4</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abc&quot;. We read a total of 3 characters from the file, so return 3\. Note that &quot;abc&quot; is the file&#39;s content, not buf. buf is the destination buffer that you will have to write the results to.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: file = &quot;abc&quot;, n = 4</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abc&quot;. We read a total of 3 characters from the file, so return 3\. Note that &quot;abc&quot; is the file&#x27;s content, not buf. buf is the destination buffer that you will have to write the results to.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Example 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: file &#x3D; &quot;abcde&quot;, n &#x3D; 5</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abcde&quot;. We read a total of 5 characters from the file, so return 5.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: file = &quot;abcde&quot;, n = 5</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abcde&quot;. We read a total of 5 characters from the file, so return 5.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Example 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: file &#x3D; &quot;abcdABCD1234&quot;, n &#x3D; 12</span><br><span class="line">Output: 12</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abcdABCD1234&quot;. We read a total of 12 characters from the file, so return 12.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: file = &quot;abcdABCD1234&quot;, n = 12</span><br><span class="line">Output: 12</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;abcdABCD1234&quot;. We read a total of 12 characters from the file, so return 12.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Example 4:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: file &#x3D; &quot;leetcode&quot;, n &#x3D; 5</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;leetc&quot;. We read a total of 5 characters from the file, so return 5.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: file = &quot;leetcode&quot;, n = 5</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: After calling your read method, buf should contain &quot;leetc&quot;. We read a total of 5 characters from the file, so return 5.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>Note:</strong></p>
 <ol>
-<li>Consider that you <strong>cannot</strong> manipulate the file directly, the file is only accesible for <code>read4</code> but <strong>not</strong> for <code>read</code>.</li>
+<li>Consider that you <strong>cannot</strong> manipulate the file directly, the file is only accesible for <code>read4</code> but <strong>not</strong> for <code>read</code>.</li>
 <li>The <code>read</code> function will only be called once for each test case.</li>
-<li>You may assume the destination buffer array, <code>buf</code>, is guaranteed to have enough space for storing <em>n</em> characters.</li>
+<li>You may assume the destination buffer array, <code>buf</code>, is guaranteed to have enough space for storing <em>n</em> characters.</li>
 </ol>
 <h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Language: <strong>Java</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The read4 API is defined in the parent class Reader4.</span></span><br><span class="line"><span class="comment"> *     int read4(char[] buf);</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> <span class="keyword">extends</span> <span class="title">Reader4</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> buf Destination buffer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n   Number of characters to read</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>    The number of actual characters read</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">char</span>[] buf, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> eof = <span class="keyword">false</span>;      <span class="comment">// end of file flag</span></span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;            <span class="comment">// total bytes have read</span></span><br><span class="line">        <span class="keyword">char</span>[] tmp = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">4</span>]; <span class="comment">// temp buffer</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!eof &amp;&amp; total &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> count = read4(tmp);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// check if it's the end of the file</span></span><br><span class="line">            eof = count &lt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// get the actual count</span></span><br><span class="line">            count = Math.min(count, n - total);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// copy from temp buffer to buf</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) </span><br><span class="line">                buf[total++] = tmp[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The read4 API is defined in the parent class Reader4.</span></span><br><span class="line"><span class="comment"> *     int read4(char[] buf);</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> <span class="keyword">extends</span> <span class="title class_">Reader4</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> buf Destination buffer</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n   Number of characters to read</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>    The number of actual characters read</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">read</span><span class="params">(<span class="type">char</span>[] buf, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">eof</span> <span class="operator">=</span> <span class="literal">false</span>;      <span class="comment">// end of file flag</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> <span class="number">0</span>;            <span class="comment">// total bytes have read</span></span><br><span class="line">        <span class="type">char</span>[] tmp = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">4</span>]; <span class="comment">// temp buffer</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!eof &amp;&amp; total &lt; n) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> read4(tmp);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// check if it&#x27;s the end of the file</span></span><br><span class="line">            eof = count &lt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// get the actual count</span></span><br><span class="line">            count = Math.min(count, n - total);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// copy from temp buffer to buf</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; count; i++) </span><br><span class="line">                buf[total++] = tmp[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -301,8 +300,8 @@
       <i class="fa fa-chevron-left"></i> LeetCode 156. Binary Tree Upside Down
     </a></div>
       <div class="post-nav-item">
-    <a href="/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88%E4%BB%8B%E7%BB%8D-20200326.html" rel="next" title="动物森友会圈圈介绍">
-      动物森友会圈圈介绍 <i class="fa fa-chevron-right"></i>
+    <a href="/%E5%8A%A8%E7%89%A9%E6%A3%AE%E5%8F%8B%E4%BC%9A%E5%9C%88%E5%9C%88/%E7%BB%98%E5%88%B6%E6%88%91%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%AF%B4%E6%98%8E-20200327.html" rel="next" title="绘制我的设计说明">
+      绘制我的设计说明 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -312,7 +311,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -399,7 +397,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -424,21 +422,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

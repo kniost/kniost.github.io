@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章介绍了如何使用 ViewPager（准确地说，应该是使用了 FragmentStatePagerAdapter 的简单的 ViewPager）。 GitHub 地址：完成第十一章">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南（第二版）学习笔记（十一）—— 第11章 使用 ViewPager">
-<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="本章介绍了如何使用 ViewPager（准确地说，应该是使用了 FragmentStatePagerAdapter 的简单的 ViewPager）。 GitHub 地址：完成第十一章">
 <meta property="og:locale" content="zh_CN">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
 
 
 <script id="page-configurations">
@@ -113,30 +113,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -161,15 +161,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%2011%20%E4%BD%BF%E7%94%A8%20ViewPager-20161117.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -188,7 +187,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -196,14 +195,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -214,14 +213,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>3 分钟</span>
@@ -240,7 +239,7 @@
 <p>本章介绍了如何使用 ViewPager（准确地说，应该是使用了 FragmentStatePagerAdapter 的简单的 ViewPager）。</p>
 <p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/4e8b9cd914207d976b38d957375418d8d75b551b">完成第十一章</a></p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <p>#1. ViewPager 和 PagerAdapter</p>
 <p>ViewPager 在某种程度上类似于 RecyclerView，它们都需要借助于 Adapter 来支持，ViewPager 需要的是 PagerAdapter。</p>
 <p>ViewPager 与 PagerAdapter 之间的配合比 RecyclerView 与其 Adapter 之间复杂得多。但是对于本章而言，因为使用的是 PagerAdapter 的子类 <code>FragmentStatePagerAdapter</code>，它能协助处理很多细节问题.</p>
@@ -252,17 +251,17 @@
 <li>在代码中声明 ViewPager 变量并引用</li>
 <li>本书中使用的是匿名 FragmentStatePagerAdapter 类，在其中直接重写了两个关键方法，然后就可以使用了。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用 ViewPager</span></span><br><span class="line">mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);</span><br><span class="line"><span class="comment">// 获取数据集</span></span><br><span class="line">mCrimes = CrimeLab.get(<span class="keyword">this</span>).getCrimes();</span><br><span class="line"><span class="comment">// 获取 FragmentManager</span></span><br><span class="line">FragmentManager fragmentManager = getSupportFragmentManager();</span><br><span class="line"><span class="comment">// 使用匿名内部类来引用 FragmentStatePagerAdapter，构造方法的参数是 FragmentManager</span></span><br><span class="line">mViewPager.setAdapter(<span class="keyword">new</span> FragmentStatePagerAdapter(fragmentManager) &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Fragment <span class="title">getItem</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">		Crime crime = mCrimes.get(position);</span><br><span class="line">		<span class="keyword">return</span> CrimeFragment.newInstance(crime.getId());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mCrimes.size();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置完 Adapter 以后，就要选择当前的数据啦~这就是上一个  Activity 传递进来的数据，我就不予赘述了。</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mCrimes.size(); i++) &#123;</span><br><span class="line">	<span class="keyword">if</span> (mCrimes.get(i).getId().equals(crimeId)) &#123;</span><br><span class="line">		mViewPager.setCurrentItem(i);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用 ViewPager</span></span><br><span class="line">mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);</span><br><span class="line"><span class="comment">// 获取数据集</span></span><br><span class="line">mCrimes = CrimeLab.get(<span class="built_in">this</span>).getCrimes();</span><br><span class="line"><span class="comment">// 获取 FragmentManager</span></span><br><span class="line"><span class="type">FragmentManager</span> <span class="variable">fragmentManager</span> <span class="operator">=</span> getSupportFragmentManager();</span><br><span class="line"><span class="comment">// 使用匿名内部类来引用 FragmentStatePagerAdapter，构造方法的参数是 FragmentManager</span></span><br><span class="line">mViewPager.setAdapter(<span class="keyword">new</span> <span class="title class_">FragmentStatePagerAdapter</span>(fragmentManager) &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Fragment <span class="title function_">getItem</span><span class="params">(<span class="type">int</span> position)</span> &#123;</span><br><span class="line">		<span class="type">Crime</span> <span class="variable">crime</span> <span class="operator">=</span> mCrimes.get(position);</span><br><span class="line">		<span class="keyword">return</span> CrimeFragment.newInstance(crime.getId());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> mCrimes.size();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置完 Adapter 以后，就要选择当前的数据啦~这就是上一个  Activity 传递进来的数据，我就不予赘述了。</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; mCrimes.size(); i++) &#123;</span><br><span class="line">	<span class="keyword">if</span> (mCrimes.get(i).getId().equals(crimeId)) &#123;</span><br><span class="line">		mViewPager.setCurrentItem(i);</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-FragmentStatePagerAdapter-与-FragmentPagerAdapter"><a href="#2-FragmentStatePagerAdapter-与-FragmentPagerAdapter" class="headerlink" title="2. FragmentStatePagerAdapter 与 FragmentPagerAdapter"></a>2. FragmentStatePagerAdapter 与 FragmentPagerAdapter</h1><p><code>FragmentPagerAdapter</code> 是另外一种可用的 PagerAdapter , 其用法与 <code>FragmentStatePagerAdapter</code> 基本一致。<strong>唯一的区别在于：卸载不再需要的 fragment 时，各自采用的处理方法有所不同。</strong></p>
 <p><strong><code>FragmentStatePagerAdapter</code>会销毁不需要的 fragment</strong>。事务提交后，activity 的 <code>FragmentManager</code> 中的 fragment 会被彻底移除。<code>FragmentStatePagerAdapter</code> 类名中的“state”表明：在销毁 fragment 时，可在 <code>onSaveInstanceState(Bundle)</code> 方法中保存 fragment 的 Bundle 信息。用户切换回来时，保存的实例状态可用来恢复生成新的fragment。</p>
-<p>相比之下，<code>FragmentPagerAdapter</code> 有不同的做法。对于不再需要的 fragment，<code>FragmentPagerAdapter</code> 会选择调用事务的 detach(Fragment) 方法来处理它,而非 remove(Fragment) 方 法。也就是说，<strong><code>FragmentPagerAdapter</code> 只是销毁了 fragment 的视图，fragment 实例还保留在 <code>FragmentManager</code> 中</strong>。因此，<code>FragmentPagerAdapter</code> 创建的 fragment 永远不会被销毁。</p>
+<p>相比之下，<code>FragmentPagerAdapter</code> 有不同的做法。对于不再需要的 fragment，<code>FragmentPagerAdapter</code> 会选择调用事务的 detach(Fragment) 方法来处理它,而非 remove(Fragment) 方 法。也就是说，**<code>FragmentPagerAdapter</code> 只是销毁了 fragment 的视图，fragment 实例还保留在 <code>FragmentManager</code> 中**。因此，<code>FragmentPagerAdapter</code> 创建的 fragment 永远不会被销毁。</p>
 <p>选择哪种adapter取决于应用的要求。通常来说，使用 <code>FragmentStatePagerAdapter</code> 更节省内存。CriminalIntent 应用需显示大量crime记录,每份记录最终还会包含图片。在内存中保存所有信息显然不合适,因此我们选择使用 <code>FragmentStatePagerAdapter</code> 。</p>
 <p>另一方面,如果用户界面只需要少量固定的fragment，则 <code>FragmentPagerAdapter</code> 是个安全、 合适的选择。</p>
 <p>最常见的例子为分页显示用户界面。例如，某些应用的明细视图所含内容较多，通 常需分两页显示。这时就可以将这些明细信息分拆开来，以多页面的形式展现。显然,为用户界面添加支持滑动切换的 ViewPager，能增强应用的触摸体验。此外，将 fragment 保存在内存中，更易于管理控制层的代码。对于这种类型的用户界面，每个 activity 通常只有两三个 fragment，基本不用担心有内存不足的风险。</p>
 <h1 id="3-深入学习：ViewPager-的工作原理"><a href="#3-深入学习：ViewPager-的工作原理" class="headerlink" title="3. 深入学习：ViewPager 的工作原理"></a>3. 深入学习：ViewPager 的工作原理</h1><p>什么时候需要自己实现PagerAdapter接口呢？需要ViewPager托管非 fragment 视图时,就需要实现原生 PagerAdapter 接口。</p>
 <p>PagerAdapter 要比 RecyclerView 的 Adapter复杂得多，因为它要处理更多的视图管理工作。<br>PagerAdapter 不使用可返回视图的<code>onBindViewHolder(...)</code>方法，而是使用下列方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroyItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position, Object object)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">isViewFromObject</span><span class="params">(View view, Object object)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">instantiateItem</span><span class="params">(ViewGroup container, <span class="type">int</span> position)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroyItem</span><span class="params">(ViewGroup container, <span class="type">int</span> position, Object object)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="type">boolean</span> <span class="title function_">isViewFromObject</span><span class="params">(View view, Object object)</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p><code>PagerAdapter.instantiateItem(ViewGroup, int)</code>方法告诉 PagerAdapter 创建指定位置的列表项视图，然后将其添加给 ViewGroup 视图容器，而 <code>destroyItem(ViewGroup, int, Object)</code> 方法则告诉 PagerAdapter 销毁已建视图。（注意，<code>instantiateItem(ViewGroup, int)</code> 方法并不要求立即创建视图。因此，PagerAdapter 可自行决定何时创建视图。）</p>
@@ -272,11 +271,11 @@
 </ul>
 <p>对 ViewPager 来说，这是一个复杂的过程，但对于PagerAdapter来说,这算不上什么。因为PagerAdapter只要能够创建、销毁视图以及识别视图来自哪个对象即可。这样的要求显然很宽松，因而PagerAdapter 能够比较自由地通过 <code>instantiateItem(ViewGroup, int)</code> 方法创建并添加新的fragment ,然后返回可以跟踪管理的 Object(fragment) 。</p>
 <p>以下为isViewFromObject (View, Object)方法的具体实现:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isViewFromObject</span><span class="params">(View view, Object object)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((Fragment)object).getView() == view;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isViewFromObject</span><span class="params">(View view, Object object)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ((Fragment)object).getView() == view;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到,每次需要使用ViewPager时,都要覆盖实现PagerAdapter的这些方法,这真是一种磨难。所幸我们有 <code>FragmentPagerAdapter</code> 和 <code>FragmentStatePagerAdapter</code> 这么便利的类。</p>
 <hr>
-<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+<p>GitHub Page: <a href="http://kniost.github.io/">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
 
     </div>
 
@@ -311,7 +310,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -362,7 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-FragmentStatePagerAdapter-与-FragmentPagerAdapter"><span class="nav-text">2. FragmentStatePagerAdapter 与 FragmentPagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-深入学习：ViewPager-的工作原理"><span class="nav-text">3. 深入学习：ViewPager 的工作原理</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-FragmentStatePagerAdapter-%E4%B8%8E-FragmentPagerAdapter"><span class="nav-text">2. FragmentStatePagerAdapter 与 FragmentPagerAdapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0%EF%BC%9AViewPager-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">3. 深入学习：ViewPager 的工作原理</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -398,7 +396,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -423,21 +421,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

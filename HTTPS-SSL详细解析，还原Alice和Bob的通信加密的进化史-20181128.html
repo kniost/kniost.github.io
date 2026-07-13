@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS&#x2F;SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络通信安全详细解析，还原Alice和Bob的通信加密的进化史">
-<meta property="og:url" content="https://blog.kniost.top/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS&#x2F;SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。">
 <meta property="og:locale" content="zh_CN">
@@ -31,11 +31,13 @@
 <meta property="article:published_time" content="2018-11-28T03:37:53.000Z">
 <meta property="article:modified_time" content="2018-11-28T04:31:14.298Z">
 <meta property="article:author" content="kniost">
-<meta property="article:tag" content="HTTPS SSL TLS TCP T计算机网络安全">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="密码学">
+<meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://pic.kniost.top/%E5%AF%86%E7%A0%81%E5%AD%A62-1-20181128.png-blog">
 
-<link rel="canonical" href="https://blog.kniost.top/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
 
 
 <script id="page-configurations">
@@ -115,30 +117,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -163,15 +165,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/HTTPS-SSL%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90%EF%BC%8C%E8%BF%98%E5%8E%9FAlice%E5%92%8CBob%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86%E7%9A%84%E8%BF%9B%E5%8C%96%E5%8F%B2-20181128.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -190,7 +191,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
               
@@ -199,7 +200,7 @@
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -210,14 +211,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>3 分钟</span>
@@ -232,8 +233,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS/SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。</p>
-<a id="more"></a>
+        <p>网络安全是非常重要的，正所谓知其然，还要知其所以然，了解一些常用的安全基础也非常重要。下面从基础加密到 HTTPS&#x2F;SSL 协议来逐步讲解 Alice 和 Bob 的秘密通信发展史，本文不会深入协议的细节，而是更希望通过介绍一些些常用概念帮助读者更加好的去理解网络安全加密设计的方法和目的，以及所考虑的问题。</p>
+<span id="more"></span>
 
 <h2 id="1、何为安全的通信"><a href="#1、何为安全的通信" class="headerlink" title="1、何为安全的通信"></a>1、何为安全的通信</h2><p>在密码学中，经常用 Alice 和 Bob 两个人指代通信双方，本文也不例外。我们首先假设<code>Alice</code>和<code>Bob</code>是一对秘密情人，他们之间的情书报文（Message）要在一个不安全的媒体（比如网络）上进行传递，中间有窃听者<code>Trudy</code>可以在通信中截获、修改、插入和删除他们的通信报文。为了不避免被发现，他们必须要保证通信的安全性，那么在仅考虑通信过程中的安全时，需要确保以下几点：</p>
 <ol>
@@ -250,7 +251,7 @@
 <p>Tips: <strong>钥</strong>这个字有多个读音，但是在密钥中念<strong>yuè</strong>而不是 yào，事实上，除了钥匙中念 yào 之外，其他基本都念 yuè，比如北门锁钥这类成语。</p>
 </blockquote>
 <h3 id="2-1-对称密钥体系"><a href="#2-1-对称密钥体系" class="headerlink" title="2.1 对称密钥体系"></a>2.1 对称密钥体系</h3><p>整个对称密码的发展史，便是引入随机性的过程。</p>
-<h4 id="2-1-1-古老的凯撒密码"><a href="#2-1-1-古老的凯撒密码" class="headerlink" title="2.1.1 古老的凯撒密码"></a>2.1.1 古老的凯撒密码</h4><p>凯撒密码的原理非常简单， 也就是将某个字符固定地替换成偏移为 k 的相应的字符。对于英文文本来说，一共 26 个字母，那么凯撒密码就是一个 25 种可能性的密钥（可以偏移的值从 1~25，允许循环偏移）。<br>比如一个明文 <strong>bob, i love you</strong>，使用密钥$C(k=3)$，就可以变成 <strong>ere, l oryh brx</strong>。但是，一旦了解了传输过程中使用了凯撒密码，就非常容易破解了，毕竟只有 25 种可能性直接采用暴力方法即可破解。</p>
+<h4 id="2-1-1-古老的凯撒密码"><a href="#2-1-1-古老的凯撒密码" class="headerlink" title="2.1.1 古老的凯撒密码"></a>2.1.1 古老的凯撒密码</h4><p>凯撒密码的原理非常简单， 也就是将某个字符固定地替换成偏移为 k 的相应的字符。对于英文文本来说，一共 26 个字母，那么凯撒密码就是一个 25 种可能性的密钥（可以偏移的值从 1~25，允许循环偏移）。<br>比如一个明文 <strong>bob, i love you</strong>，使用密钥$C(k&#x3D;3)$，就可以变成 <strong>ere, l oryh brx</strong>。但是，一旦了解了传输过程中使用了凯撒密码，就非常容易破解了，毕竟只有 25 种可能性直接采用暴力方法即可破解。</p>
 <h4 id="2-1-2-改进版的凯撒密码——单码替代密码"><a href="#2-1-2-改进版的凯撒密码——单码替代密码" class="headerlink" title="2.1.2 改进版的凯撒密码——单码替代密码"></a>2.1.2 改进版的凯撒密码——单码替代密码</h4><p>如果不止使用偏移，而是固定的有一个字母表，针对每一个字母对应一个无规律的新的字母，这样加密的安全性就大大提高了。比如一个明文 <strong>bob, i love you</strong>，通过一个固定的对应表，就可以变成 <strong>nkn, s gktc wky</strong>。对于英文来说，密钥的长度就是 26 位，可能性有$26! \approx 10^{26}$种，要直接暴力破解是非常难的。</p>
 <p>那这样是不是就够了呢，毕竟暴力计算太过复杂了。不不不，还不够，毕竟语言文本是有规律的，比如说字母 e 的出现频率在英文文本中是 13%，字母 t 是 9%，而且还有许多常用的词有相同的组合，比如 “in”、”it”、”the”、”ing”这类。这些信息量能够大大缩小搜索的范围，搜索难度发生了数量级的缩小。根据攻击者所了解的信息程度，下面是可能的几种攻击方式。</p>
 <ul>
@@ -258,12 +259,12 @@
 <li><strong>已知明文攻击</strong> 如果攻击者知道明文或者密文中的一些固定匹配时，就可以确定许多信息。比如知道 Alice 给 Bob 发的信息中必然存在 “alice” 这五个字母时，就能获取到 5 个字母的对应模式。使破解工作减轻许多。</li>
 <li><strong>选择明文攻击</strong> 如果攻击者能够让发送方固定发送一个明文报文，并且得到明文报文的密文时，就能快速破解出所有的对应字母。比如如果 Trudy 能让 Alice 发送一个包含所有字母的句子 _”The quick fox jumps over the lazy dog”_，那么就能直接破译出所有的对应字母。</li>
 </ul>
-<h4 id="2-1-3-多码替代密码"><a href="#2-1-3-多码替代密码" class="headerlink" title="2.1.3 多码替代密码"></a>2.1.3 多码替代密码</h4><p>多码替代密码是对单码替代密码的一种改进，它的基本思想就是使用多个单码替代密码，并在明文报文的特定位置使用特定的单码替代密码。举一个简单的例子，使用两个凯撒密码，$C_1(k=3)$和$C_2(k=17)$，对一个英文文本，奇数位使用$C_1$加密，偶数位使用$C_2$加密，这样也能大大增强安全性。</p>
+<h4 id="2-1-3-多码替代密码"><a href="#2-1-3-多码替代密码" class="headerlink" title="2.1.3 多码替代密码"></a>2.1.3 多码替代密码</h4><p>多码替代密码是对单码替代密码的一种改进，它的基本思想就是使用多个单码替代密码，并在明文报文的特定位置使用特定的单码替代密码。举一个简单的例子，使用两个凯撒密码，$C_1(k&#x3D;3)$和$C_2(k&#x3D;17)$，对一个英文文本，奇数位使用$C_1$加密，偶数位使用$C_2$加密，这样也能大大增强安全性。</p>
 <blockquote>
 <p>这里推荐一部本尼迪克特（神探夏洛克中夏洛克扮演者）表演的电影《模拟游戏》，讲的是二战期间图灵破解德军通信密码的故事，在此可以更深刻地感受到加密和破解之间的较量。</p>
 </blockquote>
 <h4 id="2-1-4-块密码"><a href="#2-1-4-块密码" class="headerlink" title="2.1.4 块密码"></a>2.1.4 块密码</h4><p>下面把目光转向现代，计算机时代数据的传输都是通过二进制进行的，所以不能简单地对 0 和 1 做单码替代加密。那应该怎么办呢？</p>
-<p>那便是<strong>对比特块进行加密</strong>，也就是将一个长度为$k$的明文比特块对应到一个长度为$k$的密文比特块上。比如，在$k=3$时，明文有$2^3=8$种可能，那么其单码替代密码有$8!=40320$种可能，这种程度的运算，一台现代的电脑能很快算完，也就是说，$k=3$是不靠谱的。</p>
+<p>那便是<strong>对比特块进行加密</strong>，也就是将一个长度为$k$的明文比特块对应到一个长度为$k$的密文比特块上。比如，在$k&#x3D;3$时，明文有$2^3&#x3D;8$种可能，那么其单码替代密码有$8!&#x3D;40320$种可能，这种程度的运算，一台现代的电脑能很快算完，也就是说，$k&#x3D;3$是不靠谱的。</p>
 <p>每当选取一个大小为$k$的比特块时，密码表的长度是$2^{k}$个，可能性有$2^k!$种，当 k 是 64 的时候，虽然加密性已经不错了，但此时密码表的大小已经到达了一个天文数字，通信双方直接存储整个密码表是不现实的。我们换一种思路来想，如果需要知道某个比特块的映射比特块，而又不能负担存储所有映射可能性，那选择就只有一个了——<strong>使用函数</strong>。</p>
 <p>目前流行的块密码，包括 DES(Data Encryption Standard)和 AES(Advanced Encryption Standard) 均是采用的函数。比如 AES 使用 128 比特块，可以使用 128、192、256 比特长的密钥进行操作。</p>
 <blockquote>
@@ -305,7 +306,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -356,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、何为安全的通信"><span class="nav-text">1、何为安全的通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、从密码学开始"><span class="nav-text">2、从密码学开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-对称密钥体系"><span class="nav-text">2.1 对称密钥体系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-古老的凯撒密码"><span class="nav-text">2.1.1 古老的凯撒密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-改进版的凯撒密码——单码替代密码"><span class="nav-text">2.1.2 改进版的凯撒密码——单码替代密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-多码替代密码"><span class="nav-text">2.1.3 多码替代密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-块密码"><span class="nav-text">2.1.4 块密码</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BD%95%E4%B8%BA%E5%AE%89%E5%85%A8%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-text">1、何为安全的通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E4%BB%8E%E5%AF%86%E7%A0%81%E5%AD%A6%E5%BC%80%E5%A7%8B"><span class="nav-text">2、从密码学开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E4%BD%93%E7%B3%BB"><span class="nav-text">2.1 对称密钥体系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E5%8F%A4%E8%80%81%E7%9A%84%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81"><span class="nav-text">2.1.1 古老的凯撒密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-%E6%94%B9%E8%BF%9B%E7%89%88%E7%9A%84%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81%E2%80%94%E2%80%94%E5%8D%95%E7%A0%81%E6%9B%BF%E4%BB%A3%E5%AF%86%E7%A0%81"><span class="nav-text">2.1.2 改进版的凯撒密码——单码替代密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-%E5%A4%9A%E7%A0%81%E6%9B%BF%E4%BB%A3%E5%AF%86%E7%A0%81"><span class="nav-text">2.1.3 多码替代密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-%E5%9D%97%E5%AF%86%E7%A0%81"><span class="nav-text">2.1.4 块密码</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -392,7 +392,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -417,21 +417,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

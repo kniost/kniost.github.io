@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="经典的空中轮廓线问题的扫描线解法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode 218. The Skyline Problem 空中轮廓线问题">
-<meta property="og:url" content="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="经典的空中轮廓线问题的扫描线解法">
 <meta property="og:locale" content="zh_CN">
@@ -32,11 +32,13 @@
 <meta property="article:published_time" content="2018-12-08T03:28:44.000Z">
 <meta property="article:modified_time" content="2018-12-09T07:51:56.338Z">
 <meta property="article:author" content="kniost">
-<meta property="article:tag" content="空中轮廓线">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="扫描线">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png">
 
-<link rel="canonical" href="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
 
 
 <script id="page-configurations">
@@ -116,30 +118,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -164,15 +166,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/LeetCode/The%20Skyline%20Problem%20%E7%A9%BA%E4%B8%AD%E8%BD%AE%E5%BB%93%E7%BA%BF%E9%97%AE%E9%A2%98-20181208.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -191,7 +192,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -199,14 +200,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-12-09 15:51:56" itemprop="dateModified" datetime="2018-12-09T15:51:56+08:00">2018-12-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -217,14 +218,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>4 分钟</span>
@@ -256,7 +257,7 @@
 <li>The output list must be sorted by the x position.</li>
 <li>There must be no consecutive horizontal lines of equal height in the output skyline. For instance, <code>[...[2 3], [4 5], [7 5], [11 5], [12 7]...]</code> is not acceptable; the three lines of height 5 should be merged into one in the final output as such: <code>[...[2 3], [4 5], [12 7], ...]</code></li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>这是一个经典的扫描线问题，给了一堆建筑，并需要找出轮廓，轮廓的定义就是重叠的建筑物中远远看去<strong>最大高度</strong>发生变化的点，这里称之为<code>轮廓点</code>。</p>
 <p>根据扫描线问题的基本思路，我们将一个建筑物拆解成两条线，一条上升，一条下降，这样，每条线具有三个特征，即<strong>坐标，高度和上升状态</strong>，我们要去找到<strong>最大高度发生变化的点</strong>，就需要对这些线进行<strong>排序访问</strong>。</p>
@@ -278,7 +279,7 @@
 <h3 id="如何控制建筑的进出"><a href="#如何控制建筑的进出" class="headerlink" title="如何控制建筑的进出"></a>如何控制建筑的进出</h3><p>还有一个问题就在于我们如何控制一个建筑的进出，目前使用了线的一个成员变量记录下降线对应的上升线。</p>
 <h3 id="还有什么问题？"><a href="#还有什么问题？" class="headerlink" title="还有什么问题？"></a>还有什么问题？</h3><p>在定义<code>TreeSet</code>的Comparator的时候需要注意，<code>TreeSet</code>在插入元素时是根据Comparator判断元素是否相等的，这样如果Comparator的<code>compare()</code>方法中只根据高度来判断时，同一高度的建筑物将只能存储一个！所以有必要再加入一个参数用于区分这些建筑，可以直接使用<code>hashCode()</code>或者新增一个参数。</p>
 <p>下面是个人的代码，仅供参考，使用了<code>opposite</code>成员变量记录下降线对应的上升线。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UP = <span class="number">1</span>, DOWN = -<span class="number">1</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Line</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> x, height, status;</span><br><span class="line">        <span class="keyword">public</span> Line opposite;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Line</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> height, <span class="keyword">int</span> status, Line opposite)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.x = x;</span><br><span class="line">            <span class="keyword">this</span>.height = height;</span><br><span class="line">            <span class="keyword">this</span>.status = status;</span><br><span class="line">            <span class="keyword">this</span>.opposite = opposite;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">int</span>[]&gt; getSkyline(<span class="keyword">int</span>[][] buildings) &#123;</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (buildings == <span class="keyword">null</span> || buildings.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将建筑拆成两条线，并记录下降线对应的上升线</span></span><br><span class="line">        Line[] lines = <span class="keyword">new</span> Line[buildings.length * <span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buildings.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span>[] b = buildings[i];</span><br><span class="line">            <span class="keyword">int</span> j = i * <span class="number">2</span>;</span><br><span class="line">            lines[j] = <span class="keyword">new</span> Line(b[<span class="number">0</span>], b[<span class="number">2</span>], UP, <span class="keyword">null</span>);</span><br><span class="line">            lines[j + <span class="number">1</span>] = <span class="keyword">new</span> Line(b[<span class="number">1</span>], b[<span class="number">2</span>], DOWN, lines[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 按照三个优先级排序</span></span><br><span class="line">        Arrays.sort(lines, <span class="keyword">new</span> Comparator&lt;Line&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Line l1, Line l2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (l1.x != l2.x) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.x - l2.x;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status != l2.status) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.status - l1.status;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status == UP) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.height - l1.height;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.height - l2.height;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 使用lambda表达式定义TreeSet的Comparator，此处的heap只是形象表达，内部数据结构其实是红黑树</span></span><br><span class="line">        TreeSet&lt;Line&gt; heightHeap = <span class="keyword">new</span> TreeSet&lt;&gt;((a, b) -&gt; b.height == a.height ? a.hashCode() - b.hashCode() : b.height - a.height);</span><br><span class="line">        <span class="keyword">int</span> curMax = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Line tmp : lines) &#123;</span><br><span class="line">            <span class="comment">// 上升时将建筑加入</span></span><br><span class="line">            <span class="keyword">if</span> (tmp.status == UP ) &#123;</span><br><span class="line">                heightHeap.add(tmp);</span><br><span class="line">                <span class="keyword">if</span> (tmp.height &gt; curMax) &#123;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, tmp.height&#125;);</span><br><span class="line">                    curMax = tmp.height;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="comment">// 下降时将建筑删除</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                heightHeap.remove(tmp.opposite);</span><br><span class="line">                <span class="comment">// 特殊情况：删除以后没有建筑</span></span><br><span class="line">                <span class="keyword">if</span> (heightHeap.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                    curMax = <span class="number">0</span>;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, <span class="number">0</span>&#125;);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (heightHeap.first().height &lt; curMax) &#123;</span><br><span class="line">                    curMax = heightHeap.first().height;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;tmp.x, curMax&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UP</span> <span class="operator">=</span> <span class="number">1</span>, DOWN = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Line</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> x, height, status;</span><br><span class="line">        <span class="keyword">public</span> Line opposite;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Line</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> height, <span class="type">int</span> status, Line opposite)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.x = x;</span><br><span class="line">            <span class="built_in">this</span>.height = height;</span><br><span class="line">            <span class="built_in">this</span>.status = status;</span><br><span class="line">            <span class="built_in">this</span>.opposite = opposite;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="type">int</span>[]&gt; getSkyline(<span class="type">int</span>[][] buildings) &#123;</span><br><span class="line">        List&lt;<span class="type">int</span>[]&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (buildings == <span class="literal">null</span> || buildings.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将建筑拆成两条线，并记录下降线对应的上升线</span></span><br><span class="line">        Line[] lines = <span class="keyword">new</span> <span class="title class_">Line</span>[buildings.length * <span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; buildings.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span>[] b = buildings[i];</span><br><span class="line">            <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i * <span class="number">2</span>;</span><br><span class="line">            lines[j] = <span class="keyword">new</span> <span class="title class_">Line</span>(b[<span class="number">0</span>], b[<span class="number">2</span>], UP, <span class="literal">null</span>);</span><br><span class="line">            lines[j + <span class="number">1</span>] = <span class="keyword">new</span> <span class="title class_">Line</span>(b[<span class="number">1</span>], b[<span class="number">2</span>], DOWN, lines[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 按照三个优先级排序</span></span><br><span class="line">        Arrays.sort(lines, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Line&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Line l1, Line l2)</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (l1.x != l2.x) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.x - l2.x;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status != l2.status) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.status - l1.status;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (l1.status == UP) &#123;</span><br><span class="line">                    <span class="keyword">return</span> l2.height - l1.height;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> l1.height - l2.height;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 使用lambda表达式定义TreeSet的Comparator，此处的heap只是形象表达，内部数据结构其实是红黑树</span></span><br><span class="line">        TreeSet&lt;Line&gt; heightHeap = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((a, b) -&gt; b.height == a.height ? a.hashCode() - b.hashCode() : b.height - a.height);</span><br><span class="line">        <span class="type">int</span> <span class="variable">curMax</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Line tmp : lines) &#123;</span><br><span class="line">            <span class="comment">// 上升时将建筑加入</span></span><br><span class="line">            <span class="keyword">if</span> (tmp.status == UP ) &#123;</span><br><span class="line">                heightHeap.add(tmp);</span><br><span class="line">                <span class="keyword">if</span> (tmp.height &gt; curMax) &#123;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;tmp.x, tmp.height&#125;);</span><br><span class="line">                    curMax = tmp.height;</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="comment">// 下降时将建筑删除</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                heightHeap.remove(tmp.opposite);</span><br><span class="line">                <span class="comment">// 特殊情况：删除以后没有建筑</span></span><br><span class="line">                <span class="keyword">if</span> (heightHeap.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                    curMax = <span class="number">0</span>;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;tmp.x, <span class="number">0</span>&#125;);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (heightHeap.first().height &lt; curMax) &#123;</span><br><span class="line">                    curMax = heightHeap.first().height;</span><br><span class="line">                    result.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;tmp.x, curMax&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -316,7 +317,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -367,7 +367,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目原文"><span class="nav-text">题目原文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#218-The-Skyline-Problem"><span class="nav-text">218. The Skyline Problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何知道当前的最大高度"><span class="nav-text">如何知道当前的最大高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对线以什么顺序排序"><span class="nav-text">对线以什么顺序排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何控制建筑的进出"><span class="nav-text">如何控制建筑的进出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有什么问题？"><span class="nav-text">还有什么问题？</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%8E%9F%E6%96%87"><span class="nav-text">题目原文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#218-The-Skyline-Problem"><span class="nav-text">218. The Skyline Problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E5%BD%93%E5%89%8D%E7%9A%84%E6%9C%80%E5%A4%A7%E9%AB%98%E5%BA%A6"><span class="nav-text">如何知道当前的最大高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E7%BA%BF%E4%BB%A5%E4%BB%80%E4%B9%88%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F"><span class="nav-text">对线以什么顺序排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E5%BB%BA%E7%AD%91%E7%9A%84%E8%BF%9B%E5%87%BA"><span class="nav-text">如何控制建筑的进出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">还有什么问题？</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -403,7 +403,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -428,21 +428,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

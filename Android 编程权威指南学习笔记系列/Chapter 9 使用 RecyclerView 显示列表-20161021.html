@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南（第二版）学习笔记（九）—— 第9章 使用 RecyclerView 显示列表">
-<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20161109154759638">
 
-<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
 
 
 <script id="page-configurations">
@@ -115,30 +115,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -163,15 +163,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%209%20%E4%BD%BF%E7%94%A8%20RecyclerView%20%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8-20161021.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -190,7 +189,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -198,14 +197,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -216,14 +215,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
+              <span>4.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>4 分钟</span>
@@ -241,13 +240,13 @@
         <blockquote>
 <p>本章主要讲述了 RecyclerView 的基础使用，单例设计模式以及通过抽象的统一的 activity 来托管 fragment（以减少重复代码量）。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <blockquote>
 <p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/42ccc8c20dbe84c17a53691ec2dc905ced4fdff9">完成第九章</a></p>
 </blockquote>
 <h1 id="1-单例-SingleInstance"><a href="#1-单例-SingleInstance" class="headerlink" title="1. 单例(SingleInstance)"></a>1. 单例(SingleInstance)</h1><p>单例是特殊的 JAVA 类，在创建实例的时候，一个单例类仅允许创建一个实例。应用能在内存里多久，单例就能存在多久，因此将对象列表保存在单例里的话，就能随时获取到数据，而不用管 activity 和 fragment 的生命周期怎么变化。不过当应用被从内存里移除的时候，单例对象就不复存在了。</p>
 <p>要创建单例，需要创建一个带有私有构造方法及 get() 方法的类，如果实例已经存在了，get() 方法就直接返回它，如果还不存在，就需要调用构造方法创建它。书上的代码是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CrimeLab</span> </span>&#123;</span><br><span class="line">	<span class="comment">//下面这个静态对象只会创建一次</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> CrimeLab sCrimeLab;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> List&lt;Crime&gt; mCrimes;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//程序的其他部分需要使用时，调用下列方法，当第一次使用的时候创建这个对象，如果不是第一次使用的时候就直接返回静态对象。</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CrimeLab <span class="title">get</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (sCrimeLab == <span class="keyword">null</span>) &#123;</span><br><span class="line">			sCrimeLab = <span class="keyword">new</span> CrimeLab(context);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sCrimeLab;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//私有的构造方法，只在 get 方法中使用</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">CrimeLab</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">		mCrimes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		<span class="comment">//初始化数据的语句</span></span><br><span class="line">		………………</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//由于对象只创建了一次，故而数据只有一份</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Crime&gt; <span class="title">getCrimes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> mCrimes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Crime <span class="title">getCrime</span><span class="params">(UUID id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (Crime crime : mCrimes) &#123;</span><br><span class="line">			<span class="keyword">if</span> (crime.getId().equals(id)) &#123;</span><br><span class="line">				<span class="keyword">return</span> crime;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CrimeLab</span> &#123;</span><br><span class="line">	<span class="comment">//下面这个静态对象只会创建一次</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> CrimeLab sCrimeLab;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> List&lt;Crime&gt; mCrimes;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//程序的其他部分需要使用时，调用下列方法，当第一次使用的时候创建这个对象，如果不是第一次使用的时候就直接返回静态对象。</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> CrimeLab <span class="title function_">get</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (sCrimeLab == <span class="literal">null</span>) &#123;</span><br><span class="line">			sCrimeLab = <span class="keyword">new</span> <span class="title class_">CrimeLab</span>(context);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sCrimeLab;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//私有的构造方法，只在 get 方法中使用</span></span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">CrimeLab</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">		mCrimes = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">		<span class="comment">//初始化数据的语句</span></span><br><span class="line">		………………</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//由于对象只创建了一次，故而数据只有一份</span></span><br><span class="line">	<span class="keyword">public</span> List&lt;Crime&gt; <span class="title function_">getCrimes</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> mCrimes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Crime <span class="title function_">getCrime</span><span class="params">(UUID id)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (Crime crime : mCrimes) &#123;</span><br><span class="line">			<span class="keyword">if</span> (crime.getId().equals(id)) &#123;</span><br><span class="line">				<span class="keyword">return</span> crime;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>单例能方便地控制模型层对象，由一个单例类来控制数据，所有的修改都由它处理，会使数据的一致性控制更加简便。</strong></p>
 <p>但是万事总有缺点，</p>
@@ -266,7 +265,7 @@
 <li>如果 fragment 没有建立，就新建一个 fragment 对象，并使用 FragmentManager 对象的 beginTransaction().add().commit() 的连续方法将 fragment 事务提交到队列中</li>
 </ol>
 <p>在这其中，只有新建 fragment 对象是与具体 fragment 有关的，那么我们可以将其写成一个抽象的函数：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> Fragment <span class="title">createFragment</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">abstract</span> Fragment <span class="title function_">createFragment</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
 
 <h1 id="3-RecyclerView-Adapter-和-ViewHolder"><a href="#3-RecyclerView-Adapter-和-ViewHolder" class="headerlink" title="3. RecyclerView, Adapter 和 ViewHolder"></a>3. RecyclerView, Adapter 和 ViewHolder</h1><blockquote>
 <p>对于一个列表，之前有 ListView，网格有 GridView，但要实现更加复杂的布局和功能，比如瀑布流的时候，就有些力不从心了。RecyclerView 是 Google 推出 Android 5.0 时一并推出的控件，其具有强大的功能和高度的解耦，有助于开发者实现更加多变具有拓展能力的布局。</p>
@@ -290,12 +289,12 @@
 <h2 id="3-2-使用-RecyclerView"><a href="#3-2-使用-RecyclerView" class="headerlink" title="3.2 使用 RecyclerView"></a>3.2 使用 RecyclerView</h2><p>介绍了 RecyclerView 的各种细节，我们来看看它具体怎么使用吧。</p>
 <h3 id="3-2-1-添加-RecyclerView-依赖库"><a href="#3-2-1-添加-RecyclerView-依赖库" class="headerlink" title="3.2.1 添加 RecyclerView 依赖库"></a>3.2.1 添加 RecyclerView 依赖库</h3><p>在 File - Project Structure 菜单项，选择 app 模块，然后单击 Dependencies 选项页，单击加号，找到并添加 recyclerview-v7 支持库。</p>
 <h3 id="3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明"><a href="#3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明" class="headerlink" title="3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明"></a>3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明</h3><p>示例 JAVA 代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);</span><br><span class="line">mCrimeRecyclerView.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(getActivity()));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);</span><br><span class="line">mCrimeRecyclerView.setLayoutManager(<span class="keyword">new</span> <span class="title class_">LinearLayoutManager</span>(getActivity()));</span><br></pre></td></tr></table></figure>
 
 <p>RecyclerView 视图创建完成后，就立即转交给了 LayoutManager 对象。LayoutManager 实际上负责定位列表项和定义屏幕滚动行为，因此如果没有 LayoutManger 的支持，不仅 RecyclerView 无法工作，还会导致应用崩溃。在示例中使用的 LinearLayoutManager 是以竖直列表的方式展示列表项，内置的还有GridLayoutManager ，还有很多第三方的库可以使用。</p>
 <h3 id="3-2-3-实现-Adapter-和-ViewHolder"><a href="#3-2-3-实现-Adapter-和-ViewHolder" class="headerlink" title="3.2.3 实现 Adapter 和 ViewHolder"></a>3.2.3 实现 Adapter 和 ViewHolder</h3><p>ViewHolder 需要做的事情很简单，就是将自定义的 view 中的组件找出来并绑定在这个 ViewHolder 的成员变量上。</p>
 <p>比如定义了一个有标题和图片的 item，那么这个 Holder 可以这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ItemHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> TextView mTitle;</span><br><span class="line">	<span class="keyword">public</span> ImageView mImg;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ItemHolder</span><span class="params">(View itemView)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(itemView);</span><br><span class="line"></span><br><span class="line">		mTitle = (TextView) itemView.findViewById(R.id.tv_item_title);</span><br><span class="line">		mImg = (ImageView) itemView.findViewById(R.id.iv_item_img);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ItemHolder</span> <span class="keyword">extends</span> <span class="title class_">RecyclerView</span>.ViewHolder &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> TextView mTitle;</span><br><span class="line">	<span class="keyword">public</span> ImageView mImg;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">ItemHolder</span><span class="params">(View itemView)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>(itemView);</span><br><span class="line"></span><br><span class="line">		mTitle = (TextView) itemView.findViewById(R.id.tv_item_title);</span><br><span class="line">		mImg = (ImageView) itemView.findViewById(R.id.iv_item_img);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>如果有监听器的话，也可以写在构造函数中</p>
@@ -306,19 +305,18 @@
 </li>
 <li><p><strong>重写 ViewHolder 这个父类的三个方法</strong></p>
 <ul>
-<li><p><code>onCreateViewHolder(ViewGroup parent, int viewType)</code><br>每当 RecyclerView 需要新的 View 视图来显示列表项的时候就会调用这个方法。在这其中，我们创建 View 视图，然后封装到 ViewHolder 中，此时并不需要向视图加载数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个典型的 onCreateViewHolder 方法的内部</span></span><br><span class="line">LayoutInflater layoutInflater = LayoutInflater.from(getActivity());</span><br><span class="line">View view = layoutInflater.inflate(R.layout.list_item, parent, <span class="keyword">false</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> ItemHolder(view);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>onBindViewHolder(ItemHolder holder, int position)</code><br>这个方法负责将 ViewHolder 的 View 视图和模型层的数据绑定起来。拿到 ViewHolder 和列表项在数据集中的索引位置后，我们通过索引位置找到要显示的数据进行绑定。绑定完毕后，刷新显示 View 视图。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;典型的 onBindViewHolder 方法内部</span><br><span class="line">Data data &#x3D; mDataList.get(position); </span><br><span class="line">&#x2F;&#x2F; 注意上面的 mDataList 就是在 Adatper 的构造函数中初始化的 Adapter 的成员变量</span><br><span class="line">holder.mTitle.setText(data.getTitle(position));</span><br><span class="line">holder.mImg.setImageResource(data.getImgRes(position));</span><br></pre></td></tr></table></figure></li>
-<li><p><code>getItemCount()</code><br>返回要展示的数据的数量，一般是数据集的 size</p>
-</li>
+<li><code>onCreateViewHolder(ViewGroup parent, int viewType)</code><br>每当 RecyclerView 需要新的 View 视图来显示列表项的时候就会调用这个方法。在这其中，我们创建 View 视图，然后封装到 ViewHolder 中，此时并不需要向视图加载数据。</li>
 </ul>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个典型的 onCreateViewHolder 方法的内部</span></span><br><span class="line"><span class="type">LayoutInflater</span> <span class="variable">layoutInflater</span> <span class="operator">=</span> LayoutInflater.from(getActivity());</span><br><span class="line"><span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> layoutInflater.inflate(R.layout.list_item, parent, <span class="literal">false</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ItemHolder</span>(view);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>onBindViewHolder(ItemHolder holder, int position)</code><br> 这个方法负责将 ViewHolder 的 View 视图和模型层的数据绑定起来。拿到 ViewHolder 和列表项在数据集中的索引位置后，我们通过索引位置找到要显示的数据进行绑定。绑定完毕后，刷新显示 View 视图。</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//典型的 onBindViewHolder 方法内部</span><br><span class="line">Data data = mDataList.get(position); </span><br><span class="line">// 注意上面的 mDataList 就是在 Adatper 的构造函数中初始化的 Adapter 的成员变量</span><br><span class="line">holder.mTitle.setText(data.getTitle(position));</span><br><span class="line">holder.mImg.setImageResource(data.getImgRes(position));</span><br></pre></td></tr></table></figure></li>
+<li><p><code>getItemCount()</code><br> 返回要展示的数据的数量，一般是数据集的 size</p>
 </li>
 </ul>
 <p>到此一个基本的 Adapter 就创建完了，在主程序中声明并初始化 Adapter，调用 RecyclerView 的 setAdapter 方法即可显示出列表了~</p>
 <hr>
-<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+<p>GitHub Page: <a href="http://kniost.github.io/">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
 
     </div>
 
@@ -353,7 +351,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -404,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-单例-SingleInstance"><span class="nav-text">1. 单例(SingleInstance)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用抽象-activity-托管-fragment"><span class="nav-text">2. 使用抽象 activity 托管 fragment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-RecyclerView-Adapter-和-ViewHolder"><span class="nav-text">3. RecyclerView, Adapter 和 ViewHolder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-RecyclerView-简介及工作原理"><span class="nav-text">3.1 RecyclerView 简介及工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-使用-RecyclerView"><span class="nav-text">3.2 使用 RecyclerView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-添加-RecyclerView-依赖库"><span class="nav-text">3.2.1 添加 RecyclerView 依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-在布局文件中使用-RecyclerView-并在-JAVA-代码中声明"><span class="nav-text">3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-实现-Adapter-和-ViewHolder"><span class="nav-text">3.2.3 实现 Adapter 和 ViewHolder</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%8D%95%E4%BE%8B-SingleInstance"><span class="nav-text">1. 单例(SingleInstance)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8%E6%8A%BD%E8%B1%A1-activity-%E6%89%98%E7%AE%A1-fragment"><span class="nav-text">2. 使用抽象 activity 托管 fragment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-RecyclerView-Adapter-%E5%92%8C-ViewHolder"><span class="nav-text">3. RecyclerView, Adapter 和 ViewHolder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-RecyclerView-%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">3.1 RecyclerView 简介及工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%BD%BF%E7%94%A8-RecyclerView"><span class="nav-text">3.2 使用 RecyclerView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E6%B7%BB%E5%8A%A0-RecyclerView-%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="nav-text">3.2.1 添加 RecyclerView 依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E5%9C%A8%E5%B8%83%E5%B1%80%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8-RecyclerView-%E5%B9%B6%E5%9C%A8-JAVA-%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%A3%B0%E6%98%8E"><span class="nav-text">3.2.2 在布局文件中使用 RecyclerView 并在 JAVA 代码中声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-%E5%AE%9E%E7%8E%B0-Adapter-%E5%92%8C-ViewHolder"><span class="nav-text">3.2.3 实现 Adapter 和 ViewHolder</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,7 +437,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -465,21 +462,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

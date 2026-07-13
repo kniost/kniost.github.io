@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="学习Java时，总会有一些问题需要弄得非常清楚明白，才不至于在写程序的时候犯下各类小错误，这就是本文存在的意义。本文着重于语法细节的查漏补缺，所以不会太全面。在已经能够日常使用Java的情况下参考此文可能更有意义。本文大部分内容来自于Java名著《Thinking in Java》，并将根据看书的进度不断更新。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java语言中不可忽视的细节">
-<meta property="og:url" content="https://blog.kniost.top/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="学习Java时，总会有一些问题需要弄得非常清楚明白，才不至于在写程序的时候犯下各类小错误，这就是本文存在的意义。本文着重于语法细节的查漏补缺，所以不会太全面。在已经能够日常使用Java的情况下参考此文可能更有意义。本文大部分内容来自于Java名著《Thinking in Java》，并将根据看书的进度不断更新。">
 <meta property="og:locale" content="zh_CN">
@@ -33,7 +33,7 @@
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.kniost.top/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
 
 
 <script id="page-configurations">
@@ -113,30 +113,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -161,15 +161,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Java/Java%E8%AF%AD%E8%A8%80%E4%B8%AD%E4%B8%8D%E5%8F%AF%E5%BF%BD%E8%A7%86%E7%9A%84%E7%BB%86%E8%8A%82-20180625.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -188,7 +187,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -196,14 +195,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 17:50:58" itemprop="dateModified" datetime="2018-11-25T17:50:58+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -214,17 +213,17 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -239,7 +238,7 @@
         <blockquote>
 <p>学习Java时，总会有一些问题需要弄得非常清楚明白，才不至于在写程序的时候犯下各类小错误，这就是本文存在的意义。本文着重于语法细节的查漏补缺，所以不会太全面。在已经能够日常使用Java的情况下参考此文可能更有意义。本文大部分内容来自于Java名著《Thinking in Java》，并将根据看书的进度不断更新。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="1-基本类型"><a href="#1-基本类型" class="headerlink" title="1. 基本类型"></a>1. 基本类型</h2><ul>
 <li>Java中每种基本类型所占的存储空间大小是固定的。如下表：</li>
@@ -379,10 +378,10 @@
 <ul>
 <li>javadoc 只能为<code>public</code>和<code>protected</code>成员进行文档注释</li>
 </ul>
-<h2 id="4-按值传递还是按引用传递"><a href="#4-按值传递还是按引用传递" class="headerlink" title="4. 按值传递还是按引用传递"></a>4. 按值传递还是按引用传递</h2><p>按值传递大概指的是像C/C++这类，在传递给函数参数时复制一份，而不对传入的对象进行修改的函数调用方法。<br>而在Java中，对象都是指向某个内容的引用，多个对象可以同时引用同一个内容，而没有被引用的内容则会被回收。在传递参数并对参数进行修改时，修改的就是对象指向的引用而非复制一份。</p>
+<h2 id="4-按值传递还是按引用传递"><a href="#4-按值传递还是按引用传递" class="headerlink" title="4. 按值传递还是按引用传递"></a>4. 按值传递还是按引用传递</h2><p>按值传递大概指的是像C&#x2F;C++这类，在传递给函数参数时复制一份，而不对传入的对象进行修改的函数调用方法。<br>而在Java中，对象都是指向某个内容的引用，多个对象可以同时引用同一个内容，而没有被引用的内容则会被回收。在传递参数并对参数进行修改时，修改的就是对象指向的引用而非复制一份。</p>
 <h2 id="5-操作符"><a href="#5-操作符" class="headerlink" title="5. 操作符"></a>5. 操作符</h2><h3 id="1-算术操作符"><a href="#1-算术操作符" class="headerlink" title="1. 算术操作符"></a>1. 算术操作符</h3><ul>
 <li>一元加号<code>+</code>将把较小类型的操作数提升为<code>int</code></li>
-<li>和C/C++中一样，<code>++</code>/<code>--</code>在操作数前，表示先运算再使用，而在操作数后时，则是先使用当前的值，再进行运算</li>
+<li>和C&#x2F;C++中一样，<code>++</code>&#x2F;<code>--</code>在操作数前，表示先运算再使用，而在操作数后时，则是先使用当前的值，再进行运算</li>
 </ul>
 <h3 id="2-关系操作符"><a href="#2-关系操作符" class="headerlink" title="2. 关系操作符"></a>2. 关系操作符</h3><ul>
 <li><code>==</code>和<code>!=</code>比较的是对象的引用，对于基本类型，由于相同的值拥有相同的引用，所以可以直接比较，而对象之间则不能。某些类重写了<code>equals()</code>方法可以用于比较对象的内容，比如<code>String</code>类</li>
@@ -402,7 +401,7 @@
 <li>在类的内部，变量定义的先后顺序决定了初始化的先后顺序，即使变量定义在方法之间，它们仍然会在任何方法（包括构造器）被调用之前得到初始化。</li>
 <li>静态初始化操作只在首次生成该类的对象时，或者首次访问属于该类的静态数据成员时才会被执行一次。  </li>
 <li>Java中也有实例初始化语句，用法是使用一个大括号将语句包围，它会在构造器之前调用，这种语法对于匿名内部类的初始化是必须的。</li>
-<li>数组在初始化时，使用花括号初始化时，最后有一个逗号是合法的，比如 <code>int [] i = {1, 2, 3,};</code></li>
+<li>数组在初始化时，使用花括号初始化时，最后有一个逗号是合法的，比如 <code>int [] i = &#123;1, 2, 3,&#125;;</code></li>
 </ul>
 <h2 id="9-访问权限控制"><a href="#9-访问权限控制" class="headerlink" title="9. 访问权限控制"></a>9. 访问权限控制</h2><ul>
 <li>访问权限控制等级，从最大权限到最小以此为：<code>public</code>、<code>protected</code>、包访问权限（没有关键词）和<code>private</code></li>
@@ -415,7 +414,7 @@
 <li>类中所有<code>private</code>方法都隐式指定为<code>final</code>，即不可继承（当然，在子类中，声明一个同样的方法是可以的，但并非是继承的，而是全新的方法）</li>
 <li><strong>修饰类</strong>时，表示禁止该类被继承，一个<code>final</code>类中所有方法都被隐式指定为<code>final</code></li>
 </ul>
-<h2 id="11-多态（运行时绑定-后期绑定）"><a href="#11-多态（运行时绑定-后期绑定）" class="headerlink" title="11. 多态（运行时绑定/后期绑定）"></a>11. 多态（运行时绑定/后期绑定）</h2><ul>
+<h2 id="11-多态（运行时绑定-后期绑定）"><a href="#11-多态（运行时绑定-后期绑定）" class="headerlink" title="11. 多态（运行时绑定&#x2F;后期绑定）"></a>11. 多态（运行时绑定&#x2F;后期绑定）</h2><ul>
 <li>Java中除了<code>static</code>和<code>final</code>方法（<code>private</code>也是<code>final</code>的），其他所有方法都是后期动态绑定的。也就是说，使用基类的方法时，只要子类覆盖了该方法，就会调用子类的方法，因为编译器知道了其具体类型。</li>
 <li>初始化一个对象时，首先将分配给对象的存储空间都初始化为二进制的0，然后先构造根基类，接着依次构造到基类，再按照顺序构造成员，最后调用构造方法。</li>
 <li>编写构造器时，应当使用尽可能简单的方法使对象进入正常状态，如果可以的话，避免调用其他方法</li>
@@ -454,7 +453,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -505,7 +503,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本类型"><span class="nav-text">1. 基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-成员默认值"><span class="nav-text">2. 成员默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-注释和文档（javadoc）"><span class="nav-text">3. 注释和文档（javadoc）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-按值传递还是按引用传递"><span class="nav-text">4. 按值传递还是按引用传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-操作符"><span class="nav-text">5. 操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-算术操作符"><span class="nav-text">1. 算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-关系操作符"><span class="nav-text">2. 关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-逻辑操作符"><span class="nav-text">3. 逻辑操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-break和continue的标签用法"><span class="nav-text">6. break和continue的标签用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重载（Override）"><span class="nav-text">7. 重载（Override）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-初始化"><span class="nav-text">8. 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-访问权限控制"><span class="nav-text">9. 访问权限控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-final关键词"><span class="nav-text">10. final关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-多态（运行时绑定-后期绑定）"><span class="nav-text">11. 多态（运行时绑定&#x2F;后期绑定）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-text">1. 基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%88%90%E5%91%98%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-text">2. 成员默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%B3%A8%E9%87%8A%E5%92%8C%E6%96%87%E6%A1%A3%EF%BC%88javadoc%EF%BC%89"><span class="nav-text">3. 注释和文档（javadoc）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E6%8C%89%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="nav-text">4. 按值传递还是按引用传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">5. 操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AE%97%E6%9C%AF%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">1. 算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">2. 关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">3. 逻辑操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-break%E5%92%8Ccontinue%E7%9A%84%E6%A0%87%E7%AD%BE%E7%94%A8%E6%B3%95"><span class="nav-text">6. break和continue的标签用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E9%87%8D%E8%BD%BD%EF%BC%88Override%EF%BC%89"><span class="nav-text">7. 重载（Override）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">8. 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="nav-text">9. 访问权限控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-final%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="nav-text">10. final关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-%E5%A4%9A%E6%80%81%EF%BC%88%E8%BF%90%E8%A1%8C%E6%97%B6%E7%BB%91%E5%AE%9A-%E5%90%8E%E6%9C%9F%E7%BB%91%E5%AE%9A%EF%BC%89"><span class="nav-text">11. 多态（运行时绑定&#x2F;后期绑定）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -541,7 +539,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -566,21 +564,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         

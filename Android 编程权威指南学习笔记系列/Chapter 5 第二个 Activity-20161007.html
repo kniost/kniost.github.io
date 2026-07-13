@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 7.1.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/blog-favicon-32.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/blog-favicon-16.jpg">
@@ -13,17 +13,17 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.kniost.top","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"blog.sanduniverse.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。 GitHub 地址：第五章未完成挑战第五章完成挑战问题1，2第五章完成所有挑战问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android编程权威指南（第二版）学习笔记（五）—— 第5章 第二个 Activity">
-<meta property="og:url" content="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+<meta property="og:url" content="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
 <meta property="og:site_name" content="kniost">
 <meta property="og:description" content="本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。 GitHub 地址：第五章未完成挑战第五章完成挑战问题1，2第五章完成所有挑战问题">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20161021101552925">
 
-<link rel="canonical" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+<link rel="canonical" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
 
 
 <script id="page-configurations">
@@ -115,30 +115,30 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -163,15 +163,14 @@
         <div class="content-wrap">
           
 
-          <div class="content post">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.kniost.top/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
+    <link itemprop="mainEntityOfPage" href="https://blog.sanduniverse.com/Android%20%E7%BC%96%E7%A8%8B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97/Chapter%205%20%E7%AC%AC%E4%BA%8C%E4%B8%AA%20Activity-20161007.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blog-avatar-640.jpeg">
@@ -190,7 +189,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -198,14 +197,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2018-11-25 15:19:47" itemprop="dateModified" datetime="2018-11-25T15:19:47+08:00">2018-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -216,14 +215,14 @@
           <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
+                <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
               <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
+                <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>3 分钟</span>
@@ -242,11 +241,11 @@
 <p>本章主要讲述了如何新建一个 Acitivity ，并在两个 Activity 之间传递数据，最后挑战练习是如何在重建 Activity 时保留数据。</p>
 <p>GitHub 地址：<br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/0124102dcf27020a51341eaf48ac870b315e7bd4">第五章未完成挑战</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/2c1de49585be793c2395635bcc0ce55e40cd1ac9">第五章完成挑战问题1，2</a><br><a href="https://github.com/kniost/Android-Programming-Big-Nerd-Ranch-Guide-2nd/commit/1bf8869969409edd10ac1566446fb9a04a03dd2b">第五章完成所有挑战问题</a></p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="1-新建一个-Activity"><a href="#1-新建一个-Activity" class="headerlink" title="1. 新建一个 Activity"></a>1. 新建一个 Activity</h1><p>最好的方法是使用 Android Studio 自带的创建方法，若要手动创建，一定要有三个环环相扣的地方需要建立：</p>
 <ul>
 <li>一个 JAVA 类：即 Activity 类， 可以视需求继承 Activity 或者其他的衍生类</li>
-<li>一个布局文件：对于任意一个 Activity 来说，都需要加载一个布局文件，在 res/layout 文件夹下新建一个布局文件，并在代码中使用 setContentView() 方法加载布局</li>
+<li>一个布局文件：对于任意一个 Activity 来说，都需要加载一个布局文件，在 res&#x2F;layout 文件夹下新建一个布局文件，并在代码中使用 setContentView() 方法加载布局</li>
 <li>★★★★★ <strong>一定要在 AndroidManifest.xml 中声明新的 Activity!</strong></li>
 </ul>
 <h1 id="2-启动Activity"><a href="#2-启动Activity" class="headerlink" title="2. 启动Activity"></a>2. 启动Activity</h1><p>Activity 类中的一个函数 <code>public void startActivity(Intent intent)</code>， 调用该方法时，启动 Activity 的请求直接发给了操作系统的 ActivityManager。ActivityManager 负责创建 Activity 实例并调用其 onCreate()方法。示意图如下：</p>
@@ -257,7 +256,7 @@
 <blockquote>
 <p>component 就是四大组件：Activity, Service, Broadcast Receiver, Content Provider</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Intent</span><span class="params">(Context packageContext, Class&lt;?&gt; cls)</span></span></span><br><span class="line"><span class="function"><span class="comment">//Class 对象必须已经在 AndroidManifest.xml 中声明才可以使用，否则将抛出 ActivityNotFoundException</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Intent</span><span class="params">(Context packageContext, Class&lt;?&gt; cls)</span></span><br><span class="line"><span class="comment">//Class 对象必须已经在 AndroidManifest.xml 中声明才可以使用，否则将抛出 ActivityNotFoundException</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="3-Activity-间的数据传递"><a href="#3-Activity-间的数据传递" class="headerlink" title="3. Activity 间的数据传递"></a>3. Activity 间的数据传递</h1><h2 id="3-1-使用-Intent-Extra"><a href="#3-1-使用-Intent-Extra" class="headerlink" title="3.1 使用 Intent Extra"></a>3.1 使用 Intent Extra</h2><p>在使用 Intent 对象启动另一个 Activitiy 的时候使用了其构造方法，如果要让另一个 Activity 知道前一个 component 需要展示什么（比如用户到底点击了哪个按钮随之要展示什么详情），就需要在 Intent 中说明。使用 Intent 对象方法<code>public Intent putExtra(String name, &lt;Type&gt; data)</code> 将数据存到 Intent 对象内部，然后给操作系统。</p>
 <p>这整个过程有点像送信：</p>
@@ -272,11 +271,14 @@
 </blockquote>
 <h2 id="3-2-从子-Activity-获取返回结果"><a href="#3-2-从子-Activity-获取返回结果" class="headerlink" title="3.2 从子 Activity 获取返回结果"></a>3.2 从子 Activity 获取返回结果</h2><p>还是用送信来类比，如果一封信被另一个 Activity 收到了，他拆了信看完以后就丢弃了，并不会回信。那么如果发信者想要收信者回信，需要先跟 ActivityManager 说好，而且还要约定一个暗号，以便回信时不会弄错，然后 ActivityManager 再投递信，敲门并告诉另一个 Activity 应该回信。</p>
 <p>也就是说，如果启动另一个 Activity 并希望其在退出时返回结果，那么应该使用下面的方法，即先跟 ActivityManager 说好，暗号就是 requestCode 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(Intent intent, <span class="keyword">int</span> requestCode)</span></span></span><br><span class="line"><span class="function">``` </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">自己也要做好准备接受消息，即重写方法 </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">```java</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">startActivityForResult</span><span class="params">(Intent intent, <span class="type">int</span> requestCode)</span></span><br></pre></td></tr></table></figure>
+
+<p>自己也要做好准备接受消息，即重写方法 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onActivityResult</span><span class="params">(<span class="type">int</span> requestCode, <span class="type">int</span> resultCode, Intent data)</span></span><br></pre></td></tr></table></figure>
 
 <p>这个多出来的 resultCode 顾名思义，就是结果的正确与否，一般会使用 Activity.RESULT_OK 或者 Activity.RESULT_CANCELED 来标志， 或者自定义常量 Activity.RESULT_FIRST_USER 以便根据 Activity 返回结果来做出不同操作。如果下一个 Activity 不设置结果的话（也就是不回信），用户退出该 Activity 时会默认返回 RESULT_CANCELED。</p>
 <p>而回信的人只需要写信即可，直接使用 Activity 的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setResult</span><span class="params">(<span class="keyword">int</span> requestCode, Intent data)</span></span></span><br><span class="line"><span class="function"><span class="comment">//或者</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setResult</span><span class="params">(<span class="keyword">int</span> requestCode)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">setResult</span><span class="params">(<span class="type">int</span> requestCode, Intent data)</span></span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">setResult</span><span class="params">(<span class="type">int</span> requestCode)</span></span><br></pre></td></tr></table></figure>
 <p>回传的数据也是使用 Intent 封装的。</p>
 <h2 id="3-3-最后大概总结一下这个过程："><a href="#3-3-最后大概总结一下这个过程：" class="headerlink" title="3.3 最后大概总结一下这个过程："></a>3.3 <strong>最后大概总结一下这个过程</strong>：</h2><ul>
 <li><p>如果需要在启动另一个 Activity 时传递数据，就使用 Intent 的 putExtra() 方法</p>
@@ -311,7 +313,7 @@
 </li>
 </ol>
 <hr>
-<p>GitHub Page: <a href="http://kniost.github.io">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
+<p>GitHub Page: <a href="http://kniost.github.io/">kniost.github.io</a><br>简书：<a href="http://www.jianshu.com/u/723da691aa42">http://www.jianshu.com/u/723da691aa42</a></p>
 
     </div>
 
@@ -346,7 +348,6 @@
   
   
 
-  </div>
 
 
           </div>
@@ -397,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-新建一个-Activity"><span class="nav-text">1. 新建一个 Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-启动Activity"><span class="nav-text">2. 启动Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity-间的数据传递"><span class="nav-text">3. Activity 间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-使用-Intent-Extra"><span class="nav-text">3.1 使用 Intent Extra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-从子-Activity-获取返回结果"><span class="nav-text">3.2 从子 Activity 获取返回结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-最后大概总结一下这个过程："><span class="nav-text">3.3 最后大概总结一下这个过程：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Activity-的使用与管理"><span class="nav-text">4.  Activity 的使用与管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-章末挑战"><span class="nav-text">5. 章末挑战</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA-Activity"><span class="nav-text">1. 新建一个 Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%90%AF%E5%8A%A8Activity"><span class="nav-text">2. 启动Activity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Activity-%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-text">3. Activity 间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%BD%BF%E7%94%A8-Intent-Extra"><span class="nav-text">3.1 使用 Intent Extra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%BB%8E%E5%AD%90-Activity-%E8%8E%B7%E5%8F%96%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C"><span class="nav-text">3.2 从子 Activity 获取返回结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%9C%80%E5%90%8E%E5%A4%A7%E6%A6%82%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-text">3.3 最后大概总结一下这个过程：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Activity-%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="nav-text">4.  Activity 的使用与管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E7%AB%A0%E6%9C%AB%E6%8C%91%E6%88%98"><span class="nav-text">5. 章末挑战</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -433,7 +434,7 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/kniost" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kniost" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </span>
   </div>
 
@@ -458,21 +459,21 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">kniost</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
-      <i class="fa fa-area-chart"></i>
+      <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">394k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">5:58</span>
 </div>
 
         
