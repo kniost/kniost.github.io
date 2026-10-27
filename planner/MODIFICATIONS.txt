@@ -1,0 +1,60 @@
+Happy Island Designer — modified copy
+=====================================
+
+This is a modified build of Happy Island Designer v2.0.1
+(https://github.com/eugeneration/HappyIslandDesigner, MIT License — see
+LICENSE.txt, which must be kept with this copy).
+
+Modified by 动森圈圈 (ACCircle), 2026-10, for use inside the iOS app's web view
+and the WeChat mini-program web-view.
+
+Changes to the app source (app/*.ts, app/index.scss, static/index.html):
+- Responsive layout for phones. Portrait / narrow: the left tool bar becomes
+  a bottom bar and the pop-out tool menus become a bottom sheet above it
+  (brush size / line controls laid out in one row). Landscape / short: a
+  compact full-height tool rail on the left (two columns when needed) with
+  the tool menu as a card to its right. The open sheet / card closes when you
+  start drawing on the map; tap the tool again to reopen it.
+  Desktop / iPad keeps the original layout.
+- Larger touch targets in the compact layout; safe-area insets respected
+  (viewport-fit=cover + env(safe-area-inset-*)).
+- Fit to screen: the island is re-fitted to the free screen area on load and
+  on every resize / rotation; new "fit" button next to undo / redo; the view
+  also re-fits after the new-map wizard finishes.
+- Taps that land on tool bar / sheet backgrounds no longer paint the map.
+- Touch: no page bounce, text selection, long-press callouts or tap
+  highlight; page-level pinch zoom disabled (the canvas handles pinch / pan).
+- Paper-drawn dialogs (help, main menu) shrink to fit small screens; the
+  three "create new map" choices fit a phone screen.
+- Move mode: a button next to fit / undo / redo makes a one-finger drag pan
+  the map instead of drawing; touch devices start in it, and tapping the tool
+  bar or a tool sheet switches back to drawing.
+- Touch: hover effects no longer stick after a tap (paper items get their
+  mouseleave when the last finger lifts; CSS hover styles in the dialogs only
+  apply on devices with a real pointer).
+- paper.js input (accircle/paper-touch-mouse.patch on the eugeneration fork,
+  applied on install / build): mouse events are listened to on touch devices
+  too (mouse / trackpad on iPad, WeChat devtools), and the emulated mouse
+  events a browser sends after a finger tap are ignored so taps don't fire
+  twice.
+- Help screen shows touch gestures on touch devices (switches to the
+  keyboard shortcut list once a hardware keyboard is used); new strings in
+  en / zh-CN / zh-TW / ja.
+- Keyboard shortcuts: work right after load without touching the canvas
+  first, and Cmd/Ctrl shortcuts (undo, redo, save, open) now also work in
+  Safari / WKWebView (iPad with keyboard).
+- WeChat mini-program <web-view>: downloads don't work there, so "save"
+  shows the map image full screen with "long-press to save" (zh-CN / zh-TW /
+  en / ja); other environments (incl. the iOS app's own saveAs hook) are
+  unchanged.
+- Removed the original author's Twitter link from the main menu (the credit
+  and MIT license are kept here and in the app's About screen).
+
+Packaging changes (index.html / dist):
+- Removed: iframe-embedding block, dev-site banner and noindex script,
+  Google Analytics (gtag), canonical / Open Graph / Twitter meta and
+  favicon links pointing to github.io; `var isDevSite = false` added.
+- dist/main.css: Google Fonts @import removed (system sans-serif fallback).
+- Source maps (*.map) are not included.
+- Lazy-loaded chunks carry a content hash in their file name, and the entry
+  files are referenced with ?v=<hash>, so web views never mix cached files.

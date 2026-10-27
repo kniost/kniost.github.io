@@ -1,0 +1,87 @@
+<!doctype html><html lang="en" class="no-focus-outline"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,viewport-fit=cover"/><title>Happy Island Designer</title><meta name="description" content="A handy island planner for Animal Crossing: New Horizons."/><script>var isDevSite = false;</script><link rel="preload" href="./static/img/tool-color.png" as="image"/><link rel="preload" href="./static/img/tool-path.png" as="image"/><link rel="preload" href="./static/img/tool-house.png" as="image"/><link rel="preload" href="./static/img/tool-amenities.png" as="image"/><link rel="preload" href="./static/img/tool-construction.png" as="image"/><link rel="preload" href="./static/img/tool-tree.png" as="image"/><link rel="preload" href="./static/img/tool-flower.png" as="image"/><link rel="preload" href="./static/img/menu-undo.png" as="image"/><link rel="preload" href="./static/img/menu-redo.png" as="image"/><link rel="preload" href="./static/img/menu-help.png" as="image"/><link rel="preload" href="./static/img/ui-plus.png" as="image"/><link rel="preload" href="./static/img/ui-minus.png" as="image"/><link rel="preload" href="./static/img/menu-drawbrush.png" as="image"/><link rel="preload" href="./static/img/menu-drawline.png" as="image"/><link href="dist/main.css?v=1ba46331" rel="stylesheet"><script>
+(function () {
+  var APP_SCRIPTS = ["dist/vendor.bundle.js?v=699f1d78", "dist/main.bundle.js?v=5b4cb0e1"];
+  // runs while the page is still being parsed: write the original deferred
+  // script tags, so the app starts exactly as in the unmodified page
+  function boot() {
+    APP_SCRIPTS.forEach(function (src) {
+      document.write('<script defer src="' + src + '"><\/script>');
+    });
+  }
+  function inMiniProgram() {
+    return /miniProgram/i.test(navigator.userAgent) || window.__wxjs_environment === 'miniprogram';
+  }
+  // 小程序链接（公众平台生成的 wxmpurl.cn 链接，手机浏览器 / 微信里点开直接拉起小程序）
+  var MINIAPP_LINK = 'https://wxmpurl.cn/ANojQtYWy1b';
+  function isMobile() {
+    var ua = navigator.userAgent;
+    return /Mobi|Android|iPhone|iPad|iPod|HarmonyOS/i.test(ua) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+  function showGate() {
+    var mobile = isMobile();
+    var go = function () {
+      var sk = document.getElementById('loading-skeleton');
+      if (sk) sk.remove();
+      var g = document.createElement('div');
+      g.id = 'miniapp-gate';
+      g.innerHTML =
+        '<div class="mg-card">' +
+        '<div class="mg-title">岛屿规划</div>' +
+        '<div class="mg-text">这个页面需要在「动森圈圈」小程序里打开</div>' +
+        (mobile
+          ? '<a class="mg-btn" href="' + MINIAPP_LINK + '">打开小程序</a>'
+          : '<img class="mg-code" src="static/img/miniapp-code.jpg" alt="动森圈圈小程序码">' +
+            '<div class="mg-hint">用微信扫一扫小程序码</div>') +
+        '<div class="mg-sub">iPhone / iPad 可在动森圈圈 App 图鉴页使用</div>' +
+        '<div class="mg-credit">基于开源项目 HappyIslandDesigner（MIT）修改</div>' +
+        '</div>';
+      document.body.appendChild(g);
+      if (mobile) location.href = MINIAPP_LINK;
+    };
+    if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
+  }
+  if (inMiniProgram()) { boot(); return; }
+  if (/MicroMessenger/i.test(navigator.userAgent)) {
+    // WeChat: maybe the mini-program web-view (on iOS that is only known once
+    // its bridge is ready, often after page load). The app has to start with
+    // the page (it hooks the load event), so start it now and only cover it
+    // with the gate if this turns out to be the plain WeChat browser.
+    boot();
+    var done = false;
+    var decide = function () {
+      if (done) return;
+      done = true;
+      if (!inMiniProgram()) showGate();
+    };
+    if (window.WeixinJSBridge) decide();
+    else document.addEventListener('WeixinJSBridgeReady', decide, false);
+    setTimeout(decide, 2500);
+    return;
+  }
+  showGate();
+})();
+</script>
+<style>
+#miniapp-gate{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:#83e1c3;font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-user-select:none;user-select:none}
+#miniapp-gate .mg-card{width:100%;max-width:340px;padding:28px 24px 20px;box-sizing:border-box;border-radius:28px;background:#f5f3e5;text-align:center;color:#726a5a;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+#miniapp-gate .mg-title{font-size:22px;font-weight:bold;color:#5a4f40}
+#miniapp-gate .mg-text{margin-top:8px;font-size:15px;line-height:1.5}
+#miniapp-gate .mg-code{display:block;width:200px;height:200px;margin:18px auto 10px;border-radius:12px;background:#fff;-webkit-user-select:auto;user-select:auto;-webkit-touch-callout:default}
+#miniapp-gate .mg-btn{display:block;margin:22px auto 6px;padding:13px 0;max-width:240px;border-radius:24px;background:#3a9a7a;color:#fff;font-size:17px;font-weight:bold;text-decoration:none}
+#miniapp-gate .mg-hint{font-size:15px;font-weight:bold;color:#3a9a7a}
+#miniapp-gate .mg-sub{margin-top:10px;font-size:13px;color:#9a8f7e}
+#miniapp-gate .mg-credit{margin-top:16px;font-size:11px;color:#b5ab9a}
+</style></head><body><style>@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+      @keyframes fadeout{to{opacity:0}}
+      @keyframes bounce{0%,100%{transform:translateY(0) scaleX(1) scaleY(1);animation-timing-function:ease-in}8%{transform:translateY(13.75%) scaleX(1.3) scaleY(0.75);animation-timing-function:cubic-bezier(0.33,1,0.68,1)}30%{transform:translateY(-16px) scaleX(0.9) scaleY(1.1);animation-timing-function:cubic-bezier(0.32,0,0.67,0)}44%{transform:translateY(13.75%) scaleX(1.3) scaleY(0.75);animation-timing-function:ease-out}52%{transform:translateY(0) scaleX(1) scaleY(1)}}
+      .skeleton-shimmer{position:relative;overflow:hidden}
+      .skeleton-shimmer::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,#f5f3e5 30%,#ecebd5 50%,#f5f3e5 70%);background-size:200% 200%;animation:shimmer 1.5s ease-in-out infinite}
+      #loading-skeleton.fade-out{animation:fadeout 0.15s ease forwards}
+      @keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+      @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+      .skeleton-slide-left{opacity:0;animation:slideInLeft 0.8s ease forwards;animation-delay:0.5s}
+      .skeleton-slide-right{opacity:0;animation:slideInRight 0.8s ease forwards;animation-delay:0.5s}
+      @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+      .skeleton-dots{opacity:0;animation:fadeIn 0.5s ease forwards;animation-delay:0.5s}
+      @media (max-width:599px),(max-height:559px){.skeleton-slide-left,.skeleton-slide-right{display:none}}</style><div id="loading-skeleton" data-nosnippet style="position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center"><div style="position:fixed;inset:0;background:#83e1c3"></div><div class="skeleton-shimmer skeleton-slide-left" style="position:fixed;left:-60px;top:0;width:120px;height:540px;border-radius:0 0 60px 0;background:#f5f3e5"></div><div class="skeleton-shimmer skeleton-slide-right" style="position:fixed;top:7px;right:8px;width:84px;height:46px;border-radius:23px;background:#f5f3e5"></div><div class="skeleton-dots" style="display:flex;gap:4px;font-size:32px;color:#57b499;font-weight:bold"><span style="animation:bounce 1s ease-in-out infinite">.</span> <span style="animation:bounce 1s ease-in-out 0.15s infinite">.</span> <span style="animation:bounce 1s ease-in-out 0.3s infinite">.</span></div></div><div class="hidden" data-nosnippet><p style="font-family: TTNorms;">.</p></div><div id="app"><canvas id="canvas" resize></canvas><div id="ui-container"></div></div></body></html>
