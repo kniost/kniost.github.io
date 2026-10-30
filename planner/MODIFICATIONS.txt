@@ -49,6 +49,24 @@ Changes to the app source (app/*.ts, app/index.scss, static/index.html):
   unchanged.
 - Removed the original author's Twitter link from the main menu (the credit
   and MIT license are kept here and in the app's About screen).
+- New-map wizard: the "where is the largest rock" steps for the left and
+  right side get a "there's no large rock on this side" button; it skips the
+  rock shape step and that edge tile is filled like the other remaining
+  tiles (new string in all languages).
+- Button names shown on screen (touch screens have no hover): the main menu
+  buttons get a short name under the icon, and the move / fit / undo / redo
+  buttons a short label (new strings in all languages).
+- Language: settings get an "Auto (system)" choice that clears the stored
+  language; system language matching also reads navigator.languages,
+  zh_CN-style tags and Traditional Chinese (zh-HK / zh-MO / zh-Hant).
+- Saved map image: the "made at eugeneration.github.io/HappyIslandDesigner"
+  line is replaced by a strip under the map crediting 动森圈圈 (ACCircle),
+  with its app icon (static/img/accircle-logo.png);
+  page title changed to 动森圈圈岛屿规划.
+- The canvas also follows its own size (ResizeObserver), for web views that
+  resize without a window resize event.
+- Tracing overlay import dialog: wider margin around it (also clear of the
+  safe-area insets) and a close button at the end of its title row.
 
 Packaging changes (index.html / dist):
 - Removed: iframe-embedding block, dev-site banner and noindex script,
