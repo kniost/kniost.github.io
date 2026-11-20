@@ -65,6 +65,11 @@ Changes to the app source (app/*.ts, app/index.scss, static/index.html):
   page title changed to 动森圈圈岛屿规划.
 - The canvas also follows its own size (ResizeObserver), for web views that
   resize without a window resize event.
+- Autosave (2026-11): the map is saved to localStorage shortly after every
+  change (also after undo / redo) and right away when the page is hidden or
+  closed, instead of every 20 changes or after 10 s without changes; it waits
+  for objects that are still loading (up to 5 s) so they are not left out.
+  Web views can be closed by a back gesture or killed for memory at any time.
 - Tracing overlay import dialog: wider margin around it (also clear of the
   safe-area insets) and a close button at the end of its title row.
 
