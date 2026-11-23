@@ -72,6 +72,10 @@ Changes to the app source (app/*.ts, app/index.scss, static/index.html):
   Web views can be closed by a back gesture or killed for memory at any time.
 - Tracing overlay import dialog: wider margin around it (also clear of the
   safe-area insets) and a close button at the end of its title row.
+- Help screen: a credit line at the bottom ("Based on the open-source
+  HappyIslandDesigner · © 2020 Eugene · MIT License", with the version
+  number); tapping it opens a panel with the GitHub address and the full
+  text of LICENSE.txt, which is bundled into the page (webpack asset/source).
 
 Packaging changes (index.html / dist):
 - Removed: iframe-embedding block, dev-site banner and noindex script,
